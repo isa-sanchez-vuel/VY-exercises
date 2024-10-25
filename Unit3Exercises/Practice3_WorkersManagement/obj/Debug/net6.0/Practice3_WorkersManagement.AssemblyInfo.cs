@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Practice3_WorkersManagement")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0460add67a9d03346c27406f82ae7c669864116f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4608755a0f41b1c1ffa9ab858ce2c9036f92e984")]
 [assembly: System.Reflection.AssemblyProductAttribute("Practice3_WorkersManagement")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Practice3_WorkersManagement")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

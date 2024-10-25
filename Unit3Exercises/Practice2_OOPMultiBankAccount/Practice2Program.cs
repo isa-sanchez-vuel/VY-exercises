@@ -88,7 +88,7 @@ Please choose an option:");
 
 void ManageOptions(int option)
 {
-    switch (option)
+    /*switch (option)
     {
 
         case 1:
@@ -119,5 +119,5 @@ void ManageOptions(int option)
             exit = true;
             Console.WriteLine("Closing your session...");
             break;
-    }
+    }*/
 }

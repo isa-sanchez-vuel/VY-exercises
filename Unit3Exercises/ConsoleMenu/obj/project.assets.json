@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Projects\\Unit3Exercises\\ConsoleMenu\\ConsoleMenu.csproj",
+      "projectUniqueName": "C:\\Projects\\VY-exercises\\Unit3Exercises\\ConsoleMenu\\ConsoleMenu.csproj",
       "projectName": "ConsoleMenu",
-      "projectPath": "C:\\Projects\\Unit3Exercises\\ConsoleMenu\\ConsoleMenu.csproj",
+      "projectPath": "C:\\Projects\\VY-exercises\\Unit3Exercises\\ConsoleMenu\\ConsoleMenu.csproj",
       "packagesPath": "C:\\Users\\IsabelaSanchez\\.nuget\\packages\\",
-      "outputPath": "C:\\Projects\\Unit3Exercises\\ConsoleMenu\\obj\\",
+      "outputPath": "C:\\Projects\\VY-exercises\\Unit3Exercises\\ConsoleMenu\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\IsabelaSanchez\\AppData\\Roaming\\NuGet\\NuGet.Config",

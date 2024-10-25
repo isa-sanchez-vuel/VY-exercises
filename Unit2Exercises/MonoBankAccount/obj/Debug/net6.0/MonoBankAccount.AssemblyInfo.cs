@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MonoBankAccount")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1ba526221d808e895acdf83f8fa976199e3c2144")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4608755a0f41b1c1ffa9ab858ce2c9036f92e984")]
 [assembly: System.Reflection.AssemblyProductAttribute("MonoBankAccount")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MonoBankAccount")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

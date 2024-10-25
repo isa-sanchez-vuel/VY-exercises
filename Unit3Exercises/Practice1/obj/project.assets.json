@@ -32,11 +32,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Projects\\Unit3Exercises\\Practice1\\Practice1.csproj",
+      "projectUniqueName": "C:\\Projects\\VY-exercises\\Unit3Exercises\\Practice1\\Practice1.csproj",
       "projectName": "Practice1",
-      "projectPath": "C:\\Projects\\Unit3Exercises\\Practice1\\Practice1.csproj",
+      "projectPath": "C:\\Projects\\VY-exercises\\Unit3Exercises\\Practice1\\Practice1.csproj",
       "packagesPath": "C:\\Users\\IsabelaSanchez\\.nuget\\packages\\",
-      "outputPath": "C:\\Projects\\Unit3Exercises\\Practice1\\obj\\",
+      "outputPath": "C:\\Projects\\VY-exercises\\Unit3Exercises\\Practice1\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\IsabelaSanchez\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -54,8 +54,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Projects\\Unit3Exercises\\ConsoleMenu\\ConsoleMenu.csproj": {
-              "projectPath": "C:\\Projects\\Unit3Exercises\\ConsoleMenu\\ConsoleMenu.csproj"
+            "C:\\Projects\\VY-exercises\\Unit3Exercises\\ConsoleMenu\\ConsoleMenu.csproj": {
+              "projectPath": "C:\\Projects\\VY-exercises\\Unit3Exercises\\ConsoleMenu\\ConsoleMenu.csproj"
             }
           }
         }

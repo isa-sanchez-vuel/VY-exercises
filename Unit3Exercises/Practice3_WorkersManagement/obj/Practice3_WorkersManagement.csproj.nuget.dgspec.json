@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Projects\\Unit3Exercises\\Practice3_WorkersManagement\\Practice3_WorkersManagement.csproj": {}
+    "C:\\Projects\\VY-exercises\\Unit3Exercises\\Practice3_WorkersManagement\\Practice3_WorkersManagement.csproj": {}
   },
   "projects": {
-    "C:\\Projects\\Unit3Exercises\\ConsoleMenu\\ConsoleMenu.csproj": {
+    "C:\\Projects\\VY-exercises\\Unit3Exercises\\ConsoleMenu\\ConsoleMenu.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projects\\Unit3Exercises\\ConsoleMenu\\ConsoleMenu.csproj",
+        "projectUniqueName": "C:\\Projects\\VY-exercises\\Unit3Exercises\\ConsoleMenu\\ConsoleMenu.csproj",
         "projectName": "ConsoleMenu",
-        "projectPath": "C:\\Projects\\Unit3Exercises\\ConsoleMenu\\ConsoleMenu.csproj",
+        "projectPath": "C:\\Projects\\VY-exercises\\Unit3Exercises\\ConsoleMenu\\ConsoleMenu.csproj",
         "packagesPath": "C:\\Users\\IsabelaSanchez\\.nuget\\packages\\",
-        "outputPath": "C:\\Projects\\Unit3Exercises\\ConsoleMenu\\obj\\",
+        "outputPath": "C:\\Projects\\VY-exercises\\Unit3Exercises\\ConsoleMenu\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\IsabelaSanchez\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -65,14 +65,14 @@
         }
       }
     },
-    "C:\\Projects\\Unit3Exercises\\Practice3_WorkersManagement\\Practice3_WorkersManagement.csproj": {
+    "C:\\Projects\\VY-exercises\\Unit3Exercises\\Practice3_WorkersManagement\\Practice3_WorkersManagement.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projects\\Unit3Exercises\\Practice3_WorkersManagement\\Practice3_WorkersManagement.csproj",
+        "projectUniqueName": "C:\\Projects\\VY-exercises\\Unit3Exercises\\Practice3_WorkersManagement\\Practice3_WorkersManagement.csproj",
         "projectName": "Practice3_WorkersManagement",
-        "projectPath": "C:\\Projects\\Unit3Exercises\\Practice3_WorkersManagement\\Practice3_WorkersManagement.csproj",
+        "projectPath": "C:\\Projects\\VY-exercises\\Unit3Exercises\\Practice3_WorkersManagement\\Practice3_WorkersManagement.csproj",
         "packagesPath": "C:\\Users\\IsabelaSanchez\\.nuget\\packages\\",
-        "outputPath": "C:\\Projects\\Unit3Exercises\\Practice3_WorkersManagement\\obj\\",
+        "outputPath": "C:\\Projects\\VY-exercises\\Unit3Exercises\\Practice3_WorkersManagement\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\IsabelaSanchez\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -90,8 +90,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Projects\\Unit3Exercises\\ConsoleMenu\\ConsoleMenu.csproj": {
-                "projectPath": "C:\\Projects\\Unit3Exercises\\ConsoleMenu\\ConsoleMenu.csproj"
+              "C:\\Projects\\VY-exercises\\Unit3Exercises\\ConsoleMenu\\ConsoleMenu.csproj": {
+                "projectPath": "C:\\Projects\\VY-exercises\\Unit3Exercises\\ConsoleMenu\\ConsoleMenu.csproj"
               }
             }
           }
