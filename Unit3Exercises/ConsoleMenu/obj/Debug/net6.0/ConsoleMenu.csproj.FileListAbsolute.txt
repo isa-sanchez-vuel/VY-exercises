@@ -1,0 +1,12 @@
+C:\Projects\Unit3Exercises\ConsoleMenu\bin\Debug\net6.0\ConsoleMenu.deps.json
+C:\Projects\Unit3Exercises\ConsoleMenu\bin\Debug\net6.0\ConsoleMenu.dll
+C:\Projects\Unit3Exercises\ConsoleMenu\bin\Debug\net6.0\ConsoleMenu.pdb
+C:\Projects\Unit3Exercises\ConsoleMenu\obj\Debug\net6.0\ConsoleMenu.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\Unit3Exercises\ConsoleMenu\obj\Debug\net6.0\ConsoleMenu.AssemblyInfoInputs.cache
+C:\Projects\Unit3Exercises\ConsoleMenu\obj\Debug\net6.0\ConsoleMenu.AssemblyInfo.cs
+C:\Projects\Unit3Exercises\ConsoleMenu\obj\Debug\net6.0\ConsoleMenu.csproj.CoreCompileInputs.cache
+C:\Projects\Unit3Exercises\ConsoleMenu\obj\Debug\net6.0\ConsoleMenu.sourcelink.json
+C:\Projects\Unit3Exercises\ConsoleMenu\obj\Debug\net6.0\ConsoleMenu.dll
+C:\Projects\Unit3Exercises\ConsoleMenu\obj\Debug\net6.0\refint\ConsoleMenu.dll
+C:\Projects\Unit3Exercises\ConsoleMenu\obj\Debug\net6.0\ConsoleMenu.pdb
+C:\Projects\Unit3Exercises\ConsoleMenu\obj\Debug\net6.0\ref\ConsoleMenu.dll

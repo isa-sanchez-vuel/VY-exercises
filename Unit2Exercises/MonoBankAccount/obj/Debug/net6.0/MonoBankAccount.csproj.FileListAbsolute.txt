@@ -1,0 +1,15 @@
+C:\Projects\Unit2SingleBankAccount\MonoBankAccount\bin\Debug\net6.0\MonoBankAccount.exe
+C:\Projects\Unit2SingleBankAccount\MonoBankAccount\bin\Debug\net6.0\MonoBankAccount.deps.json
+C:\Projects\Unit2SingleBankAccount\MonoBankAccount\bin\Debug\net6.0\MonoBankAccount.runtimeconfig.json
+C:\Projects\Unit2SingleBankAccount\MonoBankAccount\bin\Debug\net6.0\MonoBankAccount.dll
+C:\Projects\Unit2SingleBankAccount\MonoBankAccount\bin\Debug\net6.0\MonoBankAccount.pdb
+C:\Projects\Unit2SingleBankAccount\MonoBankAccount\obj\Debug\net6.0\MonoBankAccount.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\Unit2SingleBankAccount\MonoBankAccount\obj\Debug\net6.0\MonoBankAccount.AssemblyInfoInputs.cache
+C:\Projects\Unit2SingleBankAccount\MonoBankAccount\obj\Debug\net6.0\MonoBankAccount.AssemblyInfo.cs
+C:\Projects\Unit2SingleBankAccount\MonoBankAccount\obj\Debug\net6.0\MonoBankAccount.csproj.CoreCompileInputs.cache
+C:\Projects\Unit2SingleBankAccount\MonoBankAccount\obj\Debug\net6.0\MonoBankAccount.sourcelink.json
+C:\Projects\Unit2SingleBankAccount\MonoBankAccount\obj\Debug\net6.0\MonoBankAccount.dll
+C:\Projects\Unit2SingleBankAccount\MonoBankAccount\obj\Debug\net6.0\refint\MonoBankAccount.dll
+C:\Projects\Unit2SingleBankAccount\MonoBankAccount\obj\Debug\net6.0\MonoBankAccount.pdb
+C:\Projects\Unit2SingleBankAccount\MonoBankAccount\obj\Debug\net6.0\MonoBankAccount.genruntimeconfig.cache
+C:\Projects\Unit2SingleBankAccount\MonoBankAccount\obj\Debug\net6.0\ref\MonoBankAccount.dll
