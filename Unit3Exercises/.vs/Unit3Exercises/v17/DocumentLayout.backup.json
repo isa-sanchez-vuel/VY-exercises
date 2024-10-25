@@ -1,25 +1,29 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Projects\\Unit3Exercises\\",
+  "WorkspaceRootPath": "C:\\Projects\\VY-exercises\\Unit3Exercises\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{696E59C3-9F21-4239-B47D-43352189929B}|Practice2_OOPMultiBankAccount\\Practice2_OOPMultiBankAccount.csproj|c:\\projects\\unit3exercises\\practice2_oopmultibankaccount\\bank.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{696E59C3-9F21-4239-B47D-43352189929B}|Practice2_OOPMultiBankAccount\\Practice2_OOPMultiBankAccount.csproj|solutionrelative:practice2_oopmultibankaccount\\bank.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{696E59C3-9F21-4239-B47D-43352189929B}|Practice2_OOPMultiBankAccount\\Practice2_OOPMultiBankAccount.csproj|c:\\projects\\unit3exercises\\practice2_oopmultibankaccount\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{696E59C3-9F21-4239-B47D-43352189929B}|Practice2_OOPMultiBankAccount\\Practice2_OOPMultiBankAccount.csproj|solutionrelative:practice2_oopmultibankaccount\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{696E59C3-9F21-4239-B47D-43352189929B}|Practice2_OOPMultiBankAccount\\Practice2_OOPMultiBankAccount.csproj|c:\\projects\\unit3exercises\\practice2_oopmultibankaccount\\practice2program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{696E59C3-9F21-4239-B47D-43352189929B}|Practice2_OOPMultiBankAccount\\Practice2_OOPMultiBankAccount.csproj|solutionrelative:practice2_oopmultibankaccount\\practice2program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{822DF4CA-5D32-4AB5-A97B-67053EC36A65}|ConsoleMenu\\ConsoleMenu.csproj|c:\\projects\\unit3exercises\\consolemenu\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{822DF4CA-5D32-4AB5-A97B-67053EC36A65}|ConsoleMenu\\ConsoleMenu.csproj|c:\\projects\\vy-exercises\\unit3exercises\\consolemenu\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{822DF4CA-5D32-4AB5-A97B-67053EC36A65}|ConsoleMenu\\ConsoleMenu.csproj|solutionrelative:consolemenu\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{696E59C3-9F21-4239-B47D-43352189929B}|Practice2_OOPMultiBankAccount\\Practice2_OOPMultiBankAccount.csproj|c:\\projects\\unit3exercises\\practice2_oopmultibankaccount\\movement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{55A6F06C-193C-4801-8D9A-1CDE82CB37F8}|Practice1\\Practice1.csproj|c:\\projects\\vy-exercises\\unit3exercises\\practice1\\practice1program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{55A6F06C-193C-4801-8D9A-1CDE82CB37F8}|Practice1\\Practice1.csproj|solutionrelative:practice1\\practice1program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{696E59C3-9F21-4239-B47D-43352189929B}|Practice2_OOPMultiBankAccount\\Practice2_OOPMultiBankAccount.csproj|c:\\projects\\vy-exercises\\unit3exercises\\practice2_oopmultibankaccount\\practice2program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{696E59C3-9F21-4239-B47D-43352189929B}|Practice2_OOPMultiBankAccount\\Practice2_OOPMultiBankAccount.csproj|solutionrelative:practice2_oopmultibankaccount\\practice2program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{696E59C3-9F21-4239-B47D-43352189929B}|Practice2_OOPMultiBankAccount\\Practice2_OOPMultiBankAccount.csproj|c:\\projects\\vy-exercises\\unit3exercises\\practice2_oopmultibankaccount\\bank.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{696E59C3-9F21-4239-B47D-43352189929B}|Practice2_OOPMultiBankAccount\\Practice2_OOPMultiBankAccount.csproj|solutionrelative:practice2_oopmultibankaccount\\bank.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{696E59C3-9F21-4239-B47D-43352189929B}|Practice2_OOPMultiBankAccount\\Practice2_OOPMultiBankAccount.csproj|c:\\projects\\vy-exercises\\unit3exercises\\practice2_oopmultibankaccount\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{696E59C3-9F21-4239-B47D-43352189929B}|Practice2_OOPMultiBankAccount\\Practice2_OOPMultiBankAccount.csproj|solutionrelative:practice2_oopmultibankaccount\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{696E59C3-9F21-4239-B47D-43352189929B}|Practice2_OOPMultiBankAccount\\Practice2_OOPMultiBankAccount.csproj|c:\\projects\\vy-exercises\\unit3exercises\\practice2_oopmultibankaccount\\movement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{696E59C3-9F21-4239-B47D-43352189929B}|Practice2_OOPMultiBankAccount\\Practice2_OOPMultiBankAccount.csproj|solutionrelative:practice2_oopmultibankaccount\\movement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -30,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -50,13 +54,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
+              "Title": "Practice1Program.cs",
+              "DocumentMoniker": "C:\\Projects\\VY-exercises\\Unit3Exercises\\Practice1\\Practice1Program.cs",
+              "RelativeDocumentMoniker": "Practice1\\Practice1Program.cs",
+              "ToolTip": "C:\\Projects\\VY-exercises\\Unit3Exercises\\Practice1\\Practice1Program.cs",
+              "RelativeToolTip": "Practice1\\Practice1Program.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAAwB0AAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-25T11:14:06.729Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "Menu.cs",
-              "DocumentMoniker": "C:\\Projects\\Unit3Exercises\\ConsoleMenu\\Menu.cs",
+              "DocumentMoniker": "C:\\Projects\\VY-exercises\\Unit3Exercises\\ConsoleMenu\\Menu.cs",
               "RelativeDocumentMoniker": "ConsoleMenu\\Menu.cs",
-              "ToolTip": "C:\\Projects\\Unit3Exercises\\ConsoleMenu\\Menu.cs",
+              "ToolTip": "C:\\Projects\\VY-exercises\\Unit3Exercises\\ConsoleMenu\\Menu.cs",
               "RelativeToolTip": "ConsoleMenu\\Menu.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAA4AAAAAAAAAA==",
+              "ViewState": "AgIAAA0AAAAAAAAAAAA9wBcAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-25T08:38:58.23Z",
               "EditorCaption": ""
@@ -65,50 +82,50 @@
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "Practice2Program.cs",
-              "DocumentMoniker": "C:\\Projects\\Unit3Exercises\\Practice2_OOPMultiBankAccount\\Practice2Program.cs",
+              "DocumentMoniker": "C:\\Projects\\VY-exercises\\Unit3Exercises\\Practice2_OOPMultiBankAccount\\Practice2Program.cs",
               "RelativeDocumentMoniker": "Practice2_OOPMultiBankAccount\\Practice2Program.cs",
-              "ToolTip": "C:\\Projects\\Unit3Exercises\\Practice2_OOPMultiBankAccount\\Practice2Program.cs",
+              "ToolTip": "C:\\Projects\\VY-exercises\\Unit3Exercises\\Practice2_OOPMultiBankAccount\\Practice2Program.cs",
               "RelativeToolTip": "Practice2_OOPMultiBankAccount\\Practice2Program.cs",
-              "ViewState": "AgIAAFEAAAAAAAAAAAAYwHIAAAAYAAAAAAAAAA==",
+              "ViewState": "AgIAAHUAAAAAAAAAAAAWwIAAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-25T08:01:18.755Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "Bank.cs",
-              "DocumentMoniker": "C:\\Projects\\Unit3Exercises\\Practice2_OOPMultiBankAccount\\Bank.cs",
+              "DocumentMoniker": "C:\\Projects\\VY-exercises\\Unit3Exercises\\Practice2_OOPMultiBankAccount\\Bank.cs",
               "RelativeDocumentMoniker": "Practice2_OOPMultiBankAccount\\Bank.cs",
-              "ToolTip": "C:\\Projects\\Unit3Exercises\\Practice2_OOPMultiBankAccount\\Bank.cs",
+              "ToolTip": "C:\\Projects\\VY-exercises\\Unit3Exercises\\Practice2_OOPMultiBankAccount\\Bank.cs",
               "RelativeToolTip": "Practice2_OOPMultiBankAccount\\Bank.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAAAwCYAAAA6AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-25T08:01:23.056Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "Account.cs",
-              "DocumentMoniker": "C:\\Projects\\Unit3Exercises\\Practice2_OOPMultiBankAccount\\Account.cs",
+              "DocumentMoniker": "C:\\Projects\\VY-exercises\\Unit3Exercises\\Practice2_OOPMultiBankAccount\\Account.cs",
               "RelativeDocumentMoniker": "Practice2_OOPMultiBankAccount\\Account.cs",
-              "ToolTip": "C:\\Projects\\Unit3Exercises\\Practice2_OOPMultiBankAccount\\Account.cs",
+              "ToolTip": "C:\\Projects\\VY-exercises\\Unit3Exercises\\Practice2_OOPMultiBankAccount\\Account.cs",
               "RelativeToolTip": "Practice2_OOPMultiBankAccount\\Account.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAbAAAAAAAAAA==",
+              "ViewState": "AgIAADgAAAAAAAAAAAAmwEwAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-25T08:01:24.048Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "Movement.cs",
-              "DocumentMoniker": "C:\\Projects\\Unit3Exercises\\Practice2_OOPMultiBankAccount\\Movement.cs",
+              "DocumentMoniker": "C:\\Projects\\VY-exercises\\Unit3Exercises\\Practice2_OOPMultiBankAccount\\Movement.cs",
               "RelativeDocumentMoniker": "Practice2_OOPMultiBankAccount\\Movement.cs",
-              "ToolTip": "C:\\Projects\\Unit3Exercises\\Practice2_OOPMultiBankAccount\\Movement.cs",
+              "ToolTip": "C:\\Projects\\VY-exercises\\Unit3Exercises\\Practice2_OOPMultiBankAccount\\Movement.cs",
               "RelativeToolTip": "Practice2_OOPMultiBankAccount\\Movement.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAAAAoAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-25T08:01:22.239Z",
               "EditorCaption": ""

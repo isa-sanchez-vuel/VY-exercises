@@ -45,19 +45,23 @@ void ManageOptions(int opt)
     {
         case 1:
             son.PrintAllValues();
+            CheckRepeat();
             break;
 
         case 2:
             son.ChangeValue();
+            CheckRepeat();
             break;
 
         default:
-            Console.WriteLine("Wrong number, try again.");
+            Console.WriteLine("Wrong option, try again.");
             break;
     }
+}
 
+void CheckRepeat()
+{
     Menu.PrintMenu("Do you want to execute another action?\n" +
-        $"Press {EXIT_NUMBER} to exit if not, press any other key if yes:");
+            $"Press {EXIT_NUMBER} to exit if not, press any other key if yes:");
     option = Menu.GetInputParsedInt();
-
 }

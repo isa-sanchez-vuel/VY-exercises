@@ -8,18 +8,32 @@ namespace Practice2_OOPMultiBankAccount
 {
     internal class Movement
     {
-        int movementId;
         DateTime date;
         string type;
         string content;
 
 
-        public Movement(int id, string type, string content) 
+        public Movement(string type, string content) 
         {
-            movementId = id;
             date = DateTime.Now;
             this.type = type;
             this.content = content;
+        }
+
+
+        public DateTime GetDate()
+        {
+            return date;
+        }
+
+        public string GetContent()
+        {
+            return content;
+        }
+
+        public string GetType()
+        {
+            return type;
         }
     }
 }

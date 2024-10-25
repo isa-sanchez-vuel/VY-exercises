@@ -13,7 +13,7 @@
 
         public static void PrintError(string message)
         {
-            Console.Error.WriteLine("ERROR:" + message);
+            Console.Error.WriteLine("ERROR: " + message);
         }
 
         public static int GetInputParsedInt()

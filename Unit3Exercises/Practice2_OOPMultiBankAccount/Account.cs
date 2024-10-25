@@ -14,7 +14,7 @@ namespace Practice2_OOPMultiBankAccount
         string accountNumber;
         string pin;
 
-        decimal totalMoney;
+        decimal? totalMoney;
 
         List<Movement> movements = new();
 
@@ -37,7 +37,7 @@ namespace Practice2_OOPMultiBankAccount
 
         public string GetPin()
         {
-            return accountNumber;
+            return pin;
         }
 
         public string GetName()
@@ -50,5 +50,31 @@ namespace Practice2_OOPMultiBankAccount
             return accountNumber;
         }
 
+        public decimal? GetTotalMoney()
+        {
+            return totalMoney;
+        }
+
+
+        public void AddIncome(decimal? income)
+        {
+            totalMoney += income; 
+        }
+
+
+        public void SubtractOutcome(decimal? income)
+        {
+            totalMoney -= income;
+        }
+
+        public List<Movement> GetAllMovements()
+        {
+            return movements;
+        }
+
+        public void AddMovement(string content, string type)
+        {
+            movements.Add(new Movement(type, content));
+        }
     }
 }
