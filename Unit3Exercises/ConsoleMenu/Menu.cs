@@ -16,25 +16,49 @@
             Console.Error.WriteLine("ERROR: " + message);
         }
 
+        public static void PrintEmptyStringError()
+        {
+            Console.WriteLine("ERROR: " );
+        }
+
         public static int GetInputParsedInt()
         {
             string input = Console.ReadLine()?.Trim();
 
-            if (int.TryParse(input, out _)) return int.Parse(input);
-            else return 0;
+            if (!input.Equals(""))
+            {
+                if (int.TryParse(input, out _)) return int.Parse(input);
+                else return -2;
+            }
+            return -1;
         }
 
         public static decimal GetInputParsedDecimal()
         {
             string input = Console.ReadLine()?.Trim().Replace(".", ",");
 
-            if (decimal.TryParse(input, out _)) return decimal.Parse(input);
-            else return 0;
+            if (!input.Equals("")) {
+                if (decimal.TryParse(input, out _)) return decimal.Parse(input);
+                else return -2;
+            }
+            return -1;
         }
 
         public static string GetInputString()
         {
-            return Console.ReadLine()?.Trim();
+            string input = Console.ReadLine()?.Trim();
+            if (!input.Equals(""))
+            {
+                return input;
+            }
+            else return "-1";
+        }
+
+        bool CheckInputDecimal(decimal input) //TODO Falta hacer las comprobaciones de errores
+        {
+
+
+            return false;
         }
     }
 

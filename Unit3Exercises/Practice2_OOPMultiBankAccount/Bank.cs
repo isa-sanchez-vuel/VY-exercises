@@ -49,12 +49,12 @@ namespace Practice2_OOPMultiBankAccount
 
         public void HandleIncome(Account account)
         {
-            decimal? income = 0;
+            decimal income = 0;
 
             Menu.PrintMenu("Please write how much do you want to deposit:");
             income = Menu.GetInputParsedDecimal();
 
-            if (income != null)
+            if (Menu.CheckInput(income))
             {
                 account.AddIncome(income);
                 account.AddMovement($"{income:0.00}€", "+");
@@ -64,12 +64,12 @@ namespace Practice2_OOPMultiBankAccount
 
         public void HandleOutcome(Account account)
         {
-            decimal? outcome = 0;
+            decimal outcome = 0;
 
             Menu.PrintMenu("Please write how much do you want to withdraw:");
             outcome = Menu.GetInputParsedDecimal();
 
-            if (outcome != null)
+            if (Menu.CheckInput(outcome))
             {
                 account.SubtractOutcome(outcome);
                 account.AddMovement($"{outcome:0.00}€", "-");
