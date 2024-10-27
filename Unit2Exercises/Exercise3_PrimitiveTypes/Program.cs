@@ -1,14 +1,3 @@
-﻿//Un valor booleano
-//- Un número entero
-//- Un número decimal
-//- Un carácter
-//- Un texto
-//- Una fecha/hora
-//La negación del booleano introducido -----
-//- El resultado de dividir el número entero introducido por el número decimal introducido--------
-//- El texto introducido entre paréntesis, con el carácter introducido añadido antes y después--------------
-//- El último segundo del último día del mes correspondiente a la fecha introducida
-
 Console.OutputEncoding = System.Text.Encoding.UTF8;
 Console.InputEncoding = System.Text.Encoding.UTF8;
 
