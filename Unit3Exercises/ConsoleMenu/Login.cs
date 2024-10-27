@@ -1,6 +1,6 @@
 ﻿namespace ConsoleMenu
 {
-	public class Login
+	/*public class Login
 	{
 		const int MAX_LOGIN_ATTEMPTS = 5;
 
@@ -28,5 +28,5 @@
 
 			LoginAttempts++;
 		}
-	}
+	}*/
 }

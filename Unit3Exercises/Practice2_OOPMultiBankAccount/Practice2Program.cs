@@ -2,7 +2,7 @@
 using ConsoleMenu;
 using System.Text;
 
-const int EXIT_OPTION = 7;
+const int EXIT_OPTION = 8;
 const int MAX_LOGIN_ATTEMPTS = 5;
 
 int LoginAttempts;
@@ -15,16 +15,9 @@ string UserPin;
 
 int Option;
 
-Account? Account = null;
+Account? Account = new();
 
-Bank Bank = new("PoatatoBank S.L", "ES", "3000", "54", "4790");
-
-Bank.CreateAccount("1122334455", "1111", "Francisco Bezerra");
-Bank.CreateAccount("2233445566", "2222", "Manel Joaquin Terez");
-Bank.CreateAccount("3344556677", "3333", "Ithiar Lobillo");
-Bank.CreateAccount("4455667788", "4444", "Laura Bastión");
-Bank.CreateAccount("5566778899", "5555", "Pol Lorenzo Gutierrez");
-Bank.CreateAccount("6677889900", "6666", "Marina Vilanova");
+Bank Bank;
 
 Initialize();
 StartApplication();
@@ -33,6 +26,7 @@ void StartApplication()
 {
 	LoginAttempts = 0;
 	Exit = false;
+	Logged = false;
 
 	OpenLogin();
 	if (Logged && Account != null)
@@ -47,29 +41,34 @@ void StartApplication()
 void OpenLogin()
 {
 	Console.Clear();
-	Logged = false;
-
-	if (LoginAttempts > 0 && LoginAttempts < MAX_LOGIN_ATTEMPTS - 1) Menu.PrintError($"Credentials not valid. Try again.\nAttempts left: {MAX_LOGIN_ATTEMPTS - LoginAttempts}.");
-	else if (MAX_LOGIN_ATTEMPTS - LoginAttempts == 1) Menu.PrintError("Credentials not valid. This is your last attempt.");
-	else if (LoginAttempts >= MAX_LOGIN_ATTEMPTS) Menu.PrintError("You cannot try to login again. Go to the bank's office to recover your credentials.");
-
-	if (LoginAttempts < MAX_LOGIN_ATTEMPTS)
+	while (!Logged)
 	{
-		Console.WriteLine($"Welcome to our application. Please login with your account number and pin.");
+		Logged = false;
 
-		Menu.PrintMenu("\nAccount number:");
-		UserAccount = Menu.GetInputString();
-		Menu.PrintMenu("\nPin:");
-		UserPin = Menu.GetInputString();
-
-		Account = Bank.CheckAccount(UserAccount, UserPin);
-
-		if (Account != null) Logged = true;
-
-		if (!Logged)
+		if (LoginAttempts > 0 && LoginAttempts < MAX_LOGIN_ATTEMPTS - 1) Menu.Print($"ERROR: Credentials not valid. Try again.\nAttempts left: {MAX_LOGIN_ATTEMPTS - LoginAttempts}.");
+		else if (MAX_LOGIN_ATTEMPTS - LoginAttempts == 1) Menu.Print("ERROR: Credentials not valid. This is your last attempt.");
+		else if (LoginAttempts >= MAX_LOGIN_ATTEMPTS)
 		{
-			LoginAttempts++;
-			OpenLogin();
+			Menu.Print("ERROR: You cannot try to login again. Go to the bank's office to recover your credentials.");
+			return;
+		}
+
+		if (LoginAttempts < MAX_LOGIN_ATTEMPTS)
+		{
+			Console.WriteLine($"Welcome to our application. Please login with your account number and pin.");
+
+			UserAccount = Menu.GetValidStringInputClear("\nAccount number:");
+
+			UserPin = Menu.GetValidStringInputClear("\nPin:");
+
+			Account = Bank.CheckAccountLogin(UserAccount, UserPin);
+
+			if (Account != null) Logged = true;
+
+			if (!Logged)
+			{
+				LoginAttempts++;
+			}
 		}
 	}
 }
@@ -77,8 +76,16 @@ void OpenLogin()
 void OpenMenu()
 {
 	Console.Clear();
-	Menu.PrintMenu($"Welcome to your account, {Account.GetName()}! What do you wish to do?\n\n1 - Money Income\n2 - Money Outcome\n3 - See movement history\n4 - See Income history\n" +
-		$"5 - See outcome history\n6 - See account money\n{EXIT_OPTION} - Logout\n\nPlease choose an option:");
+	Menu.PrintMenu($"Welcome to your account, {Account.GetName()}! What do you wish to do?\n\n" +
+		$"1 - Money Income\n" +
+		$"2 - Money Outcome\n" +
+		$"3 - See movement history\n" +
+		$"4 - See Income history\n" +
+		$"5 - See outcome history\n" +
+		$"6 - See account money\n" +
+		$"7 - See account data\n" +
+		$"{EXIT_OPTION} - Logout\n\n" +
+		$"Please choose an option:");
 	Option = Menu.GetInputParsedInt();
 
 	if (Option > 0 && Option < EXIT_OPTION) ManageOptions();
@@ -119,6 +126,10 @@ void ManageOptions()
 		case 6:
 			Bank.PrintAccountMoney(Account);
 			break;
+
+		case 7:
+			Bank.PrintAccountData(Account);
+			break;
 	}
 	AskCloseSession();
 }
@@ -135,7 +146,7 @@ void AskCloseApplication()
 	Logged = false;
 	Console.Clear();
 	Console.WriteLine("\nClosing session...\n");
-	Menu.PrintMenu($"Press {EXIT_OPTION} to close the application, press any other key if you wish to acces an account:");
+	Menu.PrintMenu($"Press {EXIT_OPTION} to close the application, press any other key if you wish to access other account:");
 	Option = Menu.GetInputParsedInt();
 	if (Option == EXIT_OPTION) Exit = true;
 }
@@ -151,5 +162,15 @@ void ExitApplication()
 void Initialize()
 {
 	Console.OutputEncoding = Encoding.UTF8;
-	Console.InputEncoding = Encoding.UTF8;
+
+	Bank = new("PoatatoBank S.L", "ES", "3000", "54", "4790");
+
+	Bank.CreateAccount("1122334455", "1111", "Francisco Bezerra");
+	Bank.CreateAccount("2233445566", "2222", "Manel Joaquin Terez");
+	Bank.CreateAccount("3344556677", "3333", "Ithiar Lobillo");
+	Bank.CreateAccount("4455667788", "4444", "Laura Bastión");
+	Bank.CreateAccount("5566778899", "5555", "Pol Lorenzo Gutierrez");
+	Bank.CreateAccount("6677889900", "6666", "Marina Vilanova");
+
+	Bank.Initialize();
 }

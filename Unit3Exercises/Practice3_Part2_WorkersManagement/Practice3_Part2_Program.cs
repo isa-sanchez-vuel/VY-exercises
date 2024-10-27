@@ -20,6 +20,15 @@ Initialize();
 StartApplication();
 
 
+void Initialize()
+{
+	Company = new();
+	User = new();
+	UserId = -1;
+	Console.OutputEncoding = Encoding.UTF8;
+}
+
+
 void StartApplication()
 {
 	LoginAttempts = 0;
@@ -201,16 +210,6 @@ void ManageOptionsTechnician()
 
 	AskCloseSession();
 }
-
-void Initialize()
-{
-	Company = new();
-	User = new();
-	UserId = -1;
-	Console.OutputEncoding = Encoding.UTF8;
-	Console.InputEncoding = Encoding.UTF8;
-}
-
 void AskCloseSession()
 {
 	Menu.PrintMenu($"Press {EXIT_OPTION} to close your session, press any other key if you wish to execute another action:");
@@ -223,7 +222,7 @@ void AskCloseApplication()
 	Logged = false;
 	Console.Clear();
 	Console.WriteLine("\nClosing session...\n");
-	Menu.PrintMenu($"Press {EXIT_OPTION} to close the application, press any other key if you wish to acces an account:");
+	Menu.PrintMenu($"Press {EXIT_OPTION} to close the application, press any other key if you wish to access an account:");
 	Option = Menu.GetInputParsedInt();
 	if (Option == EXIT_OPTION) Exit = true;
 }

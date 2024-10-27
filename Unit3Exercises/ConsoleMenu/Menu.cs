@@ -7,12 +7,6 @@ namespace ConsoleMenu
 		public const int ERROR_VALUE = -1;
 		public const string ERROR_VALUE_S = "-1";
 
-		public Menu()
-		{
-			Console.OutputEncoding = Encoding.UTF8;
-			Console.InputEncoding = Encoding.UTF8;
-		}
-
 		public static void PrintMenu(string message)
 		{
 			Console.WriteLine(message);
@@ -32,7 +26,7 @@ namespace ConsoleMenu
 
 		public static int GetInputParsedInt()
 		{
-			string input = Console.ReadLine()?.Trim();
+			string? input = Console.ReadLine()?.Trim();
 
 			if (!input.Equals(""))
 			{
@@ -44,9 +38,9 @@ namespace ConsoleMenu
 
 		public static decimal GetInputParsedDecimal()
 		{
-			string input = Console.ReadLine()?.Trim().Replace(".", ",");
+			string? input = Console.ReadLine()?.Trim().Replace(".", ",");
 
-			if (!input.Equals("")) {
+			if (!string.IsNullOrEmpty(input)) {
 				if (decimal.TryParse(input, out _)) return decimal.Parse(input);
 			}
 			return ERROR_VALUE;
@@ -54,8 +48,8 @@ namespace ConsoleMenu
 
 		public static string GetInputString()
 		{
-			string input = Console.ReadLine()?.Trim();
-			if (!input.Equals(""))
+			string? input = Console.ReadLine()?.Trim();
+			if (!string.IsNullOrEmpty(input))
 			{
 				return input;
 			}
@@ -67,7 +61,19 @@ namespace ConsoleMenu
 		public static int GetValidIntInput(string prompt)
 		{
 			PrintMenu(prompt);
-			int value = GetInputParsedInt();
+			int value = GetInputParsedInt() * 1;
+			if (value == ERROR_VALUE)
+			{
+				Console.Clear();
+				PrintError("Invalid number.");
+			}
+			return value;
+		}
+
+		public static decimal GetValidDecimalInputClear(string prompt)
+		{
+			PrintMenu(prompt);
+			decimal value = GetInputParsedDecimal() * 1;
 			if (value == ERROR_VALUE)
 			{
 				Console.Clear();
@@ -79,7 +85,7 @@ namespace ConsoleMenu
 		public static decimal GetValidDecimalInput(string prompt)
 		{
 			PrintMenu(prompt);
-			decimal value = GetInputParsedDecimal();
+			decimal value = GetInputParsedDecimal() * 1;
 			if (value == ERROR_VALUE)
 			{
 				Console.Clear();
@@ -88,13 +94,25 @@ namespace ConsoleMenu
 			return value;
 		}
 
-		public static string GetValidStringInput(string prompt)
+		public static string GetValidStringInputClear(string prompt)
 		{
 			PrintMenu(prompt);
 			string input = GetInputString();
 			if (input.Equals(ERROR_VALUE_S))
 			{
 				Console.Clear();
+				PrintError("Invalid input.");
+				return null;
+			}
+			return input;
+		}
+
+		public static string GetValidStringInput(string prompt)
+		{
+			PrintMenu(prompt);
+			string input = GetInputString();
+			if (input.Equals(ERROR_VALUE_S))
+			{
 				PrintError("Invalid input.");
 				return null;
 			}

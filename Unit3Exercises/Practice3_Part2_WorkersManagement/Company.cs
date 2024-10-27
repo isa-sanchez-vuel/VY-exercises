@@ -1,11 +1,5 @@
 ﻿using ConsoleMenu;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Security;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Practice3_Part2_WorkersManagement
 {
@@ -94,10 +88,10 @@ namespace Practice3_Part2_WorkersManagement
 				//Ask and check the inputs and restart if some is wrong
 				Menu.Print("----new IT worker register menu----\nIntroduce the data to create a new team.");
 
-				string name = Menu.GetValidStringInput("Worker's name:");
+				string name = Menu.GetValidStringInputClear("Worker's name:");
 				if (name == null) continue;
 
-				string surname = Menu.GetValidStringInput("Worker's surname:");
+				string surname = Menu.GetValidStringInputClear("Worker's surname:");
 				if (surname == null) continue;
 
 				DateTime birth = Menu.GetValidDateInput("Birthdate <dd-MM-yyyy>:");
@@ -135,7 +129,7 @@ namespace Practice3_Part2_WorkersManagement
 				//Ask and check the inputs and restart if some is wrong
 				Menu.Print("----new team creation menu----\nIntroduce the data to create a new team.");
 
-				string name = Menu.GetValidStringInput("Team name:");
+				string name = Menu.GetValidStringInputClear("Team name:");
 				if (name == null) continue;
 
 				int managerId = GetValidManagerId();
@@ -164,10 +158,10 @@ namespace Practice3_Part2_WorkersManagement
 			while (!isValid)
 			{
 				//Ask and check the inputs and restart if some is wrong
-				string description = Menu.GetValidStringInput("Task description:");
+				string description = Menu.GetValidStringInputClear("Task description:");
 				if (description == null) continue;
 
-				string technology = Menu.GetValidStringInput("Technology that must be used:");
+				string technology = Menu.GetValidStringInputClear("Technology that must be used:");
 				if (technology == null) continue;
 
 				Tasks.Add(new(description, technology)); //Add task
@@ -366,7 +360,7 @@ namespace Practice3_Part2_WorkersManagement
 			bool isValid = false;
 			while (!isValid)
 			{
-				string teamName = Menu.GetValidStringInput("\n---------------------------------------------\n" +
+				string teamName = Menu.GetValidStringInputClear("\n---------------------------------------------\n" +
 				"Write the team's name where you want to assign a manager:\n");
 				if (teamName == null)
 				{
@@ -424,7 +418,7 @@ namespace Practice3_Part2_WorkersManagement
 			bool isValid = false;
 			while (!isValid)
 			{
-				string teamName = Menu.GetValidStringInput("\n---------------------------------------------\n" +
+				string teamName = Menu.GetValidStringInputClear("\n---------------------------------------------\n" +
 					"Write the team's name where you want to add a technician:\n");
 				if (teamName == null)
 				{
@@ -573,7 +567,7 @@ namespace Practice3_Part2_WorkersManagement
 			List<string> knowledges = new();
 			while (true)
 			{
-				string knowledge = Menu.GetValidStringInput("Add a knowledge:");
+				string knowledge = Menu.GetValidStringInputClear("Add a knowledge:");
 				if (knowledge == null) continue;
 
 				knowledges.Add(knowledge);

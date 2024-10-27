@@ -21,12 +21,13 @@ namespace Practice1
 			Field1G = "Field 1 Grandfather";
 			Field2G = "Field 2 Grandfather";
 			SetField3G("Field 3 Grandfather");
-
 		}
 
 		public void PrintAllValues()
 		{
-			Console.WriteLine($"- {Field1S}\n" +
+			Console.WriteLine(
+				"\n=========================\n" +
+				$"- {Field1S}\n" +
 				$"- {Field2S}\n" +
 				$"- {Field3S}\n" +
 				$"- {Field1F}\n" +
@@ -34,31 +35,32 @@ namespace Practice1
 				$"- {GetField3F()}\n" +
 				$"- {Field1G}\n" +
 				$"- {Field2G}\n" +
-				$"- {GetField3G()}\n");
+				$"- {GetField3G()}\n" +
+				"\n=========================\n");
 		}
 
 		public void ChangeValue()
 		{
-			Menu.PrintMenu("Change field 1 Son");
-			Field1S = Menu.GetInputString();
-			Menu.PrintMenu("Change field 2 Son");
-			Field2S = Menu.GetInputString();
-			Menu.PrintMenu("Change field 3 Son");
-			Field3S = Menu.GetInputString();
+			string input = Menu.GetValidStringInput("Change field 1 Son");
+			if (input != null) Field1S = input;
+			input = Menu.GetValidStringInput("Change field 2 Son");
+			if (input != null) Field2S = input;
+			input = Menu.GetValidStringInput("Change field 3 Son");
+			if(input!=null) Field3S = input;
 
-			Menu.PrintMenu("Change field 1 Father");
-			Field1F = Menu.GetInputString();
-			Menu.PrintMenu("Change field 2 Father");
-			Field2F = Menu.GetInputString();
-			Menu.PrintMenu("Change field 3 Father");
-			SetField3F(Menu.GetInputString());
+			input = Menu.GetValidStringInput("Change field 1 Father");
+			if (input != null) Field1F = input;
+			input = Menu.GetValidStringInput("Change field 2 Father");
+			if (input != null) Field2F = input;
+			input = Menu.GetValidStringInput("Change field 3 Father");
+			if (input != null) SetField3F(input);
 
-			Menu.PrintMenu("Change field 1 Grandfather");
-			Field1G = Menu.GetInputString();
-			Menu.PrintMenu("Change field 2 Grandfather");
-			Field2G = Menu.GetInputString();
-			Menu.PrintMenu("Change field 3 Grandfather");
-			SetField3G(Menu.GetInputString());
+			Menu.GetValidStringInput("Change field 1 Grandfather");
+			if (input != null) Field1G = input;
+			Menu.GetValidStringInput("Change field 2 Grandfather");
+			if (input != null)  Field2G = input;
+			Menu.GetValidStringInput("Change field 3 Grandfather");
+			if (input != null) SetField3G(input);
 
 			PrintAllValues();
 		}

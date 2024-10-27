@@ -17,6 +17,12 @@ Company Company;
 Initialize();
 StartApplication();
 
+void Initialize()
+{
+	Company = new();
+	Console.OutputEncoding = Encoding.UTF8;
+}
+
 void StartApplication()
 {
 	Exit = false;
@@ -120,9 +126,4 @@ void ExitApplication()
 	Menu.Print("======================================\n" +
 			"|| Closing application...            ||\n" +
 			"======================================");
-}
-
-void Initialize()
-{
-	Company = new();
 }
