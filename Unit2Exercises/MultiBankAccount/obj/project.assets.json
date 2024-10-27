@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Projects\\Unit2SingleBankAccount\\MultiBankAccount\\MultiBankAccount.csproj",
+      "projectUniqueName": "C:\\Projects\\VY-exercises\\Unit2Exercises\\MultiBankAccount\\MultiBankAccount.csproj",
       "projectName": "MultiBankAccount",
-      "projectPath": "C:\\Projects\\Unit2SingleBankAccount\\MultiBankAccount\\MultiBankAccount.csproj",
+      "projectPath": "C:\\Projects\\VY-exercises\\Unit2Exercises\\MultiBankAccount\\MultiBankAccount.csproj",
       "packagesPath": "C:\\Users\\IsabelaSanchez\\.nuget\\packages\\",
-      "outputPath": "C:\\Projects\\Unit2SingleBankAccount\\MultiBankAccount\\obj\\",
+      "outputPath": "C:\\Projects\\VY-exercises\\Unit2Exercises\\MultiBankAccount\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\IsabelaSanchez\\AppData\\Roaming\\NuGet\\NuGet.Config",

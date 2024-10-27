@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Projects\\Unit2SingleBankAccount\\MonoBankAccount\\MonoBankAccount.csproj": {}
+    "C:\\Projects\\VY-exercises\\Unit2Exercises\\MonoBankAccount\\MonoBankAccount.csproj": {}
   },
   "projects": {
-    "C:\\Projects\\Unit2SingleBankAccount\\MonoBankAccount\\MonoBankAccount.csproj": {
+    "C:\\Projects\\VY-exercises\\Unit2Exercises\\MonoBankAccount\\MonoBankAccount.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projects\\Unit2SingleBankAccount\\MonoBankAccount\\MonoBankAccount.csproj",
+        "projectUniqueName": "C:\\Projects\\VY-exercises\\Unit2Exercises\\MonoBankAccount\\MonoBankAccount.csproj",
         "projectName": "MonoBankAccount",
-        "projectPath": "C:\\Projects\\Unit2SingleBankAccount\\MonoBankAccount\\MonoBankAccount.csproj",
+        "projectPath": "C:\\Projects\\VY-exercises\\Unit2Exercises\\MonoBankAccount\\MonoBankAccount.csproj",
         "packagesPath": "C:\\Users\\IsabelaSanchez\\.nuget\\packages\\",
-        "outputPath": "C:\\Projects\\Unit2SingleBankAccount\\MonoBankAccount\\obj\\",
+        "outputPath": "C:\\Projects\\VY-exercises\\Unit2Exercises\\MonoBankAccount\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\IsabelaSanchez\\AppData\\Roaming\\NuGet\\NuGet.Config",

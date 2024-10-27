@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MultiBankAccount")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4608755a0f41b1c1ffa9ab858ce2c9036f92e984")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8e1fd111d1698ec82a4147a007830e154a78d241")]
 [assembly: System.Reflection.AssemblyProductAttribute("MultiBankAccount")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MultiBankAccount")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

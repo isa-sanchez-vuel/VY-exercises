@@ -1,13 +1,17 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Projects\\Unit2SingleBankAccount\\",
+  "WorkspaceRootPath": "C:\\Projects\\VY-exercises\\Unit2Exercises\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{7D1612B1-4B71-4B98-AA12-6BE40414C666}|MultiBankAccount\\MultiBankAccount.csproj|c:\\projects\\unit2singlebankaccount\\multibankaccount\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{23AD24C5-1914-4823-A7B9-436BE1B00C56}|Exercise3_PrimitiveTypes\\Exercise3_PrimitiveTypes.csproj|c:\\projects\\vy-exercises\\unit2exercises\\exercise3_primitivetypes\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{23AD24C5-1914-4823-A7B9-436BE1B00C56}|Exercise3_PrimitiveTypes\\Exercise3_PrimitiveTypes.csproj|solutionrelative:exercise3_primitivetypes\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D1612B1-4B71-4B98-AA12-6BE40414C666}|MultiBankAccount\\MultiBankAccount.csproj|c:\\projects\\vy-exercises\\unit2exercises\\multibankaccount\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7D1612B1-4B71-4B98-AA12-6BE40414C666}|MultiBankAccount\\MultiBankAccount.csproj|solutionrelative:multibankaccount\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{37C2C87A-B0FC-4945-B11B-D36E0E22AA51}|MonoBankAccount\\MonoBankAccount.csproj|c:\\projects\\unit2singlebankaccount\\monobankaccount\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{37C2C87A-B0FC-4945-B11B-D36E0E22AA51}|MonoBankAccount\\MonoBankAccount.csproj|c:\\projects\\vy-exercises\\unit2exercises\\monobankaccount\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{37C2C87A-B0FC-4945-B11B-D36E0E22AA51}|MonoBankAccount\\MonoBankAccount.csproj|solutionrelative:monobankaccount\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -40,22 +44,35 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Projects\\Unit2SingleBankAccount\\MultiBankAccount\\Program.cs",
-              "RelativeDocumentMoniker": "MultiBankAccount\\Program.cs",
-              "ToolTip": "C:\\Projects\\Unit2SingleBankAccount\\MultiBankAccount\\Program.cs",
-              "RelativeToolTip": "MultiBankAccount\\Program.cs",
-              "ViewState": "AgIAAOwAAAAAAAAAAAAAAPUAAABOAAAAAAAAAA==",
+              "DocumentMoniker": "C:\\Projects\\VY-exercises\\Unit2Exercises\\Exercise3_PrimitiveTypes\\Program.cs",
+              "RelativeDocumentMoniker": "Exercise3_PrimitiveTypes\\Program.cs",
+              "ToolTip": "C:\\Projects\\VY-exercises\\Unit2Exercises\\Exercise3_PrimitiveTypes\\Program.cs",
+              "RelativeToolTip": "Exercise3_PrimitiveTypes\\Program.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAACgAAABaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-24T11:35:36.065Z",
+              "WhenOpened": "2024-10-27T01:17:33.265Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Projects\\Unit2SingleBankAccount\\MonoBankAccount\\Program.cs",
+              "DocumentMoniker": "C:\\Projects\\VY-exercises\\Unit2Exercises\\MultiBankAccount\\Program.cs",
+              "RelativeDocumentMoniker": "MultiBankAccount\\Program.cs",
+              "ToolTip": "C:\\Projects\\VY-exercises\\Unit2Exercises\\MultiBankAccount\\Program.cs",
+              "RelativeToolTip": "MultiBankAccount\\Program.cs",
+              "ViewState": "AgIAADMAAAAAAAAAAAAAAEUAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-24T11:35:36.065Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Projects\\VY-exercises\\Unit2Exercises\\MonoBankAccount\\Program.cs",
               "RelativeDocumentMoniker": "MonoBankAccount\\Program.cs",
-              "ToolTip": "C:\\Projects\\Unit2SingleBankAccount\\MonoBankAccount\\Program.cs",
+              "ToolTip": "C:\\Projects\\VY-exercises\\Unit2Exercises\\MonoBankAccount\\Program.cs",
               "RelativeToolTip": "MonoBankAccount\\Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
