@@ -140,7 +140,9 @@ namespace Practice3_Part2_WorkersManagement
 				// Verify required level
 				if (manager.GetLevel() == ITWorker.Level.Senior)
 				{
-					Teams.Add(new Team(name, manager));
+					Team team = new Team(name, manager);
+					Teams.Add(team);
+					team.AddWorker(manager);
 					Menu.Print($"New team {name} registered with manager {manager.GetFullName()} Id-{manager.GetId()}.");
 					isValid = true; //Break loop
 				}
@@ -414,7 +416,7 @@ namespace Practice3_Part2_WorkersManagement
 				{
 					Console.Clear();
 					Menu.PrintError("Worker ID not found.");
-					throw;
+					
 				}
 			}
 		}
@@ -452,7 +454,7 @@ namespace Practice3_Part2_WorkersManagement
 						catch (Exception)
 						{
 							Menu.PrintError("Worker not found.");
-							throw;
+							AddTechnicianToTeam();
 						}
 					}
 				}

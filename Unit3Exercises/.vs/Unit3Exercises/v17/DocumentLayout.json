@@ -3,20 +3,12 @@
   "WorkspaceRootPath": "C:\\Projects\\VY-exercises\\Unit3Exercises\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{EE288915-4267-4D8F-8BC8-4CE2FCFEDA78}|Practice3_Part2_WorkersManagement\\Practice3_Part2_WorkersManagement.csproj|c:\\projects\\vy-exercises\\unit3exercises\\practice3_part2_workersmanagement\\practice3_part2_program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EE288915-4267-4D8F-8BC8-4CE2FCFEDA78}|Practice3_Part2_WorkersManagement\\Practice3_Part2_WorkersManagement.csproj|solutionrelative:practice3_part2_workersmanagement\\practice3_part2_program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{EE288915-4267-4D8F-8BC8-4CE2FCFEDA78}|Practice3_Part2_WorkersManagement\\Practice3_Part2_WorkersManagement.csproj|c:\\projects\\vy-exercises\\unit3exercises\\practice3_part2_workersmanagement\\company.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{EE288915-4267-4D8F-8BC8-4CE2FCFEDA78}|Practice3_Part2_WorkersManagement\\Practice3_Part2_WorkersManagement.csproj|solutionrelative:practice3_part2_workersmanagement\\company.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4B25677D-19CD-4E86-9A5B-D417E15C2506}|Practice3_WorkersManagement\\Practice3_WorkersManagement.csproj|c:\\projects\\vy-exercises\\unit3exercises\\practice3_workersmanagement\\company.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4B25677D-19CD-4E86-9A5B-D417E15C2506}|Practice3_WorkersManagement\\Practice3_WorkersManagement.csproj|solutionrelative:practice3_workersmanagement\\company.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4B25677D-19CD-4E86-9A5B-D417E15C2506}|Practice3_WorkersManagement\\Practice3_WorkersManagement.csproj|c:\\projects\\vy-exercises\\unit3exercises\\practice3_workersmanagement\\practice3program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4B25677D-19CD-4E86-9A5B-D417E15C2506}|Practice3_WorkersManagement\\Practice3_WorkersManagement.csproj|solutionrelative:practice3_workersmanagement\\practice3program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -46,54 +38,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Practice3_Part2_Program.cs",
-              "DocumentMoniker": "C:\\Projects\\VY-exercises\\Unit3Exercises\\Practice3_Part2_WorkersManagement\\Practice3_Part2_Program.cs",
-              "RelativeDocumentMoniker": "Practice3_Part2_WorkersManagement\\Practice3_Part2_Program.cs",
-              "ToolTip": "C:\\Projects\\VY-exercises\\Unit3Exercises\\Practice3_Part2_WorkersManagement\\Practice3_Part2_Program.cs",
-              "RelativeToolTip": "Practice3_Part2_WorkersManagement\\Practice3_Part2_Program.cs",
-              "ViewState": "AgIAAIsAAAAAAAAAAAAkwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-27T22:09:20.391Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "Company.cs",
               "DocumentMoniker": "C:\\Projects\\VY-exercises\\Unit3Exercises\\Practice3_WorkersManagement\\Company.cs",
               "RelativeDocumentMoniker": "Practice3_WorkersManagement\\Company.cs",
               "ToolTip": "C:\\Projects\\VY-exercises\\Unit3Exercises\\Practice3_WorkersManagement\\Company.cs",
               "RelativeToolTip": "Practice3_WorkersManagement\\Company.cs",
-              "ViewState": "AgIAAIkAAAAAAAAAAAAswI0AAAATAAAAAAAAAA==",
+              "ViewState": "AgIAAFIBAAAAAAAAAAAswF8BAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-27T22:04:01.417Z",
+              "WhenOpened": "2024-10-27T22:46:47.776Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Practice3Program.cs",
-              "DocumentMoniker": "C:\\Projects\\VY-exercises\\Unit3Exercises\\Practice3_WorkersManagement\\Practice3Program.cs",
-              "RelativeDocumentMoniker": "Practice3_WorkersManagement\\Practice3Program.cs",
-              "ToolTip": "C:\\Projects\\VY-exercises\\Unit3Exercises\\Practice3_WorkersManagement\\Practice3Program.cs",
-              "RelativeToolTip": "Practice3_WorkersManagement\\Practice3Program.cs",
-              "ViewState": "AgIAAB8AAAAAAAAAAAAQwDMAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-27T22:03:59.228Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Company.cs",
               "DocumentMoniker": "C:\\Projects\\VY-exercises\\Unit3Exercises\\Practice3_Part2_WorkersManagement\\Company.cs",
               "RelativeDocumentMoniker": "Practice3_Part2_WorkersManagement\\Company.cs",
               "ToolTip": "C:\\Projects\\VY-exercises\\Unit3Exercises\\Practice3_Part2_WorkersManagement\\Company.cs",
               "RelativeToolTip": "Practice3_Part2_WorkersManagement\\Company.cs",
-              "ViewState": "AgIAAI8AAAAAAAAAAAAiwLEAAAATAAAAAAAAAA==",
+              "ViewState": "AgIAALIBAAAAAAAAAAAiwMgBAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-27T21:58:32.265Z",
+              "WhenOpened": "2024-10-27T22:35:53.459Z",
               "EditorCaption": ""
             }
           ]

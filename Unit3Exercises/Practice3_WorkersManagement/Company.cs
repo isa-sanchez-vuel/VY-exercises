@@ -104,7 +104,9 @@ namespace Practice3_WorkersManagement
 				// Verify required level
 				if (manager.GetLevel() == ITWorker.Level.Senior)
 				{
-					Teams.Add(new Team(name, manager));
+					Team team = new Team(name, manager);
+					Teams.Add(team);
+					team.AddWorker(manager);
 					Menu.Print($"New team {name} registered with manager {manager.GetFullName()} Id-{manager.GetId()}.");
 					isValid = true; //Break loop
 				}
@@ -261,11 +263,13 @@ namespace Practice3_WorkersManagement
 			bool isValid = false;
 			while (!isValid)
 			{
-
 				string teamName = Menu.GetValidStringInputClear("\n---------------------------------------------\n" +
 				"Write the team's name where you want to assign a manager:\n");
-				if (teamName == null) continue;
-
+				if (teamName == null)
+				{
+					Menu.PrintError("Empty name not valid.");
+					continue;
+				}
 				int managerId = Menu.GetValidIntInput("Introduce the worker's ID:");
 				if (managerId == Menu.ERROR_VALUE || managerId > Worker.IdCount)
 				{
@@ -273,7 +277,6 @@ namespace Practice3_WorkersManagement
 					Menu.PrintError("Worker ID unvalid.");
 					continue;
 				}
-
 				try
 				{
 					ITWorker manager = ITWorkers[managerId];
@@ -296,6 +299,7 @@ namespace Practice3_WorkersManagement
 								break;
 							}
 						}
+						Menu.PrintError("Team doesn't exist.");
 					}
 					else
 					{
@@ -307,49 +311,49 @@ namespace Practice3_WorkersManagement
 				{
 					Console.Clear();
 					Menu.PrintError("Worker ID not found.");
-					throw;
+					
 				}
 			}
-
 		}
 
 		public void AddTechnicianToTeam()
 		{
-			Menu.PrintMenu("\n---------------------------------------------\n" +
-				"Write the team's name where you want to add a technician:\n");
-			string input = Menu.GetInputString();
-			if (input.Equals(Menu.ERROR_VALUE_S))
+			bool isValid = false;
+			while (!isValid)
 			{
-				Menu.PrintError("Empty name not valid.");
-				AssignTeamManager();
-			}
+				string teamName = Menu.GetValidStringInputClear("\n---------------------------------------------\n" +
+					"Write the team's name where you want to add a technician:\n");
+				if (teamName == null)
+				{
+					Menu.PrintError("Empty name not valid.");
+					continue;
+				}
 
-			Menu.PrintMenu("Introduce the worker's ID to add them to the team:");
-			int workerId = Menu.GetInputParsedInt();
-			if (workerId == Menu.ERROR_VALUE || workerId > Worker.IdCount)
-			{
-				Menu.PrintError("Invalid ID");
-				AssignTeamManager();
-			}
-
-			if (!input.Equals(Menu.ERROR_VALUE_S))
-			{
+				int workerId = Menu.GetValidIntInput("Introduce the worker's ID to add them to the team:");
+				if (workerId == Menu.ERROR_VALUE || workerId > Worker.IdCount)
+				{
+					Menu.PrintError("Worker ID unvalid");
+					continue;
+				}
 				foreach (Team team in Teams)
 				{
-					if (team.GetName().ToLower().Equals(input.ToLower()))
+					if (team.GetName().ToLower().Equals(teamName.ToLower()))
 					{
 						try
 						{
 							team.AddWorker(ITWorkers[workerId]);
 							Menu.Print($"TWorker {ITWorkers[workerId].GetFullName()} ID-{ITWorkers[workerId].GetId()} assigned successfully to team {team.GetName()}");
+							isValid = true;
+							return;
 						}
 						catch (Exception)
 						{
 							Menu.PrintError("Worker not found.");
-							throw;
+							AddTechnicianToTeam();
 						}
 					}
 				}
+				Menu.PrintError("Team doesn't exist.");
 			}
 		}
 
