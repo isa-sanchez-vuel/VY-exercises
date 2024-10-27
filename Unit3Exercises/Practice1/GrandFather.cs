@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace Practice1
 {
-    internal class GrandFather
-    {
-        public string field1G;
-        protected string field2G;
-        private string field3G;
+	internal class GrandFather
+	{
+		public string Field1G;
+		protected string Field2G;
+		private string Field3G;
 
-        public string GetField3G()
-        {
-            return field3G;
-        }
+		public string GetField3G()
+		{
+			return Field3G;
+		}
 
-        public void SetField3G(string value)
-        {
-            field3G = value;
-        }
-    }
+		public void SetField3G(string value)
+		{
+			Field3G = value;
+		}
+	}
 }

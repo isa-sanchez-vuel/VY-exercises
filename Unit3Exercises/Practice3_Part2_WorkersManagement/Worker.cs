@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Practice3_WorkersManagement
+namespace Practice3_Part2_WorkersManagement;
 {
 	internal class Worker
 	{

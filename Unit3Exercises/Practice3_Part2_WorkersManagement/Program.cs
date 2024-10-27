@@ -1,17 +1,12 @@
 ﻿using ConsoleMenu;
-using Practice3_WorkersManagement;
-using System.Text;
+using Practice3_Part2_WorkersManagement;
 
 const int EXIT_OPTION = 12;
-
-int LoginAttempts;
+const int LOGIN_ATTEMPTS = 5;
 
 bool Exit;
-bool Logged;
-
-string UserId;
-
 int Option;
+
 Company Company;
 
 Initialize();
@@ -51,7 +46,7 @@ void OpenMenu()
 	else Menu.PrintError("Invalid option. Try again.");
 
 	if (!Exit) OpenMenu();
-	
+
 }
 
 void ManageOptions()
