@@ -12,6 +12,7 @@
 			Technicians = new();
 			Name = name;
 			Manager = manager;
+			AddWorker(manager);
 		}
 
 		public void SetManager(ITWorker newManager)

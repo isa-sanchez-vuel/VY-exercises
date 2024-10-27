@@ -18,6 +18,7 @@ namespace Practice3_Part2_WorkersManagement
 			Technicians = new();
 			Name = name;
 			Manager = manager;
+			AddWorker(manager);
 		}
 
 		public void SetManager(ITWorker newManager)
