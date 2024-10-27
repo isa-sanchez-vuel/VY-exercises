@@ -31,7 +31,6 @@ StartApplication();
 
 void StartApplication()
 {
-
 	LoginAttempts = 0;
 	Exit = false;
 

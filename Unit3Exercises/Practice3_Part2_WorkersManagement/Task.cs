@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Practice3_Part2_WorkersManagement;
+namespace Practice3_Part2_WorkersManagement
 {
 	internal class Task
 	{
@@ -25,8 +25,8 @@ namespace Practice3_Part2_WorkersManagement;
 
 		public Task(string description, string technology)
 		{
-			IdCount++;
 			Id = IdCount;
+			IdCount++;
 			IdWorker = -1;
 			Description = description;
 			Technology = technology;

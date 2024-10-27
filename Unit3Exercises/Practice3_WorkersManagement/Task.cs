@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Practice3_WorkersManagement
+﻿namespace Practice3_WorkersManagement
 {
 	internal class Task
 	{
@@ -25,8 +19,8 @@ namespace Practice3_WorkersManagement
 
 		public Task(string description, string technology)
 		{
-			IdCount++;
 			Id = IdCount;
+			IdCount++;
 			IdWorker = -1;
 			Description = description;
 			Technology = technology;
@@ -36,22 +30,22 @@ namespace Practice3_WorkersManagement
 		public int GetId()
 		{
 			return Id;
-		} 
+		}
 
 		public int GetWorkerId()
 		{
 			return IdWorker;
-		} 
+		}
 
 		public string GetDescription()
 		{
 			return Description;
-		} 
+		}
 
 		public string GetTechnology()
 		{
 			return Technology;
-		} 
+		}
 
 		public Status GetStatus()
 		{
@@ -72,6 +66,5 @@ namespace Practice3_WorkersManagement
 		{
 			IdWorker = -1;
 		}
-
 	}
 }

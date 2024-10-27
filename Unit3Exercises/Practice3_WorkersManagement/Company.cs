@@ -1,4 +1,5 @@
 ﻿using ConsoleMenu;
+using Practice3_WorkersManagement;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace Practice3_WorkersManagement
 	internal class Company
 	{
 
+		int CurrentUserID;
+
 		List<ITWorker> ITWorkers;
 		List<Team> Teams;
 		List<Task> Tasks;
@@ -22,6 +25,24 @@ namespace Practice3_WorkersManagement
 			Tasks = new();
 			Initialize();
 		}
+
+		public ITWorker GetUser()
+		{
+			ITWorker user = ITWorkers[CurrentUserID];
+
+			return user;
+		}
+
+		public bool UserExists(int userId)
+		{
+			if (ITWorkers.Contains(ITWorkers[userId]))
+			{
+				CurrentUserID = userId;
+				return true;
+			}
+			return false;
+		}
+
 
 		public void RegisterITWorker()
 		{
@@ -39,6 +60,12 @@ namespace Practice3_WorkersManagement
 
 				DateTime birth = Menu.GetValidDateInput("Birthdate <dd-MM-yyyy>:");
 				if (birth == DateTime.MinValue) continue;
+				int age = DateTime.Today.Year - birth.Year;
+				if (age < 18)
+				{
+					Menu.PrintError("Worker must have at least 18 years old.");
+					continue;
+				}
 
 				DateTime leaving = Menu.GetValidDateInput("Date worker will leave <dd-MM-yyyy>:");
 				if (leaving == DateTime.MinValue) continue;
@@ -52,7 +79,8 @@ namespace Practice3_WorkersManagement
 				ITWorker worker = new ITWorker(name, surname, experience, knowledges, birth, leaving);
 				ITWorkers.Add(worker);
 
-				Menu.Print($"New Worker {worker.GetFullName()} with Id {worker.GetId()} registered.");
+				Menu.Print($"New Worker {worker.GetFullName()} with Id {worker.GetId()} registered.\n" +
+					$"Experience: {experience} years | Knowledges: {knowledges} | Age: {age}");
 				isValid = true; // Break the loop
 			}
 		}
@@ -88,7 +116,7 @@ namespace Practice3_WorkersManagement
 			}
 		}
 
-		public void RegisterNewTask() 
+		public void RegisterNewTask()
 		{
 			bool isValid = false;
 			while (!isValid)
@@ -99,7 +127,7 @@ namespace Practice3_WorkersManagement
 
 				string technology = Menu.GetValidStringInput("Technology that must be used:");
 				if (technology == null) continue;
-				
+
 				Tasks.Add(new(description, technology)); //Add task
 
 				Menu.Print("New task registered.");
@@ -111,9 +139,9 @@ namespace Practice3_WorkersManagement
 
 		public void ListAllTeamNames()
 		{
-			Console.Clear();
-			Menu.Print("\n---------------------------------------------\n" +
-				"These are all the teams registered in the company:\n");
+			Menu.Print("===========================================================");
+			Menu.Print("These are all the teams registered in the company:\n" +
+			"\n---------------------------------------------\n");
 			foreach (Team team in Teams)
 			{
 				Menu.Print($"- {team.GetName()}");
@@ -123,22 +151,22 @@ namespace Practice3_WorkersManagement
 
 		public void ListAllTeamMembersByTeam()
 		{
-			Console.Clear();
-			Menu.Print("\n---------------------------------------------\n" +
-			"These are all team members by team:\n");
+			Menu.Print("===========================================================");
+			Menu.Print("These are all team members classified by team:\n" +
+			"\n---------------------------------------------\n");
 
-			HashSet<int> workersInTeams = new HashSet<int>();
+			List<int> workersInTeams = new();
 
 			//Loop through teams and list workers
 			foreach (Team team in Teams)
 			{
-				Menu.Print($"\n--- {team.GetName()} ---");
+				Menu.Print($"--- {team.GetName()} - manager: {team.GetManagerString()} ---\n");
 				bool hasMembers = false;
 
 				foreach (ITWorker worker in team.GetWorkers())
 				{
 					hasMembers = true;
-					workersInTeams.Add(worker.GetId()); //Checks if worker is part of a team
+					workersInTeams.Add(worker.GetId());
 					Menu.Print($"* {worker.GetFullName()} (Id-{worker.GetId()})");
 				}
 
@@ -166,9 +194,9 @@ namespace Practice3_WorkersManagement
 
 		public void ListUnassignedTasks()
 		{
-			Console.Clear();
-			Menu.Print("\n---------------------------------------------\n" +
-					"These are all the unassigned tasks:\n");
+			Menu.Print("===========================================================");
+			Menu.Print("These are all the unassigned tasks:\n" +
+			"\n---------------------------------------------\n");
 
 			foreach (Task task in Tasks)
 			{
@@ -183,20 +211,29 @@ namespace Practice3_WorkersManagement
 
 		public void ListTasksAssignmentsByTeam()
 		{
-			Console.Clear();
-			Menu.Print("\n---------------------------------------------\n" +
-				"These are all the assigned tasks:\n");
+			Menu.Print("===========================================================");
+			Menu.Print("These are all the assigned tasks:\n" +
+			"\n---------------------------------------------\n");
 
 			foreach (Team team in Teams)
 			{
-				Menu.Print($"\n--- {team.GetName()} - manager: {team.GetManagerString()} ---");
+				Menu.Print($"--- {team.GetName()} - manager: {team.GetManagerString()} ---\n");
 
 				bool hasTasks = false;
 
 				foreach (Task task in Tasks)
 				{
 					//Check if the worker is in the team
-					bool workerInTeam = team.GetWorkers().Any(worker => worker.GetId() == task.GetWorkerId());
+					bool workerInTeam = false;
+
+					foreach (ITWorker worker in team.GetWorkers())
+					{
+						if (worker.GetId() == task.GetWorkerId())
+						{
+							workerInTeam = true;
+							break;
+						}
+					}
 
 					if (workerInTeam)
 					{
@@ -216,46 +253,60 @@ namespace Practice3_WorkersManagement
 
 		public void AssignTeamManager()
 		{
-			Menu.PrintMenu("\n---------------------------------------------\n" +
+			Console.Clear();
+			bool isValid = false;
+			while (!isValid)
+			{
+
+				string teamName = Menu.GetValidStringInput("\n---------------------------------------------\n" +
 				"Write the team's name where you want to assign a manager:\n");
-			string input = Menu.GetInputString();
-			if (input.Equals(Menu.ERROR_VALUE_S))
-			{
-				Menu.PrintError("Empty name not valid.");
-				AssignTeamManager();
-			}
+				if (teamName == null) continue;
 
-				Menu.PrintMenu("Introduce the worker's ID:");
-			int managerId = Menu.GetInputParsedInt();
-			if (managerId == Menu.ERROR_VALUE || managerId > Worker.IdCount)
-			{
-				Menu.PrintError("Invalid ID");
-				AssignTeamManager();
-			}
-
-			if (!input.Equals(Menu.ERROR_VALUE_S))
-			{
-				foreach (Team team in Teams)
+				int managerId = Menu.GetValidIntInput("Introduce the worker's ID:");
+				if (managerId == Menu.ERROR_VALUE || managerId > Worker.IdCount)
 				{
-					if (team.GetName().ToLower().Equals(input.ToLower()))
+					Console.Clear();
+					Menu.PrintError("Worker ID unvalid.");
+					continue;
+				}
+
+				try
+				{
+					ITWorker manager = ITWorkers[managerId];
+					if (ITWorkers[managerId].GetLevel() == ITWorker.Level.Senior)
 					{
-						try
+						if (manager.IsManager())
 						{
-							ITWorker manager = ITWorkers[managerId];
-							if (ITWorkers[managerId].GetLevel() == ITWorker.Level.Senior)
+							Console.Clear();
+							Menu.PrintError("This worker is already a manager in a team.");
+							continue;
+						}
+
+						foreach (Team team in Teams)
+						{
+							if (team.GetName().ToLower().Equals(teamName.ToLower()))
 							{
 								team.SetManager(manager);
-								team.AddWorker(manager);
+								Menu.Print($"Worker {manager.GetFullName()} Id-{managerId} assigned as team {team.GetName()} manager.");
+								isValid = true;
+								break;
 							}
 						}
-						catch (Exception)
-						{
-							Menu.PrintError("Worker ID not found.");
-							throw;
-						}
+					}
+					else
+					{
+						Console.Clear();
+						Menu.PrintError("Worker must be senior to be a manager in a team.");
 					}
 				}
+				catch (Exception)
+				{
+					Console.Clear();
+					Menu.PrintError("Worker ID not found.");
+					throw;
+				}
 			}
+
 		}
 
 		public void AddTechnicianToTeam()
@@ -286,6 +337,7 @@ namespace Practice3_WorkersManagement
 						try
 						{
 							team.AddWorker(ITWorkers[workerId]);
+							Menu.Print($"TWorker {ITWorkers[workerId].GetFullName()} ID-{ITWorkers[workerId].GetId()} assigned successfully to team {team.GetName()}");
 						}
 						catch (Exception)
 						{
@@ -314,6 +366,7 @@ namespace Practice3_WorkersManagement
 					if (knowledges.Contains(Tasks[taskId].GetTechnology()))
 					{
 						Tasks[taskId].AssignWorker(workerId);
+						Menu.Print($"Task ID-{taskId} {Tasks[taskId].GetDescription()} assigned succesfully to worker {ITWorkers[workerId].GetFullName()} ID-{ITWorkers[workerId].GetId()}");
 						return;
 					}
 					else Menu.PrintError("Worker has not the correct knowledge");
@@ -330,22 +383,31 @@ namespace Practice3_WorkersManagement
 
 			if (input > Menu.ERROR_VALUE && input < Worker.IdCount)
 			{
-				foreach(Task task in Tasks)
+				ITWorker worker = ITWorkers[input];
+				foreach (Task task in Tasks)
 				{
 					if (task.GetWorkerId() == input) task.UnassignWorker();
 				}
-				foreach(Team team in Teams)
+				foreach (Team team in Teams)
 				{
-					if(!team.DeleteWorker(ITWorkers[input]))
+					if (team.IsManager(worker))
 					{
 						Menu.PrintError($"You cannot remove this worker because they are a manager in {team.GetName()}.\n" +
 						$"Please assign another manager first.");
 						return;
 					}
+					team.DeleteWorker(worker);
+					Menu.Print($"Worker {worker.GetFullName()} with ID-{worker.GetId()} removed from {team.GetName()} team.");
 				}
-				if (!ITWorkers.Remove(ITWorkers[input])) Menu.PrintError("Worker ID not found.");
+				if (!ITWorkers.Contains(worker))
+				{
+					Menu.PrintError("Worker ID not found.");
+					return;
+				}
+				ITWorkers.Remove(worker);
+				Menu.Print($"Worker {worker.GetFullName()} with ID-{worker.GetId()} removed from database.");
 			}
-			else Menu.PrintError("Invalid worker ID.");
+			else Menu.PrintError("Invalid ID.");
 		}
 
 		static List<string> GetKnowledges()
@@ -380,11 +442,11 @@ namespace Practice3_WorkersManagement
 
 		public void Initialize()
 		{
-			ITWorkers.Add(new("Felix", "Leigo", 10, new(){ "python", "sql", "java" }, DateTime.ParseExact("20-02-1987", "dd-MM-yyyy", null), DateTime.ParseExact("15-02-2029", "dd-MM-yyyy", null)));
-			ITWorkers.Add(new("Ramona", "Misiva", 7, new(){ "sql", "java" }, DateTime.ParseExact("05-04-1998", "dd-MM-yyyy", null), DateTime.ParseExact("15-02-2029", "dd-MM-yyyy", null)));
-			ITWorkers.Add(new("Leticia", "Olivia", 2, new(){ "python", "java" }, DateTime.ParseExact("25-12-2003", "dd-MM-yyyy", null), DateTime.ParseExact("15-02-2029", "dd-MM-yyyy", null)));
-			ITWorkers.Add(new("Nathan", "Carrera", 5, new(){ "sql", "css" }, DateTime.ParseExact("12-08-1995", "dd-MM-yyyy", null), DateTime.ParseExact("15-02-2029", "dd-MM-yyyy", null)));
-			ITWorkers.Add(new("Pol", "Rubio", 4, new(){ "java", "c#" }, DateTime.ParseExact("29-06-2000", "dd-MM-yyyy", null), DateTime.ParseExact("15-02-2029", "dd-MM-yyyy", null)));
+			ITWorkers.Add(new("Felix", "Leigo", 10, new() { "python", "sql", "java" }, DateTime.ParseExact("20-02-1987", "dd-MM-yyyy", null), DateTime.ParseExact("15-02-2029", "dd-MM-yyyy", null)));
+			ITWorkers.Add(new("Ramona", "Misiva", 7, new() { "sql", "java" }, DateTime.ParseExact("05-04-1998", "dd-MM-yyyy", null), DateTime.ParseExact("15-02-2029", "dd-MM-yyyy", null)));
+			ITWorkers.Add(new("Leticia", "Olivia", 2, new() { "python", "java" }, DateTime.ParseExact("25-12-2003", "dd-MM-yyyy", null), DateTime.ParseExact("15-02-2029", "dd-MM-yyyy", null)));
+			ITWorkers.Add(new("Nathan", "Carrera", 5, new() { "sql", "css" }, DateTime.ParseExact("12-08-1995", "dd-MM-yyyy", null), DateTime.ParseExact("15-02-2029", "dd-MM-yyyy", null)));
+			ITWorkers.Add(new("Pol", "Rubio", 4, new() { "java", "c#" }, DateTime.ParseExact("29-06-2000", "dd-MM-yyyy", null), DateTime.ParseExact("15-02-2029", "dd-MM-yyyy", null)));
 
 			Teams.Add(new("Data Science", ITWorkers[3]));
 			Teams.Add(new("Front End Web", ITWorkers[1]));

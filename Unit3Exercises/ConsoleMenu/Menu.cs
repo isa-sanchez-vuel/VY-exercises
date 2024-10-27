@@ -26,7 +26,8 @@ namespace ConsoleMenu
 
 		public static void PrintError(string message)
 		{
-			Console.Error.WriteLine("ERROR: " + message);
+			Console.Clear();
+			Console.WriteLine("ERROR: " + message);
 		}
 
 		public static int GetInputParsedInt()
@@ -63,6 +64,30 @@ namespace ConsoleMenu
 
 
 
+		public static int GetValidIntInput(string prompt)
+		{
+			PrintMenu(prompt);
+			int value = GetInputParsedInt();
+			if (value == ERROR_VALUE)
+			{
+				Console.Clear();
+				PrintError("Invalid number.");
+			}
+			return value;
+		}
+
+		public static decimal GetValidDecimalInput(string prompt)
+		{
+			PrintMenu(prompt);
+			decimal value = GetInputParsedDecimal();
+			if (value == ERROR_VALUE)
+			{
+				Console.Clear();
+				PrintError("Invalid number.");
+			}
+			return value;
+		}
+
 		public static string GetValidStringInput(string prompt)
 		{
 			PrintMenu(prompt);
@@ -89,29 +114,7 @@ namespace ConsoleMenu
 			return DateTime.MinValue;
 		}
 
-		public static int GetValidIntInput(string prompt)
-		{
-			PrintMenu(prompt);
-			int value = GetInputParsedInt();
-			if (value == ERROR_VALUE)
-			{
-				Console.Clear();
-				PrintError("Invalid number.");
-			}
-			return value;
-		}
 
-		public static decimal GetValidDecimalInput(string prompt)
-		{
-			PrintMenu(prompt);
-			decimal value = GetInputParsedDecimal();
-			if (value == ERROR_VALUE)
-			{
-				Console.Clear();
-				PrintError("Invalid number.");
-			}
-			return value;
-		}
 	}
 
 }

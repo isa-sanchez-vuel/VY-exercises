@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Practice3_Part2_WorkersManagement;
+namespace Practice3_Part2_WorkersManagement
 {
 	internal class Team
 	{
@@ -22,13 +22,26 @@ namespace Practice3_Part2_WorkersManagement;
 
 		public void SetManager(ITWorker newManager)
 		{
-			Manager = null;
+			Manager.SetManager(false);
 			Manager = newManager;
+			Manager.SetManager(true);
+			Technicians.Add(newManager);
+		}
+
+		public bool IsManager(ITWorker worker)
+		{
+			if (worker.GetId() == Manager.GetId()) return true;
+			else return false;
 		}
 
 		public string GetName()
 		{
 			return Name;
+		}
+
+		public int GetManagerId()
+		{
+			return Manager.GetId();
 		}
 
 		public string GetManagerString()
@@ -41,11 +54,10 @@ namespace Practice3_Part2_WorkersManagement;
 			Technicians.Add(worker);
 		}
 
-		public bool DeleteWorker(ITWorker worker)
+		public void DeleteWorker(ITWorker worker)
 		{
-			if (worker.GetId() == Manager.GetId()) return false;
+			
 			Technicians.Remove(worker);
-			return true;
 		}
 
 		public List<ITWorker> GetWorkers()

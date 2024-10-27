@@ -1,12 +1,6 @@
-﻿using ConsoleMenu;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Practice3_WorkersManagement
+﻿namespace Practice3_WorkersManagement
 {
+
 	internal class Team
 	{
 		string Name;
@@ -22,8 +16,16 @@ namespace Practice3_WorkersManagement
 
 		public void SetManager(ITWorker newManager)
 		{
-			Manager = null;
+			Manager.SetManager(false);
 			Manager = newManager;
+			Manager.SetManager(true);
+			Technicians.Add(newManager);
+		}
+
+		public bool IsManager(ITWorker worker)
+		{
+			if (worker.GetId() == Manager.GetId()) return true;
+			else return false;
 		}
 
 		public string GetName()
@@ -31,9 +33,14 @@ namespace Practice3_WorkersManagement
 			return Name;
 		}
 
+		public int GetManagerId()
+		{
+			return Manager.GetId();
+		}
+
 		public string GetManagerString()
 		{
-			return Manager.GetFullName() +" Id-" + Manager.GetId();
+			return Manager.GetFullName() + " Id-" + Manager.GetId();
 		}
 
 		public void AddWorker(ITWorker worker)
@@ -41,11 +48,10 @@ namespace Practice3_WorkersManagement
 			Technicians.Add(worker);
 		}
 
-		public bool DeleteWorker(ITWorker worker)
+		public void DeleteWorker(ITWorker worker)
 		{
-			if (worker.GetId() == Manager.GetId()) return false;
+
 			Technicians.Remove(worker);
-			return true;
 		}
 
 		public List<ITWorker> GetWorkers()

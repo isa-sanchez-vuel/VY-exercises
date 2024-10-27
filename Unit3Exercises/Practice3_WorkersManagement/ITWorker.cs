@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Practice3_WorkersManagement.ITWorker;
-namespace Practice3_WorkersManagement
+﻿namespace Practice3_WorkersManagement
 {
 	internal class ITWorker : Worker
 	{
@@ -18,25 +11,43 @@ namespace Practice3_WorkersManagement
 
 		protected int YearsOfExperience;
 		protected List<string> TechKnowledges;
-		
+
 		Level WorkerLevel;
+
+		bool isManager;
+
+		public ITWorker()
+		{
+
+		}
 
 		public ITWorker(string newName, string newSurname, int experience, List<string> knowledges, DateTime birth, DateTime leaving)
 		{
 			TechKnowledges = new();
-			IdCount++;
 			Id = IdCount;
+			IdCount++;
 			Name = newName;
 			Surname = newSurname;
 			BirthDate = birth;
 			LeavingDate = leaving;
 			YearsOfExperience = experience;
-			foreach (string k in knowledges) {
+			foreach (string k in knowledges)
+			{
 				TechKnowledges.Add(k);
 			}
 			SetLevel();
+			isManager = false;
 		}
 
+		public void SetManager(bool isManager)
+		{
+			this.isManager = isManager;
+		}
+
+		public bool IsManager()
+		{
+			return isManager;
+		}
 
 		public void SetLevel()
 		{
@@ -44,7 +55,7 @@ namespace Practice3_WorkersManagement
 			{
 				WorkerLevel = Level.Senior;
 			}
-			else if (YearsOfExperience > 2) 
+			else if (YearsOfExperience > 2)
 			{
 				WorkerLevel = Level.Medium;
 			}
