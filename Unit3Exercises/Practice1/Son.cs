@@ -26,7 +26,7 @@ namespace Practice1
 		public void PrintAllValues()
 		{
 			Console.WriteLine(
-				"\n=========================\n" +
+				"\n=========================\n\n" +
 				$"- {Field1S}\n" +
 				$"- {Field2S}\n" +
 				$"- {Field3S}\n" +
@@ -55,11 +55,11 @@ namespace Practice1
 			input = Menu.GetValidStringInput("Change field 3 Father");
 			if (input != null) SetField3F(input);
 
-			Menu.GetValidStringInput("Change field 1 Grandfather");
+			input = Menu.GetValidStringInput("Change field 1 Grandfather");
 			if (input != null) Field1G = input;
-			Menu.GetValidStringInput("Change field 2 Grandfather");
+			input = Menu.GetValidStringInput("Change field 2 Grandfather");
 			if (input != null)  Field2G = input;
-			Menu.GetValidStringInput("Change field 3 Grandfather");
+			input = Menu.GetValidStringInput("Change field 3 Grandfather");
 			if (input != null) SetField3G(input);
 
 			PrintAllValues();

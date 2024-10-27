@@ -15,7 +15,6 @@ void Initialize()
 {
 	Son = new();
 	Console.OutputEncoding = Encoding.UTF8;
-	Console.InputEncoding = Encoding.UTF8;
 }
 
 void OpenMenu()

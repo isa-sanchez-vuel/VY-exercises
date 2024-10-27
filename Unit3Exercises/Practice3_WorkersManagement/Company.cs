@@ -139,6 +139,7 @@ namespace Practice3_WorkersManagement
 
 		public void ListAllTeamNames()
 		{
+			Console.Clear();
 			Menu.Print("===========================================================");
 			Menu.Print("These are all the teams registered in the company:\n" +
 			"\n---------------------------------------------\n");
@@ -151,6 +152,7 @@ namespace Practice3_WorkersManagement
 
 		public void ListAllTeamMembersByTeam()
 		{
+			Console.Clear();
 			Menu.Print("===========================================================");
 			Menu.Print("These are all team members classified by team:\n" +
 			"\n---------------------------------------------\n");
@@ -194,6 +196,7 @@ namespace Practice3_WorkersManagement
 
 		public void ListUnassignedTasks()
 		{
+			Console.Clear();
 			Menu.Print("===========================================================");
 			Menu.Print("These are all the unassigned tasks:\n" +
 			"\n---------------------------------------------\n");
@@ -211,6 +214,7 @@ namespace Practice3_WorkersManagement
 
 		public void ListTasksAssignmentsByTeam()
 		{
+			Console.Clear();
 			Menu.Print("===========================================================");
 			Menu.Print("These are all the assigned tasks:\n" +
 			"\n---------------------------------------------\n");

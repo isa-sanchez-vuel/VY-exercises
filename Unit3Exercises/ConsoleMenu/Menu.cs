@@ -56,31 +56,17 @@ namespace ConsoleMenu
 			else return ERROR_VALUE_S;
 		}
 
-
-
 		public static int GetValidIntInput(string prompt)
 		{
 			PrintMenu(prompt);
 			int value = GetInputParsedInt() * 1;
 			if (value == ERROR_VALUE)
 			{
-				Console.Clear();
 				PrintError("Invalid number.");
 			}
 			return value;
 		}
 
-		public static decimal GetValidDecimalInputClear(string prompt)
-		{
-			PrintMenu(prompt);
-			decimal value = GetInputParsedDecimal() * 1;
-			if (value == ERROR_VALUE)
-			{
-				Console.Clear();
-				PrintError("Invalid number.");
-			}
-			return value;
-		}
 
 		public static decimal GetValidDecimalInput(string prompt)
 		{
@@ -88,7 +74,6 @@ namespace ConsoleMenu
 			decimal value = GetInputParsedDecimal() * 1;
 			if (value == ERROR_VALUE)
 			{
-				Console.Clear();
 				PrintError("Invalid number.");
 			}
 			return value;
@@ -100,7 +85,6 @@ namespace ConsoleMenu
 			string input = GetInputString();
 			if (input.Equals(ERROR_VALUE_S))
 			{
-				Console.Clear();
 				PrintError("Invalid input.");
 				return null;
 			}
@@ -113,7 +97,7 @@ namespace ConsoleMenu
 			string input = GetInputString();
 			if (input.Equals(ERROR_VALUE_S))
 			{
-				PrintError("Invalid input.");
+				Print("Invalid input.");
 				return null;
 			}
 			return input;
@@ -127,7 +111,6 @@ namespace ConsoleMenu
 			{
 				return date;
 			}
-			Console.Clear();
 			PrintError("Date format not valid.");
 			return DateTime.MinValue;
 		}

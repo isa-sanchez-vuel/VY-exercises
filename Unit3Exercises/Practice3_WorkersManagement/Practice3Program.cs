@@ -49,7 +49,7 @@ void OpenMenu()
 		"	10. Assign task to IT worker\n" +
 		"	11. Unregister IT worker\n" +
 		$"	{EXIT_OPTION}. Exit" +
-		"------------------------------------------------------");
+		"\n------------------------------------------------------");
 	Option = Menu.GetInputParsedInt();
 
 	if (Option > 0 && Option < EXIT_OPTION) ManageOptions();
