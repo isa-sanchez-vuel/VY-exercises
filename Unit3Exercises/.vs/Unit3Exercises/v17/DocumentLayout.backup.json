@@ -3,8 +3,20 @@
   "WorkspaceRootPath": "C:\\Projects\\VY-exercises\\Unit3Exercises\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{EE288915-4267-4D8F-8BC8-4CE2FCFEDA78}|Practice3_Part2_WorkersManagement\\Practice3_Part2_WorkersManagement.csproj|c:\\projects\\vy-exercises\\unit3exercises\\practice3_part2_workersmanagement\\company.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EE288915-4267-4D8F-8BC8-4CE2FCFEDA78}|Practice3_Part2_WorkersManagement\\Practice3_Part2_WorkersManagement.csproj|solutionrelative:practice3_part2_workersmanagement\\company.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{822DF4CA-5D32-4AB5-A97B-67053EC36A65}|ConsoleMenu\\ConsoleMenu.csproj|c:\\projects\\vy-exercises\\unit3exercises\\consolemenu\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{822DF4CA-5D32-4AB5-A97B-67053EC36A65}|ConsoleMenu\\ConsoleMenu.csproj|solutionrelative:consolemenu\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{696E59C3-9F21-4239-B47D-43352189929B}|Practice2_OOPMultiBankAccount\\Practice2_OOPMultiBankAccount.csproj|c:\\projects\\vy-exercises\\unit3exercises\\practice2_oopmultibankaccount\\movement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{696E59C3-9F21-4239-B47D-43352189929B}|Practice2_OOPMultiBankAccount\\Practice2_OOPMultiBankAccount.csproj|solutionrelative:practice2_oopmultibankaccount\\movement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{696E59C3-9F21-4239-B47D-43352189929B}|Practice2_OOPMultiBankAccount\\Practice2_OOPMultiBankAccount.csproj|c:\\projects\\vy-exercises\\unit3exercises\\practice2_oopmultibankaccount\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{696E59C3-9F21-4239-B47D-43352189929B}|Practice2_OOPMultiBankAccount\\Practice2_OOPMultiBankAccount.csproj|solutionrelative:practice2_oopmultibankaccount\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{696E59C3-9F21-4239-B47D-43352189929B}|Practice2_OOPMultiBankAccount\\Practice2_OOPMultiBankAccount.csproj|c:\\projects\\vy-exercises\\unit3exercises\\practice2_oopmultibankaccount\\bank.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{696E59C3-9F21-4239-B47D-43352189929B}|Practice2_OOPMultiBankAccount\\Practice2_OOPMultiBankAccount.csproj|solutionrelative:practice2_oopmultibankaccount\\bank.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -35,14 +47,51 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Company.cs",
-              "DocumentMoniker": "C:\\Projects\\VY-exercises\\Unit3Exercises\\Practice3_Part2_WorkersManagement\\Company.cs",
-              "RelativeDocumentMoniker": "Practice3_Part2_WorkersManagement\\Company.cs",
-              "ToolTip": "C:\\Projects\\VY-exercises\\Unit3Exercises\\Practice3_Part2_WorkersManagement\\Company.cs",
-              "RelativeToolTip": "Practice3_Part2_WorkersManagement\\Company.cs",
-              "ViewState": "AgIAACUCAAAAAAAAAAAAAGMCAAAQAAAAAAAAAA==",
+              "Title": "Menu.cs",
+              "DocumentMoniker": "C:\\Projects\\VY-exercises\\Unit3Exercises\\ConsoleMenu\\Menu.cs",
+              "RelativeDocumentMoniker": "ConsoleMenu\\Menu.cs",
+              "ToolTip": "C:\\Projects\\VY-exercises\\Unit3Exercises\\ConsoleMenu\\Menu.cs",
+              "RelativeToolTip": "ConsoleMenu\\Menu.cs",
+              "ViewState": "AgIAAGcAAAAAAAAAAAAuwHMAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-27T22:35:53.459Z",
+              "WhenOpened": "2024-10-30T12:43:55.471Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Bank.cs",
+              "DocumentMoniker": "C:\\Projects\\VY-exercises\\Unit3Exercises\\Practice2_OOPMultiBankAccount\\Bank.cs",
+              "RelativeDocumentMoniker": "Practice2_OOPMultiBankAccount\\Bank.cs",
+              "ToolTip": "C:\\Projects\\VY-exercises\\Unit3Exercises\\Practice2_OOPMultiBankAccount\\Bank.cs",
+              "RelativeToolTip": "Practice2_OOPMultiBankAccount\\Bank.cs",
+              "ViewState": "AgIAAMkAAAAAAAAAAAAuwOsAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-29T20:09:59.304Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Account.cs",
+              "DocumentMoniker": "C:\\Projects\\VY-exercises\\Unit3Exercises\\Practice2_OOPMultiBankAccount\\Account.cs",
+              "RelativeDocumentMoniker": "Practice2_OOPMultiBankAccount\\Account.cs",
+              "ToolTip": "C:\\Projects\\VY-exercises\\Unit3Exercises\\Practice2_OOPMultiBankAccount\\Account.cs",
+              "RelativeToolTip": "Practice2_OOPMultiBankAccount\\Account.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGQAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-29T20:10:52.004Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Movement.cs",
+              "DocumentMoniker": "C:\\Projects\\VY-exercises\\Unit3Exercises\\Practice2_OOPMultiBankAccount\\Movement.cs",
+              "RelativeDocumentMoniker": "Practice2_OOPMultiBankAccount\\Movement.cs",
+              "ToolTip": "C:\\Projects\\VY-exercises\\Unit3Exercises\\Practice2_OOPMultiBankAccount\\Movement.cs",
+              "RelativeToolTip": "Practice2_OOPMultiBankAccount\\Movement.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-29T19:58:00.866Z",
               "EditorCaption": ""
             }
           ]

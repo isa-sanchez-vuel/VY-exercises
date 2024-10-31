@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Practice2_OOPMultiBankAccount")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2432ce945bc3b8eee9706ec08f67e782cf200ed5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e957b9635e5ae902b8816dda45fe7ab45eadd2b0")]
 [assembly: System.Reflection.AssemblyProductAttribute("Practice2_OOPMultiBankAccount")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Practice2_OOPMultiBankAccount")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

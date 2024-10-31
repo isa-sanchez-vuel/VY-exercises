@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OOPBankMultiuser.Infrastructure.Contracts\OOPBankMultiuser.Infrastructure.Contracts.csproj" />
+    <ProjectReference Include="..\OOPBankMultiuser.XCutting.Enums\OOPBankMultiuser.XCutting.Enums.csproj" />
+  </ItemGroup>
+
+</Project>
