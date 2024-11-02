@@ -1,95 +1,72 @@
 ﻿using System.Text;
-using OOPBankMultiuser.Application.Contracts.DTOs;
-using OOPBankMultiuser.Business.Contracts;
-using OOPBankMultiuser.Business.Contracts.DTOs;
+using OOPBankMultiuser.Application.Contracts;
 using OOPBankMultiuser.Domain.Models;
+using OOPBankMultiuser.Infrastructure.Contracts;
 using OOPBankMultiuser.XCutting.Enums;
+using OOPBankMultiuser.Application.Contracts.DTOs.AccountOperations;
+using OOPBankMultiuser.Application.Contracts.DTOs.ModelDTOs;
+using OOPBankMultiuser.Application.Contracts.DTOs.BankOperations;
 
 
 namespace OOPBankMultiuser.Presentation.ConsoleUI
 {
-	internal class MainMenu
+    internal class MainMenu
 	{
 
 		private readonly IAccountService _account;
+		private readonly IBankService _bank;
+
+		private LoginManager Manager = new();
 
 		const int EXIT_OPTION = 0;
-		const int MAX_LOGIN_ATTEMPTS = 5;
-
-		int LoginAttempts;
 
 		bool Exit;
-		bool Logged;
 
-		string UserAccount;
-		string UserPin;
 
 		int Option;
 
-		AccountModel? Account = new();
 
-		//BankModel Bank;
-
-		public MainMenu(IAccountService accountService)
+		public MainMenu(IAccountService accountService, IBankService bankService)
 		{
 			_account = accountService;
+			_bank = bankService;
+			Initialize();
 		}
 
+		void Initialize()
+		{
+			Console.OutputEncoding = Encoding.UTF8;
+		}
+
+		#region MENU NAVIGATION
 		public void StartApplication()
 		{
-			LoginAttempts = 0;
 			Exit = false;
-			Logged = false;
 
-			OpenLogin();
-			if (Logged && Account != null)
+			AccountDTO? account = Manager.StartLogin(_bank);
+			if (Manager.Logged && account != null)
 			{
-				OpenMenu();
-
-				if (!Exit) StartApplication();
-				else if (Exit) ExitApplication();
-			}
-		}
-
-		void OpenLogin()
-		{
-			Console.Clear();
-			while (!Logged)
-			{
-				Logged = false;
-
-				if (LoginAttempts > 0 && LoginAttempts < MAX_LOGIN_ATTEMPTS - 1) MenuOutput.Print($"ERROR: Credentials not valid. Try again.\nAttempts left: {MAX_LOGIN_ATTEMPTS - LoginAttempts}.");
-				else if (MAX_LOGIN_ATTEMPTS - LoginAttempts == 1) MenuOutput.Print("ERROR: Credentials not valid. This is your last attempt.");
-				else if (LoginAttempts >= MAX_LOGIN_ATTEMPTS)
+				_bank.SetCurrentAccount(account);
+				if (_bank.GetCurrentAccount() != null)
 				{
-					MenuOutput.Print("ERROR: You cannot try to login again. Go to the bank's office to recover your credentials.");
-					return;
+					MenuOutput.Print("Login successful.");
+					ShowMenu();
+				}
+				else
+				{
+					Manager.Logged = false;
+					MenuOutput.PrintError("Login unsuccessful.");
 				}
 
-				if (LoginAttempts < MAX_LOGIN_ATTEMPTS)
-				{
-					Console.WriteLine($"Welcome to our application. Please login with your account number and pin.");
-
-					UserAccount = MenuInput.GetValidStringInputClear("\nAccount number:");
-
-					UserPin = MenuInput.GetValidStringInputClear("\nPin:");
-
-					//Account = Bank.CheckAccountLogin(UserAccount, UserPin);
-
-					//if (_account.AccountIsLogged() != null) Logged = true;
-
-					if (!Logged)
-					{
-						LoginAttempts++;
-					}
-				}
 			}
+			if (!Exit) StartApplication();
+			else if (Exit) ExitApplication();
 		}
 
-		void OpenMenu()
+		void ShowMenu()
 		{
-			Console.Clear();
-			MenuOutput.PrintMenu($"Welcome to your account, {_account.GetUserData()}! What do you wish to do?\n\n" +
+			MenuOutput.ClearConsole();
+			Option = MenuInput.GetValidIntInput($"Welcome to your account, {_bank.GetCurrentAccount().OwnerName}! What do you wish to do?\n\n" +
 				$"1 - Money Income\n" +
 				$"2 - Money Outcome\n" +
 				$"3 - See movement history\n" +
@@ -99,16 +76,23 @@ namespace OOPBankMultiuser.Presentation.ConsoleUI
 				$"7 - See account data\n" +
 				$"{EXIT_OPTION} - Logout\n\n" +
 				$"Please choose an option:");
-			Option = MenuInput.GetInputParsedInt();
+			ManageMenuOption();
+		}
 
-			if (Option > 0 && Option < EXIT_OPTION) ManageOptions();
-			else if (Option == EXIT_OPTION) Logged = false;
-			else MenuOutput.PrintError("Invalid option. Try again.");
+		private void ManageMenuOption()
+		{
+			if (Option > 0) ManageOptions();
+			else if (Option == EXIT_OPTION) Manager.Logged = false;
+			else
+			{
+				MenuOutput.ClearConsole();
+				MenuOutput.PrintError("Invalid option. Try again.");
+			}
 
 			if (!Exit)
 			{
-				if (Logged) OpenMenu();
-				else if (!Logged) AskCloseApplication();
+				if (Manager.Logged) ShowMenu();
+				else if (!Manager.Logged) AskCloseApplication();
 			}
 		}
 
@@ -147,50 +131,37 @@ namespace OOPBankMultiuser.Presentation.ConsoleUI
 			AskCloseSession();
 		}
 
+		#endregion
+
+		#region EXIT
 		void AskCloseSession()
 		{
-			MenuOutput.PrintMenu($"Press {EXIT_OPTION} to close your session, press any other key if you wish to execute another action:");
-			Option = MenuInput.GetInputParsedInt();
-			if (Option == EXIT_OPTION) Logged = false;
+			Option = MenuInput.GetValidIntInput($"Press {EXIT_OPTION} to close your session, press any other key if you wish to execute another action:");
+			if (Option == EXIT_OPTION) Manager.Logged = false;
 		}
 
 		void AskCloseApplication()
 		{
-			Logged = false;
-			Console.Clear();
-			Console.WriteLine("\nClosing session...\n");
-			MenuOutput.PrintMenu($"Press {EXIT_OPTION} to close the application, press any other key if you wish to access other account:");
-			Option = MenuInput.GetInputParsedInt();
+			MenuOutput.ClearConsole();
+			MenuOutput.Print("\nClosing session...\n");
+			Option = MenuInput.GetValidIntInput($"Press {EXIT_OPTION} to close the application, press any other key if you wish to access other account:");
 			if (Option == EXIT_OPTION) Exit = true;
 		}
 
 		void ExitApplication()
 		{
-			Console.WriteLine("======================================" +
+			MenuOutput.ClearConsole();
+			MenuOutput.Print("======================================\n" +
 							"|| Closing application...            ||\n" +
 							"|| Thank you for using our services! ||\n" +
 							"======================================");
 		}
 
-		void Initialize()
-		{
-			Console.OutputEncoding = Encoding.UTF8;
+		#endregion
 
-			Bank = new("PoatatoBank S.L", "ES", "3000", "54", "4790");
+		#region OPTIONS
 
-			Bank.CreateAccount("1122334455", "1111", "Francisco Bezerra");
-			Bank.CreateAccount("2233445566", "2222", "Manel Joaquin Terez");
-			Bank.CreateAccount("3344556677", "3333", "Ithiar Lobillo");
-			Bank.CreateAccount("4455667788", "4444", "Laura Bastión");
-			Bank.CreateAccount("5566778899", "5555", "Pol Lorenzo Gutierrez");
-			Bank.CreateAccount("6677889900", "6666", "Marina Vilanova");
-
-			Bank.Initialize();
-		}
-
-
-
-		public void HandleIncome()
+		void HandleIncome()
 		{
 			string message = "";
 			decimal income = MenuInput.GetValidDecimalInput("Please write how much you want to deposit:");
@@ -201,7 +172,7 @@ namespace OOPBankMultiuser.Presentation.ConsoleUI
 
 				if (result.ResultHasErrors)
 				{
-					ManageIncomeErrors(result);
+					message = ManageIncomeErrors(result);
 				}
 				else message = $"{income}€ were added to your account.\nCurrent money: {result.TotalBalance:0.00}€";
 			}
@@ -210,7 +181,7 @@ namespace OOPBankMultiuser.Presentation.ConsoleUI
 			MenuOutput.Print(message);
 		}
 
-		private static string ManageIncomeErrors(IncomeResultDTO result)
+		static string ManageIncomeErrors(IncomeResultDTO result)
 		{
 			return result.Error switch
 			{
@@ -220,17 +191,7 @@ namespace OOPBankMultiuser.Presentation.ConsoleUI
 			};
 		}
 
-		private static string ManageOutcomeErrors(IncomeResultDTO result)
-		{
-			return result.Error switch
-			{
-				IncomeErrorEnum.NegativeValue => "ERROR: Input can't be a negative value.",
-				IncomeErrorEnum.OverMaxIncome => $"ERROR: Income can't be higher than {result.MaxIncomeAllowed:0.00}€.",
-				_ => "",
-			};
-		}
-
-		public void HandleOutcome()
+		void HandleOutcome()
 		{
 			string message = "";
 			decimal outcome = MenuInput.GetValidDecimalInput("Please write how much you want to withdraw:");
@@ -241,7 +202,7 @@ namespace OOPBankMultiuser.Presentation.ConsoleUI
 
 				if (result.ResultHasErrors)
 				{
-					ManageOutcomeErrors(result);
+					message = ManageOutcomeErrors(result);
 				}
 				else message = $"{outcome}€ were withdrawn from your account.\nCurrent money: {result.TotalBalance:0.00}€";
 			}
@@ -250,7 +211,7 @@ namespace OOPBankMultiuser.Presentation.ConsoleUI
 			MenuOutput.Print(message);
 		}
 
-		private static string ManageOutcomeErrors(OutcomeResultDTO result)
+		static string ManageOutcomeErrors(OutcomeResultDTO result)
 		{
 			return result.Error switch
 			{
@@ -266,17 +227,18 @@ namespace OOPBankMultiuser.Presentation.ConsoleUI
 			string message;
 
 			MovementListDTO movementData = _account.GetAllMovements();
-			if (movementData.Movements.Count == 0) message = "No movements registered.";
-			else
+			if (movementData.Movements.Count > 0 && movementData != null)
 			{
 				message = "====== All Movements ======";
 
 				foreach (MovementDTO movement in movementData.Movements)
 				{
-					message+=$"\n|| {movement.Timestamp:dd/MM/yyyy-hh:mm:ss} || {movement.Content:0.00}€";
+					message += $"\n|| {movement.Timestamp:dd/MM/yyyy-hh:mm:ss} || {movement.Content:0.00}€";
 				}
-				message += $"================================\n              TOTAL | {movementData.TotalBalance:0.00}€";
+				message += $"\n================================\n              TOTAL | {movementData.TotalBalance:0.00}€";
 			}
+			else
+				message = "No movements registered.";
 
 			MenuOutput.Print(message);
 		}
@@ -286,8 +248,7 @@ namespace OOPBankMultiuser.Presentation.ConsoleUI
 			string message;
 
 			MovementListDTO incomeData = _account.GetIncomes();
-			if (incomeData.Movements.Count == 0) message = "No incomes registered.";
-			else
+			if (incomeData.Movements.Count != 0 && incomeData != null)
 			{
 				message = "====== All Incomes ======";
 
@@ -295,8 +256,10 @@ namespace OOPBankMultiuser.Presentation.ConsoleUI
 				{
 					message += $"\n|| {movement.Timestamp:dd/MM/yyyy-hh:mm:ss} || {movement.Content:0.00}€";
 				}
-				message += $"================================\n              TOTAL | {incomeData.TotalIncome:0.00}€";
+				message += $"\n================================\n              TOTAL | {incomeData.TotalIncome:0.00}€";
 			}
+			else
+				message = "No incomes registered.";
 
 			MenuOutput.Print(message);
 		}
@@ -315,7 +278,7 @@ namespace OOPBankMultiuser.Presentation.ConsoleUI
 				{
 					message += $"\n|| {movement.Timestamp:dd/MM/yyyy-hh:mm:ss} || {movement.Content:0.00}€";
 				}
-				message += $"================================\n              TOTAL | {incomeData.TotalOutcome:0.00}€";
+				message += $"\n================================\n              TOTAL | {incomeData.TotalOutcome:0.00}€";
 			}
 
 			MenuOutput.Print(message);
@@ -323,31 +286,46 @@ namespace OOPBankMultiuser.Presentation.ConsoleUI
 
 		void PrintAccountMoney()
 		{
-			MenuOutput.Print($"Current money available {_account.GetBalance():0.00}€.");
-		}
+			try { 
+				MenuOutput.Print($"Current money available {_account.GetBalance():0.00}€.");
+			}
+            catch (Exception)
+			{
+				MenuOutput.ClearConsole();
+				MenuOutput.PrintError("Failed to access account data.");
+			}
+	}
 
 		void PrintAccountData()
 		{
 			string message = "";
-			AccountResultDTO? result = _account?.GetAccountInfo();
 
-			if (result != null)
-			{
-				message += "==================================================================\n";
-				message += "||                                                              ||\n";
-				message += $"||\tUser: {result.OwnerName}                                 ||\n";
-				message += $"||\tIBAN: {result.Iban}                     ||\n";
-				message += $"||\tAccount number: {result.AccountNumber}                              ||\n";
-				message += $"||\tAccount pin: {result.Pin}                                       ||\n";
-				message += $"||\tCurrent money available {result.TotalBalance:0.00}€.                         ||\n";
-				message += "||                                                              ||\n";
-				message += "==================================================================";
+			try { 
+				AccountDTO? result = _account?.GetAccountInfo();
+
+				if (result != null)
+				{
+					message += "==================================================================\n";
+					message += "||\n";
+					message += $"||\tUser: {result.OwnerName}\n";
+					message += $"||\tIBAN: {result.Iban}\n";
+					message += $"||\tAccount number: {result.AccountNumber}\n";
+					message += $"||\tAccount pin: {result.Pin}\n";
+					message += $"||\tCurrent money available {result.TotalBalance:0.00}€.\n";
+					message += "||\n";
+					message += "==================================================================";
+				}
+				else message = "Account not found.";
 			}
-			else message = "Account not found.";
+			catch (Exception)
+			{
+				MenuOutput.ClearConsole();
+				MenuOutput.PrintError("Failed to access account data.");
+			}
 
+			MenuOutput.Print(message);
 		}
 
-
-	} 
-}
+		#endregion
+	}
 }

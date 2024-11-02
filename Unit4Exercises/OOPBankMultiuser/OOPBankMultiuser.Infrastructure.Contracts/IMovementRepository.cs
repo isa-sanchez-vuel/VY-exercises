@@ -10,8 +10,7 @@ namespace OOPBankMultiuser.Infrastructure.Contracts
 {
 	public interface IMovementRepository
 	{
-		List<MovementEntity> GetMovements();
-
+		List<MovementEntity> GetMovements(string currentAccountNumber);
 		void AddMovement(MovementEntity movement);
 	}
 }

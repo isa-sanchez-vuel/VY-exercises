@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OOPBankMultiuser.Infrastructure.Contracts.Entities;
 
 namespace OOPBankMultiuser.Infrastructure.Contracts
 {
 	public interface IBankRepository
 	{
+		BankEntity GetBankInfo();
 	}
 }

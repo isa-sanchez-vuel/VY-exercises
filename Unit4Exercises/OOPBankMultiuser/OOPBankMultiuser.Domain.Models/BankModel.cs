@@ -1,35 +1,20 @@
-﻿using System.Security.Principal;
-using System.Text;
+﻿using System.Text;
 
 namespace OOPBankMultiuser.Domain.Models
 {
 	public class BankModel
 	{
-		public string EntityName;
-		public string BankId;
-		public string ControlNum;
-		public string OfficeId;
-		public string CountryCode;
-		public List<AccountModel> Accounts = new();
+		public string EntityName { get; set; }
+		public string BankId { get; set; }
+		public string ControlNum { get; set; }
+		public string OfficeId { get; set; }
+		public string CountryCode { get; set; }
+		public List<AccountModel> Accounts { get; set; }
+		public AccountModel CurrentAccount { get; set; }
 
 
-		public BankModel(string name, string country, string id, string control, string officeNumber)
+		public void CreateAccount(string acId, string pin, string ownerName)
 		{
-			EntityName = name;
-			BankId = id;
-			ControlNum = control;
-			OfficeId = officeNumber;
-			CountryCode = country;
-		}
-
-		public bool CreateAccount(string acId, string pin, string ownerName)
-		{
-			if (!AccountModel.CheckNumberFormat(acId)) return false;
-			if (!CheckPinFormat(pin)) return false;
-			if (!CheckNumberLength(acId)) return false;
-			if (!CheckPinLength(pin)) return false;
-
-
 			Accounts?.Add(new AccountModel
 			{
 				OwnerName = ownerName,
@@ -37,7 +22,6 @@ namespace OOPBankMultiuser.Domain.Models
 				Pin = pin,
 				Iban = CreateIban(acId)
 			});
-			return true;
 		}
 
 		string CreateIban(string acId)
@@ -57,27 +41,24 @@ namespace OOPBankMultiuser.Domain.Models
 			return iban;
 		}
 
-		public Account? CheckAccountLogin(string accountId, string pin)
+		public AccountModel? FindAccount(string acNumber, string pin)
 		{
-			if (!CheckNumberFormat(accountId)) return null;
-			if (!CheckPinFormat(pin)) return null;
-			if (!CheckNumberLength(accountId)) return null;
-			if (!CheckPinLength(pin)) return null;
-
-			foreach (Account? account in Accounts)
+			foreach (AccountModel? account in Accounts)
 			{
-				if (accountId.Equals(account.GetId()) && pin.Equals(account.GetPin())) return account;
+				if (acNumber.Equals(account.AccountNumber) && pin.Equals(account.Pin))
+				{
+					return account;
+				}
 			}
-			Console.Clear();
-			Menu.PrintError("Account not found.");
 			return null;
 		}
 
 
+/*
 		public void Initialize()
 		{
 
-			Accounts[0].AddMovement($"{350:0.00}€", "+");
+			Accounts[0].Movements.Add($"{350:0.00}€", "+");
 			Accounts[0].AddMovement($"{60:0.00}€", "-");
 			Accounts[0].AddMovement($"{80:0.00}€", "+");
 			Accounts[0].AddMovement($"{300:0.00}€", "-");
@@ -110,6 +91,6 @@ namespace OOPBankMultiuser.Domain.Models
 			Accounts[5].AddMovement($"{200:0.00}€", "-");
 			Accounts[5].AddMovement($"{150:0.00}€", "-");
 			Accounts[5].AddIncome(650);
-		}
+		}*/
 	}
 }

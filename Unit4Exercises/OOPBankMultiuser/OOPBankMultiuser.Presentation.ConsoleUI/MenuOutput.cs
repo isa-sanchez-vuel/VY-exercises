@@ -22,8 +22,12 @@ namespace OOPBankMultiuser.Presentation.ConsoleUI
 
 		public static void PrintError(string message)
 		{
-			Console.Clear();
 			Console.WriteLine("ERROR: " + message);
+		}
+
+		public static void ClearConsole()
+		{
+			Console.Clear();
 		}
 	}
 }

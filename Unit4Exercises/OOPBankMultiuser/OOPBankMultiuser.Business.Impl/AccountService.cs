@@ -1,15 +1,14 @@
-﻿using OOPBankMultiuser.Business.Contracts;
-using OOPBankMultiuser.Business.Contracts.DTOs;
+﻿using OOPBankMultiuser.Application.Contracts;
 using OOPBankMultiuser.Domain.Models;
 using OOPBankMultiuser.Infrastructure.Contracts.Entities;
 using OOPBankMultiuser.Infrastructure.Contracts;
-using OOPBankMultiuser.Infrastructure.Impl;
 using OOPBankMultiuser.XCutting.Enums;
-using OOPBankMultiuser.Application.Contracts.DTOs;
+using OOPBankMultiuser.Application.Contracts.DTOs.AccountOperations;
+using OOPBankMultiuser.Application.Contracts.DTOs.ModelDTOs;
 
-namespace OOPBankMultiuser.Business.Impl
+namespace OOPBankMultiuser.Application.Impl
 {
-	public class AccountService : IAccountService
+    public class AccountService : IAccountService
 	{
 		private readonly IAccountRepository? _accountRepository;
 		private readonly IMovementRepository? _movementRepository;
@@ -34,47 +33,48 @@ namespace OOPBankMultiuser.Business.Impl
 			{
 				//get account and movement entities
 				AccountEntity? accountEntity = _accountRepository?.GetAccountInfo();
-				List<MovementEntity>? movementEntityList = _movementRepository?.GetMovements();
-
-				if (accountEntity != null && movementEntityList != null)
+				string? currentLoggedId = _accountRepository?.GetCurrentLoggedId();
+				if (currentLoggedId != null)
 				{
-					//map entity to model (infrastructure to domain)
-					accountModel.TotalBalance = accountEntity.TotalBalance;
-					accountModel.Movements = movementEntityList.Select(movementEntity => new MovementModel
+					List<MovementEntity>? movementEntityList = _movementRepository?.GetMovements(currentLoggedId);
+
+					if (accountEntity != null && movementEntityList != null)
 					{
-						Date = movementEntity.timestamp,
-						Content = movementEntity.content,
-					}).ToList();
+						//map entity to model (infrastructure to domain)
+						accountModel.TotalBalance = accountEntity.TotalBalance;
+						accountModel.Movements = movementEntityList.Select(movementEntity => new MovementModel
+						{
+							Date = movementEntity.timestamp,
+							Content = movementEntity.content,
+						}).ToList();
 
-					//apply service logic to model (business in domain)
-					accountModel.AddIncome(income);
+						//apply service logic to model (business in domain)
+						accountModel.AddIncome(income);
 
-					MovementEntity newMovement = new()
-					{
-						timestamp = accountModel.Movements.Last().Date,
-						content = accountModel.Movements.Last().Content,
-					};
+						MovementEntity newMovement = new()
+						{
+							timestamp = accountModel.Movements.Last().Date,
+							content = accountModel.Movements.Last().Content,
+						};
 
-					//map (send) model result to entity
-					accountEntity.TotalBalance = accountModel.TotalBalance;
+						//map (send) model result to entity and dto
+						accountEntity.TotalBalance = accountModel.TotalBalance;
 
-					result.TotalBalance = accountModel.TotalBalance;
+						result.TotalBalance = accountModel.TotalBalance;
 
-					//update entity
-					_accountRepository?.UpdateAccount(accountEntity);
-					_movementRepository?.AddMovement(newMovement);
+						//update entity
+						_accountRepository?.UpdateAccount(accountEntity);
+						_movementRepository?.AddMovement(newMovement);
+					}
 				}
 			}
 			else
 			{
 				result.ResultHasErrors = true;
+				result.MaxIncomeAllowed = AccountModel.MAX_INCOME;
 
-				if(accountModel.incomeNegative) result.Error = IncomeErrorEnum.NegativeValue;
-				if (accountModel.incomeOverMaxValue)
-				{
-					result.Error = IncomeErrorEnum.OverMaxIncome;
-					result.MaxIncomeAllowed = AccountModel.MAX_INCOME;
-				}
+				if (accountModel.incomeNegative) result.Error = IncomeErrorEnum.NegativeValue;
+				if (accountModel.incomeOverMaxValue) result.Error = IncomeErrorEnum.OverMaxIncome;
 			}
 
 			return result;
@@ -89,49 +89,51 @@ namespace OOPBankMultiuser.Business.Impl
 			};
 
 			AccountModel accountModel = new();
-
-			if (accountModel.ValidateOutcome(outcome))
+			AccountEntity? accountEntity = _accountRepository?.GetAccountInfo();
+			string? currentLoggedId = _accountRepository?.GetCurrentLoggedId();
+			if (currentLoggedId != null)
 			{
-				AccountEntity? accountEntity = _accountRepository?.GetAccountInfo();
-				List<MovementEntity>? movementsEntityList = _movementRepository?.GetMovements();
+				List<MovementEntity>? movementEntityList = _movementRepository?.GetMovements(currentLoggedId);
 
-				if(accountEntity != null && movementsEntityList != null)
+				if (accountEntity != null && movementEntityList != null)
 				{
 					accountModel.TotalBalance = accountEntity.TotalBalance;
 
-					accountModel.Movements = movementsEntityList.Select(movementEntity => new MovementModel
+					accountModel.Movements = movementEntityList.Select(movementEntity => new MovementModel
 					{
 						Date = movementEntity.timestamp,
 						Content = movementEntity.content,
 					}).ToList();
 
-					accountModel.AddIncome(outcome);
 
-					MovementEntity newMovement = new()
+					if (accountModel.ValidateOutcome(outcome))
 					{
-						timestamp = accountModel.Movements.Last().Date,
-						content = accountModel.Movements.Last().Content,
-					};
+						accountModel.SubtractOutcome(outcome);
 
-					accountEntity.TotalBalance = accountModel.TotalBalance;
+						MovementEntity newMovement = new()
+						{
+							timestamp = accountModel.Movements.Last().Date,
+							content = accountModel.Movements.Last().Content,
+						};
 
-					result.TotalBalance = accountModel.TotalBalance;
+						accountEntity.TotalBalance = accountModel.TotalBalance;
 
-					_accountRepository?.UpdateAccount(accountEntity);
-					_movementRepository?.AddMovement(newMovement);
+						result.TotalBalance = accountModel.TotalBalance;
+
+						_accountRepository?.UpdateAccount(accountEntity);
+						_movementRepository?.AddMovement(newMovement);
+					}
+					else
+					{
+						result.ResultHasErrors = true;
+						result.MaxOutcomeAllowed = AccountModel.MAX_OUTCOME;
+						result.TotalBalance = accountModel.TotalBalance;
+
+						if (accountModel.outcomeOverMaxValue) result.Error = OutcomeErrorEnum.OverMaxOutcome;
+						if (accountModel.outcomeNegative) result.Error = OutcomeErrorEnum.NegativeValue;
+						if (accountModel.outcomeOverTotalBalance) result.Error = OutcomeErrorEnum.OverTotalBalance;
+					}
 				}
-			}
-			else
-			{
-				result.ResultHasErrors = true;
-
-				if (accountModel.outcomeOverMaxValue)
-				{
-					result.Error = OutcomeErrorEnum.OverMaxOutcome;
-					result.MaxOutcomeAllowed = AccountModel.MAX_OUTCOME;
-				}
-				if (accountModel.outcomeNegative) result.Error = OutcomeErrorEnum.NegativeValue;
-				if (accountModel.outcomeOverTotalBalance) result.Error = OutcomeErrorEnum.OverTotalBalance;
 			}
 
 			return result;
@@ -139,50 +141,123 @@ namespace OOPBankMultiuser.Business.Impl
 
 		public MovementListDTO GetAllMovements()
 		{
-			List<MovementEntity>? movementEntitiesList = _movementRepository?.GetMovements();
-
-			return new()
+			MovementListDTO result = new()
 			{
-				Movements = movementEntitiesList.Select(movementEntity => new MovementDTO
-				{
-					Timestamp = movementEntity.timestamp,
-					Content = movementEntity.content,
-				}).ToList(),
-				TotalBalance = movementEntitiesList.Sum(movement => movement.content)
+				HasErrors = false,
+				Error = null,
 			};
+
+			string? currentLoggedId = _accountRepository?.GetCurrentLoggedId();
+			if (currentLoggedId != null)
+			{
+				List<MovementEntity> movementEntityList = _movementRepository?.GetMovements(currentLoggedId)!;
+
+				if (movementEntityList != null)
+				{
+					return new()
+					{
+						Movements = movementEntityList.Select(movementEntity => new MovementDTO
+						{
+							Timestamp = movementEntity.timestamp,
+							Content = movementEntity.content,
+						}).ToList(),
+						TotalBalance = movementEntityList.Sum(movement => movement.content)
+					};
+				}
+
+				else
+				{
+					result.HasErrors = true;
+					result.Error = GetMovementsErrorEnum.MovementsNotFound;
+				}
+			}
+			else
+			{
+				result.HasErrors = true;
+				result.Error = GetMovementsErrorEnum.AccountNotFound;
+			}
+			return result;
 		}
 
 		public MovementListDTO GetIncomes()
 		{
-			List<MovementEntity> incomeEntitiesList = _movementRepository!.GetMovements().Where(movement => movement.content > 0).ToList();
-
-			return new()
+			MovementListDTO result = new()
 			{
-				Movements = incomeEntitiesList.Select(movementEntity => new MovementDTO
-				{
-					Timestamp = movementEntity.timestamp,
-					Content = movementEntity.content,
-
-				}).ToList(),
-				TotalIncome = incomeEntitiesList.Sum(movement => movement.content)
+				HasErrors = false,
+				Error = null,
 			};
 
+			string? currentLoggedId = _accountRepository?.GetCurrentLoggedId();
+			if (currentLoggedId != null)
+			{
+				List<MovementEntity> incomeEntitiesList = _movementRepository?.GetMovements(currentLoggedId).Where(movement => movement.content > 0).ToList()!;
+
+				if (incomeEntitiesList != null)
+				{
+
+					result = new()
+					{
+						Movements = incomeEntitiesList.Select(movementEntity => new MovementDTO
+						{
+							Timestamp = movementEntity.timestamp,
+							Content = movementEntity.content,
+
+						}).ToList(),
+						TotalIncome = incomeEntitiesList.Sum(movement => movement.content)
+					};
+				}
+				else
+				{
+					result.HasErrors = true;
+					result.Error = GetMovementsErrorEnum.MovementsNotFound;
+				}
+			}
+			else
+			{
+				result.HasErrors = true;
+				result.Error = GetMovementsErrorEnum.AccountNotFound;
+			}
+			return result;
 		}
 
 		public MovementListDTO GetOutcomes()
 		{
-			List<MovementEntity> outcomeEntitiesList = _movementRepository!.GetMovements().Where(movement => movement.content < 0).ToList();
-
-			return new()
+			MovementListDTO result = new()
 			{
-				Movements = outcomeEntitiesList.Select(movementEntity => new MovementDTO
-				{
-					Timestamp = movementEntity.timestamp,
-					Content = movementEntity.content,
-
-				}).ToList(),
-				TotalIncome = outcomeEntitiesList.Sum(movement => movement.content)
+				HasErrors = false,
+				Error = null,
 			};
+
+			string? currentLoggedId = _accountRepository?.GetCurrentLoggedId();
+			if (currentLoggedId != null)
+			{
+				List<MovementEntity> outcomeEntitiesList = _movementRepository?.GetMovements(currentLoggedId).Where(movement => movement.content < 0).ToList()!;
+
+				if (outcomeEntitiesList != null)
+				{
+					result = new()
+					{
+						Movements = outcomeEntitiesList.Select(movementEntity => new MovementDTO
+						{
+							Timestamp = movementEntity.timestamp,
+							Content = movementEntity.content,
+
+						}).ToList(),
+						TotalIncome = outcomeEntitiesList.Sum(movement => movement.content)
+					};
+				}
+				else
+				{
+					result.HasErrors = true;
+					result.Error = GetMovementsErrorEnum.MovementsNotFound;
+				}
+			}
+			else
+			{
+				result.HasErrors = true;
+				result.Error = GetMovementsErrorEnum.AccountNotFound;
+			}
+			return result;
 		}
 
 		public decimal? GetBalance()
@@ -199,13 +274,13 @@ namespace OOPBankMultiuser.Business.Impl
 			return accountModel?.TotalBalance;
 		}
 
-		public AccountResultDTO? GetAccountInfo()
+		public AccountDTO? GetAccountInfo()
 		{
 			AccountEntity? accountEntity = _accountRepository?.GetAccountInfo();
 
 			if (accountEntity == null) throw new Exception();
 
-			AccountResultDTO result = new()
+			AccountDTO result = new()
 			{
 				OwnerName = accountEntity.OwnerName,
 				AccountNumber = accountEntity.AccountNumber,
@@ -213,6 +288,26 @@ namespace OOPBankMultiuser.Business.Impl
 				TotalBalance = accountEntity.TotalBalance,
 				Iban = accountEntity.Iban,
 			};
+
+			return result;
+		}
+
+		public AccountDTO? GetAccountInfo(string accountNumber)
+		{
+			AccountEntity? accountEntity = _accountRepository?.GetAccountInfo();
+
+			if (accountEntity == null) throw new Exception();
+
+			AccountDTO result = new()
+			{
+				OwnerName = accountEntity.OwnerName,
+				AccountNumber = accountEntity.AccountNumber,
+				Pin = accountEntity.Pin,
+				TotalBalance = accountEntity.TotalBalance,
+				Iban = accountEntity.Iban,
+			};
+
+
 
 			return result;
 		}

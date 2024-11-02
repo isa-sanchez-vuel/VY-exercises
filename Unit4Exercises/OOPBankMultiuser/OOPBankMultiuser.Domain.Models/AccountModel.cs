@@ -15,7 +15,6 @@ namespace OOPBankMultiuser.Domain.Models
 		public string AccountNumber { get; set; }
 		public string Pin {  get; set; }
 		public decimal TotalBalance { get; set; }
-
 		public List<MovementModel> Movements {  get; set; }
 
 		public bool incomeNegative;
@@ -25,6 +24,11 @@ namespace OOPBankMultiuser.Domain.Models
 		public bool outcomeOverMaxValue;
 		public bool outcomeOverTotalBalance;
 
+		//login bool checks
+		public bool numberSizeWrong;
+		public bool numberFormatWrong;
+		public bool pinSizeWrong;
+		public bool pinFormatWrong;
 
 		public void AddIncome(decimal income)
 		{
@@ -55,7 +59,6 @@ namespace OOPBankMultiuser.Domain.Models
 			return !incomeNegative && !incomeOverMaxValue;
 		}
 
-
 		public bool ValidateOutcome(decimal outcome)
 		{
 			outcomeNegative = outcome < 0;
@@ -65,44 +68,15 @@ namespace OOPBankMultiuser.Domain.Models
 			return !outcomeNegative && !outcomeOverMaxValue && !outcomeOverTotalBalance;
 		}
 
-		public bool ValidateCredentials(string accountId)
+		public bool ValidateCredentials(string acNumber, string pin)
 		{
-			if (accountId.Length != ACCOUNT_LENGTH)
-			{
-				//Menu.PrintError($"Account number length is incorrect. It must have {ACCOUNT_LENGTH} digits.");
-				return false;
-			}
-			return true;
+			numberSizeWrong = acNumber.Length != ACCOUNT_LENGTH;
+			pinSizeWrong = pin.Length != PIN_LENGTH;
+			if (!int.TryParse(acNumber, out _)) numberFormatWrong = true;
+			if(!int.TryParse(pin, out _)) pinFormatWrong = true;
+
+			return !numberSizeWrong && !numberFormatWrong && !pinSizeWrong && !pinFormatWrong;
 		}
 
-		public bool ValidatePinLength(string pin)
-		{
-			if (pin.Length != PIN_LENGTH)
-			{
-				//Menu.PrintError($"Pin number length is incorrect. It must have {PIN_LENGTH} digits.");
-				return false;
-			}
-			return true;
-		}
-
-		public bool ValidateNumberFormat(string accountId)
-		{
-			if (!long.TryParse(accountId, out _))
-			{
-				//Menu.PrintError("Account number has wrong format. It must contain only numerical values.");
-				return false;
-			}
-			return true;
-		}
-
-		public bool CheckPinFormat(string pin)
-		{
-			if (!int.TryParse(pin, out _))
-			{
-				//Menu.PrintError("Pin has wrong format. It must contain only numerical values.");
-				return false;
-			}
-			return true;
-		}
 	}
 }

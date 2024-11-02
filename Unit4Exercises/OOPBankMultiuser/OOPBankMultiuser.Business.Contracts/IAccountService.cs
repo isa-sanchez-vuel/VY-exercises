@@ -1,9 +1,9 @@
-﻿using OOPBankMultiuser.Application.Contracts.DTOs;
-using OOPBankMultiuser.Business.Contracts.DTOs;
+﻿using OOPBankMultiuser.Application.Contracts.DTOs.AccountOperations;
+using OOPBankMultiuser.Application.Contracts.DTOs.ModelDTOs;
 
-namespace OOPBankMultiuser.Business.Contracts
+namespace OOPBankMultiuser.Application.Contracts
 {
-	public interface IAccountService
+    public interface IAccountService
 	{
 		IncomeResultDTO DepositMoney(decimal income);
 		OutcomeResultDTO WithdrawMoney(decimal income);
@@ -11,6 +11,7 @@ namespace OOPBankMultiuser.Business.Contracts
 		MovementListDTO GetIncomes();
 		MovementListDTO GetOutcomes();
 		decimal? GetBalance();
-		AccountResultDTO? GetAccountInfo();
+		AccountDTO? GetAccountInfo();
+		AccountDTO? GetAccountInfo(string accountNumber);
 	}
 }
