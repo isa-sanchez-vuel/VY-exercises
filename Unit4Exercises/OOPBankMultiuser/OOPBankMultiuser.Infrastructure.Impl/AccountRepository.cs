@@ -1,4 +1,5 @@
 ﻿using OOPBankMultiuser.Infrastructure.Contracts;
+using OOPBankMultiuser.Infrastructure.Contracts.Data;
 using OOPBankMultiuser.Infrastructure.Contracts.Entities;
 
 
@@ -6,66 +7,78 @@ namespace OOPBankMultiuser.Infrastructure.Impl
 {
 	public class AccountRepository : IAccountRepository
 	{
-		private static List<AccountEntity> simulatedAccountDBTable = new()
+		/*private static List<Account> simulatedAccountDBTable = new()
 		{
 			new()
 			{
-				OwnerName = "Pepito Grillo",
+				Name = "Pepito Grillo",
 				Iban = "ES54 3000 4790 54 0000000000",
-				AccountNumber = "0000000000",
-				Pin = "0000",
-				TotalBalance = 500.0m
-			},
-			new()
-			{
-				OwnerName = "Francisco Bezerra",
-				Iban = "ES54 3000 4790 54 0000000001",
-				AccountNumber = "0000000001",
+				IdNumber = 1,
 				Pin = "1111",
-				TotalBalance = 50.0m
+				Balance = 500.0m
 			},
 			new()
 			{
-				OwnerName = "Laura Bastión",
-				Iban = "ES54 3000 4790 54 0000000002",
-				AccountNumber = "0000000002",
+				Name = "Francisco Bezerra",
+				Iban = "ES54 3000 4790 54 0000000001",
+				IdNumber = 2,
 				Pin = "2222",
-				TotalBalance = 1000.0m
+				Balance = 50.0m
 			},
-		}; 
-		
-		private static string CurrentLoggedAccount = "0000000000";
+			new()
+			{
+				Name = "Laura Bastión",
+				Iban = "ES54 3000 4790 54 0000000002",
+				IdNumber = 3,
+				Pin = "3333",
+				Balance = 1000.0m
+			},
+		};*/
 
-		public void SetCurrentAccount(string accountNumber)
+		private readonly OOPBankMultiuserContext _context = new();
+
+		public AccountRepository(OOPBankMultiuserContext DBContext)
+		{
+			_context = DBContext;
+		}
+
+		private static int CurrentLoggedAccount = 1; 
+
+		public void SetCurrentAccount(int accountNumber)
 		{
 			CurrentLoggedAccount = accountNumber;
 		}
 
-		public string GetCurrentLoggedId()
+		public int GetCurrentLoggedId()
 		{
 			return CurrentLoggedAccount;
 		}
 
-		public AccountEntity? GetAccountInfo()
+		public bool AccountExists(int id)
 		{
-			return simulatedAccountDBTable
-				.FirstOrDefault(accountEntity => accountEntity.AccountNumber == CurrentLoggedAccount);
+			return (_context.Accounts?.Any(e => e.IdNumber == id)).GetValueOrDefault();
 		}
 
-		public void AddAccount(AccountEntity newEntity)
+		public Account? GetAccountInfo(int accountNumber)
 		{
-			simulatedAccountDBTable.Add(newEntity);
+			return _context.Accounts
+				.FirstOrDefault(accountEntity => accountEntity.IdNumber == accountNumber);
 		}
 
-		public void UpdateAccount(AccountEntity updatedEntity)
+		public void AddAccount(Account newEntity)
 		{
-			AccountEntity? currentEntity = simulatedAccountDBTable
-				.FirstOrDefault(acc => acc.AccountNumber == updatedEntity.AccountNumber);
+			_context.Add(newEntity);
+		}
+
+		public void UpdateAccount(Account updatedEntity)
+		{
+			Account? currentEntity = _context.Accounts
+				.FirstOrDefault(acc => acc.IdNumber == updatedEntity.IdNumber);
 
 			if (currentEntity != null)
 			{
-				currentEntity.OwnerName = updatedEntity.OwnerName;
-				currentEntity.TotalBalance = updatedEntity.TotalBalance;
+				currentEntity.Name = updatedEntity.Name;
+				currentEntity.Balance = updatedEntity.Balance;
 				currentEntity.Pin = updatedEntity.Pin;
 			}
 		}

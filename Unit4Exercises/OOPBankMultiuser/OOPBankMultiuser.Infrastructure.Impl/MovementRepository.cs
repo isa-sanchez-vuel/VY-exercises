@@ -1,60 +1,74 @@
 ﻿using OOPBankMultiuser.Infrastructure.Contracts;
+using OOPBankMultiuser.Infrastructure.Contracts.Data;
 using OOPBankMultiuser.Infrastructure.Contracts.Entities;
 
 namespace OOPBankMultiuser.Infrastructure.Impl
 {
 	public class MovementRepository : IMovementRepository
 	{
-		private static List<MovementEntity> simulatedMovementsDBTable = new()
+		/*private static List<Movement> simulatedMovementsDBTable = new()
 		{
 			new()
 			{
-				accountId = "0000000000",
-				timestamp = DateTime.Now.AddDays(-30),
-				content = +700
+				Id = 1,
+				AccountId = 1,
+				Timestamp = DateTime.Now.AddDays(-30),
+				Value = +700
 			},
 			new()
 			{
-				accountId = "0000000000",
-				timestamp = DateTime.Now.AddDays(-10),
-				content = -200
+				Id = 2,
+				AccountId = 1,
+				Timestamp = DateTime.Now.AddDays(-10),
+				Value = -200
 			},
 
 			new()
 			{
-				accountId = "0000000001",
-				timestamp = DateTime.Now.AddDays(-30),
-				content = +200
+				Id = 3,
+				AccountId = 2,
+				Timestamp = DateTime.Now.AddDays(-30),
+				Value = +200
 			},
 			new()
 			{
-				accountId = "0000000001",
-				timestamp = DateTime.Now.AddDays(-10),
-				content = -150
+				Id = 4,
+				AccountId = 2,
+				Timestamp = DateTime.Now.AddDays(-10),
+				Value = -150
 			},
 
 			new()
 			{
-				accountId = "0000000002",
-				timestamp = DateTime.Now.AddDays(-30),
-				content = +3000
+				Id = 5,
+				AccountId = 3,
+				Timestamp = DateTime.Now.AddDays(-30),
+				Value = +3000
 			},
 			new()
 			{
-				accountId = "0000000002",
-				timestamp = DateTime.Now.AddDays(-10),
-				content = -2000
+				Id = 6,
+				AccountId = 3,
+				Timestamp = DateTime.Now.AddDays(-10),
+				Value = -2000
 			},
-		};
+		};*/
 
-		public List<MovementEntity> GetMovements(string currentAccountNumber)
+		private readonly OOPBankMultiuserContext _context = new();
+
+		public MovementRepository(OOPBankMultiuserContext DBContext)
 		{
-			return simulatedMovementsDBTable.Where(x => x.accountId == currentAccountNumber).ToList();
+			_context = DBContext;
 		}
 
-		public void AddMovement(MovementEntity newMovement)
+		public List<Movement> GetMovements(int currentAccountNumber)
 		{
-			simulatedMovementsDBTable.Add(newMovement);
+			return _context.Movements.Where(x => x.AccountId == currentAccountNumber).ToList();
+		}
+
+		public void AddMovement(Movement newMovement)
+		{
+			_context.Movements.Add(newMovement);
 		}
 	}
 }

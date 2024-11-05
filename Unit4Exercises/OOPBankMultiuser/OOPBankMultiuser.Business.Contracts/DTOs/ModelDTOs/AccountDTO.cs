@@ -4,6 +4,7 @@
     {
         public string OwnerName { get; set; }
         public string Iban { get; set; }
+        public int IdNumber { get; set; }
         public string AccountNumber { get; set; }
         public string Pin { get; set; }
         public decimal TotalBalance { get; set; }

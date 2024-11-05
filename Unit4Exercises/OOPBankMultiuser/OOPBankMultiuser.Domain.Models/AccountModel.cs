@@ -12,6 +12,7 @@ namespace OOPBankMultiuser.Domain.Models
 
 		public string OwnerName { get; set; }
 		public string Iban { get; set; }
+		public int IdNumber { get; set; }
 		public string AccountNumber { get; set; }
 		public string Pin {  get; set; }
 		public decimal TotalBalance { get; set; }
@@ -30,6 +31,12 @@ namespace OOPBankMultiuser.Domain.Models
 		public bool pinSizeWrong;
 		public bool pinFormatWrong;
 
+
+		public static string GenerateAccountNumber(int id)
+		{
+			return id.ToString().PadLeft(10, '0');
+		}
+
 		public void AddIncome(decimal income)
 		{
 			TotalBalance += income;
@@ -39,7 +46,6 @@ namespace OOPBankMultiuser.Domain.Models
 				Date = DateTime.Now,
 			});
 		}
-
 
 		public void SubtractOutcome(decimal outcome)
 		{

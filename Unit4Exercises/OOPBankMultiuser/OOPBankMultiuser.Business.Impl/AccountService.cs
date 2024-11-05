@@ -19,7 +19,7 @@ namespace OOPBankMultiuser.Application.Impl
 			_movementRepository = movementRepository;
 		}
 
-		public IncomeResultDTO DepositMoney(decimal income)
+		public IncomeResultDTO DepositMoney(decimal income, int accountNumber)
 		{
 			//initialize result and model
 			IncomeResultDTO result = new()
@@ -27,38 +27,39 @@ namespace OOPBankMultiuser.Application.Impl
 				ResultHasErrors = false,
 				Error = null
 			};
+
 			AccountModel accountModel = new();
+			//int currentLoggedId = _accountRepository.GetCurrentLoggedId();
 
 			if (accountModel.ValidateIncome(income))
 			{
 				//get account and movement entities
-				AccountEntity? accountEntity = _accountRepository?.GetAccountInfo();
-				string? currentLoggedId = _accountRepository?.GetCurrentLoggedId();
-				if (currentLoggedId != null)
+				if (accountNumber != 0)
 				{
-					List<MovementEntity>? movementEntityList = _movementRepository?.GetMovements(currentLoggedId);
+					Account? accountEntity = _accountRepository?.GetAccountInfo(accountNumber);
+					List<Movement>? movementEntityList = _movementRepository?.GetMovements(accountNumber);
 
 					if (accountEntity != null && movementEntityList != null)
 					{
 						//map entity to model (infrastructure to domain)
-						accountModel.TotalBalance = accountEntity.TotalBalance;
+						accountModel.TotalBalance = accountEntity.Balance;
 						accountModel.Movements = movementEntityList.Select(movementEntity => new MovementModel
 						{
-							Date = movementEntity.timestamp,
-							Content = movementEntity.content,
+							Date = movementEntity.Timestamp,
+							Content = movementEntity.Value,
 						}).ToList();
 
 						//apply service logic to model (business in domain)
 						accountModel.AddIncome(income);
 
-						MovementEntity newMovement = new()
+						Movement newMovement = new()
 						{
-							timestamp = accountModel.Movements.Last().Date,
-							content = accountModel.Movements.Last().Content,
+							Timestamp = accountModel.Movements.Last().Date,
+							Value = accountModel.Movements.Last().Content,
 						};
 
 						//map (send) model result to entity and dto
-						accountEntity.TotalBalance = accountModel.TotalBalance;
+						accountEntity.Balance = accountModel.TotalBalance;
 
 						result.TotalBalance = accountModel.TotalBalance;
 
@@ -80,7 +81,7 @@ namespace OOPBankMultiuser.Application.Impl
 			return result;
 		}
 
-		public OutcomeResultDTO WithdrawMoney(decimal outcome)
+		public OutcomeResultDTO WithdrawMoney(decimal outcome, int accountNumber)
 		{
 			OutcomeResultDTO result = new()
 			{
@@ -89,20 +90,21 @@ namespace OOPBankMultiuser.Application.Impl
 			};
 
 			AccountModel accountModel = new();
-			AccountEntity? accountEntity = _accountRepository?.GetAccountInfo();
-			string? currentLoggedId = _accountRepository?.GetCurrentLoggedId();
-			if (currentLoggedId != null)
+			//int currentLoggedId = _accountRepository.GetCurrentLoggedId();
+
+			if (accountNumber != 0)
 			{
-				List<MovementEntity>? movementEntityList = _movementRepository?.GetMovements(currentLoggedId);
+				Account? accountEntity = _accountRepository?.GetAccountInfo(accountNumber);
+				List<Movement>? movementEntityList = _movementRepository?.GetMovements(accountNumber);
 
 				if (accountEntity != null && movementEntityList != null)
 				{
-					accountModel.TotalBalance = accountEntity.TotalBalance;
+					accountModel.TotalBalance = accountEntity.Balance;
 
 					accountModel.Movements = movementEntityList.Select(movementEntity => new MovementModel
 					{
-						Date = movementEntity.timestamp,
-						Content = movementEntity.content,
+						Date = movementEntity.Timestamp,
+						Content = movementEntity.Value,
 					}).ToList();
 
 
@@ -110,13 +112,13 @@ namespace OOPBankMultiuser.Application.Impl
 					{
 						accountModel.SubtractOutcome(outcome);
 
-						MovementEntity newMovement = new()
+						Movement newMovement = new()
 						{
-							timestamp = accountModel.Movements.Last().Date,
-							content = accountModel.Movements.Last().Content,
+							Timestamp = accountModel.Movements.Last().Date,
+							Value = accountModel.Movements.Last().Content,
 						};
 
-						accountEntity.TotalBalance = accountModel.TotalBalance;
+						accountEntity.Balance = accountModel.TotalBalance;
 
 						result.TotalBalance = accountModel.TotalBalance;
 
@@ -139,7 +141,7 @@ namespace OOPBankMultiuser.Application.Impl
 			return result;
 		}
 
-		public MovementListDTO GetAllMovements()
+		public MovementListDTO GetAllMovements(int accountNumber)
 		{
 			MovementListDTO result = new()
 			{
@@ -147,10 +149,10 @@ namespace OOPBankMultiuser.Application.Impl
 				Error = null,
 			};
 
-			string? currentLoggedId = _accountRepository?.GetCurrentLoggedId();
-			if (currentLoggedId != null)
+			//int currentLoggedId = _accountRepository.GetCurrentLoggedId();
+			if (accountNumber != 0)
 			{
-				List<MovementEntity> movementEntityList = _movementRepository?.GetMovements(currentLoggedId)!;
+				List<Movement> movementEntityList = _movementRepository?.GetMovements(accountNumber)!;
 
 				if (movementEntityList != null)
 				{
@@ -158,13 +160,12 @@ namespace OOPBankMultiuser.Application.Impl
 					{
 						Movements = movementEntityList.Select(movementEntity => new MovementDTO
 						{
-							Timestamp = movementEntity.timestamp,
-							Content = movementEntity.content,
+							Timestamp = movementEntity.Timestamp,
+							Content = movementEntity.Value,
 						}).ToList(),
-						TotalBalance = movementEntityList.Sum(movement => movement.content)
+						TotalBalance = movementEntityList.Sum(movement => movement.Value)
 					};
 				}
-
 				else
 				{
 					result.HasErrors = true;
@@ -179,7 +180,7 @@ namespace OOPBankMultiuser.Application.Impl
 			return result;
 		}
 
-		public MovementListDTO GetIncomes()
+		public MovementListDTO GetIncomes(int accountNumber)
 		{
 			MovementListDTO result = new()
 			{
@@ -187,10 +188,10 @@ namespace OOPBankMultiuser.Application.Impl
 				Error = null,
 			};
 
-			string? currentLoggedId = _accountRepository?.GetCurrentLoggedId();
-			if (currentLoggedId != null)
+			//int currentLoggedId = _accountRepository.GetCurrentLoggedId();
+			if (accountNumber != 0)
 			{
-				List<MovementEntity> incomeEntitiesList = _movementRepository?.GetMovements(currentLoggedId).Where(movement => movement.content > 0).ToList()!;
+				List<Movement> incomeEntitiesList = _movementRepository?.GetMovements(accountNumber).Where(movement => movement.Value > 0).ToList()!;
 
 				if (incomeEntitiesList != null)
 				{
@@ -199,11 +200,11 @@ namespace OOPBankMultiuser.Application.Impl
 					{
 						Movements = incomeEntitiesList.Select(movementEntity => new MovementDTO
 						{
-							Timestamp = movementEntity.timestamp,
-							Content = movementEntity.content,
+							Timestamp = movementEntity.Timestamp,
+							Content = movementEntity.Value,
 
 						}).ToList(),
-						TotalIncome = incomeEntitiesList.Sum(movement => movement.content)
+						TotalIncome = incomeEntitiesList.Sum(movement => movement.Value)
 					};
 				}
 				else
@@ -220,7 +221,7 @@ namespace OOPBankMultiuser.Application.Impl
 			return result;
 		}
 
-		public MovementListDTO GetOutcomes()
+		public MovementListDTO GetOutcomes(int accountNumber)
 		{
 			MovementListDTO result = new()
 			{
@@ -228,10 +229,10 @@ namespace OOPBankMultiuser.Application.Impl
 				Error = null,
 			};
 
-			string? currentLoggedId = _accountRepository?.GetCurrentLoggedId();
-			if (currentLoggedId != null)
+			//int currentLoggedId = _accountRepository.GetCurrentLoggedId();
+			if (accountNumber != 0)
 			{
-				List<MovementEntity> outcomeEntitiesList = _movementRepository?.GetMovements(currentLoggedId).Where(movement => movement.content < 0).ToList()!;
+				List<Movement> outcomeEntitiesList = _movementRepository?.GetMovements(accountNumber).Where(movement => movement.Value < 0).ToList()!;
 
 				if (outcomeEntitiesList != null)
 				{
@@ -239,11 +240,11 @@ namespace OOPBankMultiuser.Application.Impl
 					{
 						Movements = outcomeEntitiesList.Select(movementEntity => new MovementDTO
 						{
-							Timestamp = movementEntity.timestamp,
-							Content = movementEntity.content,
+							Timestamp = movementEntity.Timestamp,
+							Content = movementEntity.Value,
 
 						}).ToList(),
-						TotalIncome = outcomeEntitiesList.Sum(movement => movement.content)
+						TotalIncome = outcomeEntitiesList.Sum(movement => movement.Value)
 					};
 				}
 				else
@@ -260,54 +261,34 @@ namespace OOPBankMultiuser.Application.Impl
 			return result;
 		}
 
-		public decimal? GetBalance()
+		public decimal? GetBalance(int accountNumber)
 		{
-			AccountEntity? accountEntity = _accountRepository?.GetAccountInfo();
+			Account? accountEntity = _accountRepository?.GetAccountInfo(accountNumber);
 
 			if (accountEntity == null) throw new Exception();
 
 			AccountModel accountModel = new()
 			{
-				TotalBalance = accountEntity.TotalBalance,
+				TotalBalance = accountEntity.Balance,
 			};
 
 			return accountModel?.TotalBalance;
 		}
 
-		public AccountDTO? GetAccountInfo()
+		public AccountDTO? GetAccountInfo(int accountNumber)
 		{
-			AccountEntity? accountEntity = _accountRepository?.GetAccountInfo();
+			Account? accountEntity = _accountRepository?.GetAccountInfo(accountNumber);
 
 			if (accountEntity == null) throw new Exception();
 
 			AccountDTO result = new()
 			{
-				OwnerName = accountEntity.OwnerName,
-				AccountNumber = accountEntity.AccountNumber,
+				OwnerName = accountEntity.Name,
+				IdNumber = accountEntity.IdNumber,
 				Pin = accountEntity.Pin,
-				TotalBalance = accountEntity.TotalBalance,
+				TotalBalance = accountEntity.Balance,
 				Iban = accountEntity.Iban,
 			};
-
-			return result;
-		}
-
-		public AccountDTO? GetAccountInfo(string accountNumber)
-		{
-			AccountEntity? accountEntity = _accountRepository?.GetAccountInfo();
-
-			if (accountEntity == null) throw new Exception();
-
-			AccountDTO result = new()
-			{
-				OwnerName = accountEntity.OwnerName,
-				AccountNumber = accountEntity.AccountNumber,
-				Pin = accountEntity.Pin,
-				TotalBalance = accountEntity.TotalBalance,
-				Iban = accountEntity.Iban,
-			};
-
-
 
 			return result;
 		}

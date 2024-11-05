@@ -2,11 +2,10 @@
 {
 	public class AccountEntity
 	{
-		public string Iban;
-		public string AccountNumber;
-
+		public string IdNumber;
+		public string Name;
 		public string Pin;
-		public decimal TotalBalance;
-		public string OwnerName;
+		public string Iban;
+		public decimal Balance;
 	}
 }

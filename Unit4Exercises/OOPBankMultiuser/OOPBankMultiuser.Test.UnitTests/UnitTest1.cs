@@ -9,7 +9,7 @@ namespace OOPBankMultiuser.Test.UnitTests
 		{/*
 			//Arrange
 			Mock<IAccountRepository> mockAccountRepository = new();
-			mockAccountRepository.Setup(x => x.GetAccountInfo()).Returns(new AccountEntity{
+			mockAccountRepository.Setup(x => x.GetAccountInfo()).Returns(new Account{
 			money = 0
 			});
 			mockAccountRepository<IMovementRepository> mockMovementRepository = new();

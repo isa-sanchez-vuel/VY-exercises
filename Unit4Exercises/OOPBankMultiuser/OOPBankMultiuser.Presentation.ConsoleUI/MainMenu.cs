@@ -1,12 +1,8 @@
 ﻿using System.Text;
 using OOPBankMultiuser.Application.Contracts;
-using OOPBankMultiuser.Domain.Models;
-using OOPBankMultiuser.Infrastructure.Contracts;
 using OOPBankMultiuser.XCutting.Enums;
 using OOPBankMultiuser.Application.Contracts.DTOs.AccountOperations;
 using OOPBankMultiuser.Application.Contracts.DTOs.ModelDTOs;
-using OOPBankMultiuser.Application.Contracts.DTOs.BankOperations;
-
 
 namespace OOPBankMultiuser.Presentation.ConsoleUI
 {
@@ -47,16 +43,9 @@ namespace OOPBankMultiuser.Presentation.ConsoleUI
 			if (Manager.Logged && account != null)
 			{
 				_bank.SetCurrentAccount(account);
-				if (_bank.GetCurrentAccount() != null)
-				{
-					MenuOutput.Print("Login successful.");
-					ShowMenu();
-				}
-				else
-				{
-					Manager.Logged = false;
-					MenuOutput.PrintError("Login unsuccessful.");
-				}
+				MenuOutput.Print("Login successful.");
+				ShowMenu();
+				MenuOutput.PrintError("Login unsuccessful.");
 
 			}
 			if (!Exit) StartApplication();
@@ -309,7 +298,7 @@ namespace OOPBankMultiuser.Presentation.ConsoleUI
 					message += "||\n";
 					message += $"||\tUser: {result.OwnerName}\n";
 					message += $"||\tIBAN: {result.Iban}\n";
-					message += $"||\tAccount number: {result.AccountNumber}\n";
+					message += $"||\tAccount number: {result.IdNumber}\n";
 					message += $"||\tAccount pin: {result.Pin}\n";
 					message += $"||\tCurrent money available {result.TotalBalance:0.00}€.\n";
 					message += "||\n";

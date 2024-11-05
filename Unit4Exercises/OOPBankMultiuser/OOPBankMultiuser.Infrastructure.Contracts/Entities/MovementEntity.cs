@@ -2,8 +2,9 @@
 {
 	public class MovementEntity
 	{
-		public string accountId;
-		public DateTime timestamp;
-		public decimal content;
+		public int Id;
+		public string AccountId;
+		public DateTime Timestamp;
+		public decimal Value;
 	}
 }

@@ -4,11 +4,12 @@ namespace OOPBankMultiuser.Infrastructure.Contracts
 {
 	public interface IAccountRepository
 	{
-		void SetCurrentAccount(string accountNumber);
-		string GetCurrentLoggedId();
-		AccountEntity? GetAccountInfo();
-		public void AddAccount(AccountEntity newEntity);
-		void UpdateAccount(AccountEntity updatedEntity);
+		void SetCurrentAccount(int accountNumber);
+		int GetCurrentLoggedId();
+		bool AccountExists(int id);
+		Account? GetAccountInfo(int accountNumber);
+		public void AddAccount(Account newEntity);
+		void UpdateAccount(Account updatedEntity);
 
 	}
 }

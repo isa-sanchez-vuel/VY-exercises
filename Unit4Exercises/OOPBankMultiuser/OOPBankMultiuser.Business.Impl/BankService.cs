@@ -13,75 +13,76 @@ namespace OOPBankMultiuser.Application.Impl
 
 		private readonly IAccountRepository? _accountRepository;
 		private readonly IBankRepository? _bankRepository;
+		private readonly IAccountService? _accountService;
 
-		public BankService(IAccountRepository accountRepository, IBankRepository bankRepository)
+		public BankService(IAccountRepository accountRepository, IBankRepository bankRepository, IAccountService accountService)
 		{
 			_accountRepository = accountRepository;
 			_bankRepository = bankRepository;
+			_accountService = accountService;
 		}
 
-		public CreateAccountResultDTO CreateAccount(string ownerName, string accountNumber, string pin)
-		{
-			CreateAccountResultDTO result = new()
-			{
-				HasErrors = false,
-				Error = null,
-			};
+		//public CreateAccountResultDTO CreateAccount(string ownerName, int accountNumber, string pin)
+		//{
+		//	CreateAccountResultDTO result = new()
+		//	{
+		//		HasErrors = false,
+		//		Error = null,
+		//	};
 
-			AccountModel? accountModel = new();
+		//	AccountModel? accountModel = new();
 
-			if (accountModel.ValidateCredentials(accountNumber, pin))
-			{
-				if (_bankRepository != null && _accountRepository != null)
-				{
-					BankEntity bankEntity = _bankRepository.GetBankInfo();
+		//	if (accountModel.ValidateCredentials(AccountModel.GenerateAccountNumber(accountNumber), pin))
+		//	{
+		//		if (_bankRepository != null && _accountRepository != null)
+		//		{
+		//			BankEntity bankEntity = _bankRepository.GetBankInfo();
 
-					if (bankEntity != null)
-					{
-						BankModel bankModel = new()
-						{
-							CountryCode = bankEntity.CountryCode,
-							BankId = bankEntity.BankId,
-							OfficeId = bankEntity.OfficeId,
-							ControlNum = bankEntity.ControlNum,
-						};
+		//			if (bankEntity != null)
+		//			{
+		//				BankModel bankModel = new()
+		//				{
+		//					CountryCode = bankEntity.CountryCode,
+		//					BankId = bankEntity.BankId,
+		//					OfficeId = bankEntity.OfficeId,
+		//					ControlNum = bankEntity.ControlNum,
+		//				};
 
-						bankModel.CreateAccount(accountNumber, pin, ownerName);
+		//				bankModel.CreateAccount(accountNumber, pin, ownerName);
 
-						accountModel = bankModel.FindAccount(accountNumber, pin);
+		//				accountModel = bankModel.FindAccount(accountNumber, pin);
 
-						if (accountModel != null)
-						{
-							AccountEntity newAccountEntity = new()
-							{
-								OwnerName = accountModel.OwnerName,
-								AccountNumber = accountModel.AccountNumber,
-								Pin = accountModel.Pin,
-							};
-							_accountRepository?.AddAccount(newAccountEntity);
-						}
-						else
-						{
-							result.HasErrors = true;
-							result.Error = CreateAccountErrorEnum.ErrorCreatingAccount;
-						}
-					}
-				}
-			}
-			else
-			{
-				result.HasErrors = true;
-				result.AccountNumberLength = AccountModel.ACCOUNT_LENGTH;
-				result.PinLength = AccountModel.PIN_LENGTH;
+		//				if (accountModel != null)
+		//				{
+		//					Account newAccountEntity = new()
+		//					{
+		//						Name = accountModel.OwnerName,
+		//						Pin = accountModel.Pin,
+		//					};
+		//					_accountRepository?.AddAccount(newAccountEntity);
+		//				}
+		//				else
+		//				{
+		//					result.HasErrors = true;
+		//					result.Error = CreateAccountErrorEnum.ErrorCreatingAccount;
+		//				}
+		//			}
+		//		}
+		//	}
+		//	else
+		//	{
+		//		result.HasErrors = true;
+		//		result.AccountNumberLength = AccountModel.ACCOUNT_LENGTH;
+		//		result.PinLength = AccountModel.PIN_LENGTH;
 
-				if (accountModel.numberSizeWrong) result.Error = CreateAccountErrorEnum.NumberLength;
-				else if (accountModel.numberFormatWrong) result.Error = CreateAccountErrorEnum.NumberFormat;
-				else if (accountModel.pinSizeWrong) result.Error = CreateAccountErrorEnum.PinLenght;
-				else if (accountModel.pinFormatWrong) result.Error = CreateAccountErrorEnum.PinFormat;
-			}
+		//		if (accountModel.numberSizeWrong) result.Error = CreateAccountErrorEnum.NumberLength;
+		//		else if (accountModel.numberFormatWrong) result.Error = CreateAccountErrorEnum.NumberFormat;
+		//		else if (accountModel.pinSizeWrong) result.Error = CreateAccountErrorEnum.PinLenght;
+		//		else if (accountModel.pinFormatWrong) result.Error = CreateAccountErrorEnum.PinFormat;
+		//	}
 
-			return result;
-		}
+		//	return result;
+		//}
 
 		public LoginResultDTO LoginAccount(string accountNumber, string pin)
 		{
@@ -97,12 +98,12 @@ namespace OOPBankMultiuser.Application.Impl
 			{
 				if (_accountRepository != null)
 				{
-					_accountRepository.SetCurrentAccount(accountNumber);
-					AccountEntity? accountEntity = _accountRepository?.GetAccountInfo();
+					_accountRepository.SetCurrentAccount(int.Parse(accountNumber));
+					Account? accountEntity = _accountRepository?.GetAccountInfo(int.Parse(accountNumber));
 
 					if (accountEntity != null)
 					{
-						AccountDTO? accountDto = GetCurrentAccount();
+						AccountDTO? accountDto = _accountService.GetAccountInfo(int.Parse(accountNumber));
 
 						if (accountDto != null) result.Account = accountDto;
 					}
@@ -127,31 +128,9 @@ namespace OOPBankMultiuser.Application.Impl
 			return result;
 		}
 
-		public AccountDTO? GetCurrentAccount()
-		{
-			AccountDTO? result = null;
-			if (_accountRepository != null)
-			{
-				AccountEntity? accountEntity = _accountRepository?.GetAccountInfo();
-
-				if (accountEntity != null)
-				{
-					result = new()
-					{
-						AccountNumber = accountEntity.AccountNumber,
-						Pin = accountEntity.Pin,
-						OwnerName = accountEntity.OwnerName,
-						TotalBalance = accountEntity.TotalBalance,
-						Iban = accountEntity.Iban,
-					};
-				}
-			}
-			return result;
-		}
-
 		public void SetCurrentAccount(AccountDTO account)
 		{
-			_accountRepository?.SetCurrentAccount(account.AccountNumber);
+			_accountRepository?.SetCurrentAccount(account.IdNumber);
 		}
 
 

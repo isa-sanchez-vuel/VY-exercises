@@ -13,14 +13,17 @@ namespace OOPBankMultiuser.Domain.Models
 		public AccountModel CurrentAccount { get; set; }
 
 
-		public void CreateAccount(string acId, string pin, string ownerName)
+		public void CreateAccount(int acId, string pin, string ownerName)
 		{
+			string accountNumber = AccountModel.GenerateAccountNumber(acId);
+
 			Accounts?.Add(new AccountModel
 			{
 				OwnerName = ownerName,
-				AccountNumber = acId,
+				IdNumber = acId,
+				AccountNumber = accountNumber,
 				Pin = pin,
-				Iban = CreateIban(acId)
+				Iban = CreateIban(accountNumber)
 			});
 		}
 
@@ -41,11 +44,11 @@ namespace OOPBankMultiuser.Domain.Models
 			return iban;
 		}
 
-		public AccountModel? FindAccount(string acNumber, string pin)
+		public AccountModel? FindAccount(int acNumber, string pin)
 		{
 			foreach (AccountModel? account in Accounts)
 			{
-				if (acNumber.Equals(account.AccountNumber) && pin.Equals(account.Pin))
+				if (acNumber.Equals(account.IdNumber) && pin.Equals(account.Pin))
 				{
 					return account;
 				}
