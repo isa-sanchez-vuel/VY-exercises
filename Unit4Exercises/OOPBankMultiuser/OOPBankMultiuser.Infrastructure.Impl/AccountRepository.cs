@@ -62,25 +62,35 @@ namespace OOPBankMultiuser.Infrastructure.Impl
 		public Account? GetAccountInfo(int accountNumber)
 		{
 			return _context.Accounts
-				.FirstOrDefault(accountEntity => accountEntity.IdNumber == accountNumber);
+				.FirstOrDefault(acc => acc.IdNumber == accountNumber);
 		}
 
-		public void AddAccount(Account newEntity)
+		public Account? AddAccount(Account newEntity)
 		{
 			_context.Add(newEntity);
+			_context.SaveChanges();
+
+			//TODO detecta el id como null, es muy probable que no se esté
+			//creando la cuenta correctamente en la bbdd y no esté creando el id
+
+			return newEntity;
 		}
 
 		public void UpdateAccount(Account updatedEntity)
 		{
-			Account? currentEntity = _context.Accounts
-				.FirstOrDefault(acc => acc.IdNumber == updatedEntity.IdNumber);
+			Account? entity = _context.Accounts
+				.Find(updatedEntity.IdNumber);
 
-			if (currentEntity != null)
+			if (entity != null)
 			{
-				currentEntity.Name = updatedEntity.Name;
-				currentEntity.Balance = updatedEntity.Balance;
-				currentEntity.Pin = updatedEntity.Pin;
+				entity.Name = updatedEntity.Name;
+				entity.Balance = updatedEntity.Balance;
+				entity.Pin = updatedEntity.Pin;
+				entity.AccountNumber = updatedEntity.AccountNumber;
+				entity.Iban = updatedEntity.Iban;
 			}
+
+			_context.SaveChanges();
 		}
 
 	}

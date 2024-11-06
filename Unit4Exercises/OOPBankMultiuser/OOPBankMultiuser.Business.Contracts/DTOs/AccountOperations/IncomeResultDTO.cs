@@ -4,9 +4,9 @@ namespace OOPBankMultiuser.Application.Contracts.DTOs.AccountOperations
 {
     public class IncomeResultDTO
     {
-        public bool ResultHasErrors;
-        public IncomeErrorEnum? Error;
-        public decimal MaxIncomeAllowed;
-        public decimal TotalBalance;
-    }
+        public bool ResultHasErrors { get; set; }
+        public IncomeErrorEnum? Error { get; set; }
+		public decimal MaxIncomeAllowed { get; set; }
+		public decimal TotalBalance { get; set; }
+	}
 }

@@ -33,10 +33,10 @@ namespace OOPBankMultiuser.Domain.Models
 
 			iban = iban.Replace(" ", "").ToUpper();
 
-			StringBuilder formattedIban = new StringBuilder();
+			StringBuilder formattedIban = new();
 			for (int i = 0; i < iban.Length; i += 4)
 			{
-				if (i > 0) formattedIban.Append(" ");
+				if (i > 0) formattedIban.Append(' ');
 				formattedIban.Append(iban.Substring(i, Math.Min(4, iban.Length - i)));
 			}
 			iban = formattedIban.ToString();
@@ -44,7 +44,7 @@ namespace OOPBankMultiuser.Domain.Models
 			return iban;
 		}
 
-		public AccountModel? FindAccount(int acNumber, string pin)
+		public AccountModel? CheckCredentials(int acNumber, string pin)
 		{
 			foreach (AccountModel? account in Accounts)
 			{

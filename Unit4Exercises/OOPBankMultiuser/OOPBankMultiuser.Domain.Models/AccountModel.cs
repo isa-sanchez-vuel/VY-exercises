@@ -1,4 +1,5 @@
-﻿using System.Security.Principal;
+﻿using OOPBankMultiuser.Infrastructure.Contracts.Entities;
+using System.Security.Principal;
 using System.Text;
 
 namespace OOPBankMultiuser.Domain.Models
@@ -9,6 +10,13 @@ namespace OOPBankMultiuser.Domain.Models
 		public const int PIN_LENGTH = 4;
 		public const decimal MAX_INCOME = 5000;
 		public const decimal MAX_OUTCOME = 3000;
+
+		
+		private static string BankName = "PoatatoBank S.L";
+		private static string BankId = "3000";
+		private static string ControlNum = "54";
+		private static string OfficeId = "4790";
+		private static string CountryCode = "ES";
 
 		public string OwnerName { get; set; }
 		public string Iban { get; set; }
@@ -36,6 +44,24 @@ namespace OOPBankMultiuser.Domain.Models
 		{
 			return id.ToString().PadLeft(10, '0');
 		}
+
+		public static string CreateIban(string accountNumber)
+		{
+			string iban = CountryCode + ControlNum + BankId + OfficeId + ControlNum + accountNumber;
+
+			iban = iban.Replace(" ", "").ToUpper();
+
+			StringBuilder formattedIban = new();
+			for (int i = 0; i < iban.Length; i += 4)
+			{
+				if (i > 0) formattedIban.Append(' ');
+				formattedIban.Append(iban.Substring(i, Math.Min(4, iban.Length - i)));
+			}
+			iban = formattedIban.ToString();
+
+			return iban;
+		}
+
 
 		public void AddIncome(decimal income)
 		{

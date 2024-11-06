@@ -9,6 +9,6 @@ namespace OOPBankMultiuser.Application.Contracts.DTOs.BankOperations
         public CreateAccountErrorEnum? Error { get; set; }
 		public int AccountNumberLength { get; set; }
 		public int PinLength { get; set; }
-		public AccountDTO account { get; set; }
+		public AccountDTO Account { get; set; }
     }
 }

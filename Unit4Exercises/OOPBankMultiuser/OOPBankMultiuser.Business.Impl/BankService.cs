@@ -12,13 +12,11 @@ namespace OOPBankMultiuser.Application.Impl
 	{
 
 		private readonly IAccountRepository? _accountRepository;
-		private readonly IBankRepository? _bankRepository;
 		private readonly IAccountService? _accountService;
 
-		public BankService(IAccountRepository accountRepository, IBankRepository bankRepository, IAccountService accountService)
+		public BankService(IAccountRepository accountRepository, IAccountService accountService)
 		{
 			_accountRepository = accountRepository;
-			_bankRepository = bankRepository;
 			_accountService = accountService;
 		}
 
@@ -50,7 +48,7 @@ namespace OOPBankMultiuser.Application.Impl
 
 		//				bankModel.CreateAccount(accountNumber, pin, ownerName);
 
-		//				accountModel = bankModel.FindAccount(accountNumber, pin);
+		//				accountModel = bankModel.CheckCredentials(accountNumber, pin);
 
 		//				if (accountModel != null)
 		//				{
@@ -103,7 +101,7 @@ namespace OOPBankMultiuser.Application.Impl
 
 					if (accountEntity != null)
 					{
-						AccountDTO? accountDto = _accountService.GetAccountInfo(int.Parse(accountNumber));
+						AccountDTO? accountDto = _accountService?.GetAccountInfo(int.Parse(accountNumber));
 
 						if (accountDto != null) result.Account = accountDto;
 					}

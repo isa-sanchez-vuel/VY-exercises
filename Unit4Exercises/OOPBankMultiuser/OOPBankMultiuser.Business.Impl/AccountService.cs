@@ -5,6 +5,8 @@ using OOPBankMultiuser.Infrastructure.Contracts;
 using OOPBankMultiuser.XCutting.Enums;
 using OOPBankMultiuser.Application.Contracts.DTOs.AccountOperations;
 using OOPBankMultiuser.Application.Contracts.DTOs.ModelDTOs;
+using OOPBankMultiuser.Application.Contracts.DTOs.BankOperations;
+using OOPBankMultiuser.Infrastructure.Impl;
 
 namespace OOPBankMultiuser.Application.Impl
 {
@@ -33,7 +35,7 @@ namespace OOPBankMultiuser.Application.Impl
 
 			if (accountModel.ValidateIncome(income))
 			{
-				//get account and movement entities
+				//get accountDto and movement entities
 				if (accountNumber != 0)
 				{
 					Account? accountEntity = _accountRepository?.GetAccountInfo(accountNumber);
@@ -162,6 +164,7 @@ namespace OOPBankMultiuser.Application.Impl
 						{
 							Timestamp = movementEntity.Timestamp,
 							Content = movementEntity.Value,
+
 						}).ToList(),
 						TotalBalance = movementEntityList.Sum(movement => movement.Value)
 					};
@@ -244,7 +247,7 @@ namespace OOPBankMultiuser.Application.Impl
 							Content = movementEntity.Value,
 
 						}).ToList(),
-						TotalIncome = outcomeEntitiesList.Sum(movement => movement.Value)
+						TotalOutcome = outcomeEntitiesList.Sum(movement => movement.Value)
 					};
 				}
 				else
@@ -261,18 +264,16 @@ namespace OOPBankMultiuser.Application.Impl
 			return result;
 		}
 
-		public decimal? GetBalance(int accountNumber)
+		public BalanceDTO? GetBalance(int accountNumber)
 		{
 			Account? accountEntity = _accountRepository?.GetAccountInfo(accountNumber);
 
 			if (accountEntity == null) throw new Exception();
 
-			AccountModel accountModel = new()
+			return new()
 			{
 				TotalBalance = accountEntity.Balance,
 			};
-
-			return accountModel?.TotalBalance;
 		}
 
 		public AccountDTO? GetAccountInfo(int accountNumber)
@@ -292,5 +293,57 @@ namespace OOPBankMultiuser.Application.Impl
 
 			return result;
 		}
+
+
+		public CreateAccountResultDTO CreateAccount(CreateAccountDTO newAccount)
+		{
+			CreateAccountResultDTO result = new()
+			{
+				HasErrors = false,
+				Error = null,
+			};
+
+			Account? entity = new()
+			{
+				Name = newAccount.OwnerName,
+				Pin = newAccount.Pin,
+				Balance = newAccount.InitialBalance,
+			};
+
+			entity = _accountRepository?.AddAccount(entity);
+
+			if (entity != null)
+			{
+
+				string accountNumber = AccountModel.GenerateAccountNumber(entity.IdNumber);
+				string iban = AccountModel.CreateIban(accountNumber);
+
+				AccountDTO accountDto = new()
+				{
+					OwnerName = entity.Name,
+					IdNumber = entity.IdNumber,
+					AccountNumber = accountNumber,
+					Pin = entity.Pin,
+					Iban = iban,
+				};
+
+				entity.Iban = accountDto.Iban;
+				entity.AccountNumber = accountDto.AccountNumber;
+
+				_accountRepository?.UpdateAccount(entity);
+
+				result.Account = accountDto;
+
+			}
+			else
+			{
+				result.HasErrors = true;
+				result.Error = CreateAccountErrorEnum.ErrorCreatingAccount;
+			}
+
+
+			return result;
+		}
+
 	}
 }
