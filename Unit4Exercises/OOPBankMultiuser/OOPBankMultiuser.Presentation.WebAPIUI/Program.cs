@@ -1,14 +1,36 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using OOPBankMultiuser.Application.Contracts;
 using OOPBankMultiuser.Application.Impl;
 using OOPBankMultiuser.Infrastructure.Contracts;
 using OOPBankMultiuser.Infrastructure.Contracts.Data;
 using OOPBankMultiuser.Infrastructure.Impl;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+//Jwt configuration starts here
+var jwtIssuer = builder.Configuration.GetSection("Jwt:Issuer").Get<string>();
+var jwtKey = builder.Configuration.GetSection("Jwt:Key").Get<string>();
 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+ .AddJwtBearer(options =>
+ {
+	 options.TokenValidationParameters = new TokenValidationParameters
+	 {
+		 ValidateIssuer = true,
+		 ValidateAudience = true,
+		 ValidateLifetime = true,
+		 ValidateIssuerSigningKey = true,
+		 ValidIssuer = jwtIssuer,
+		 ValidAudience = jwtIssuer,
+		 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+	 };
+ });
+//Jwt configuration ends here
+
+// Add services to the container.
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -18,12 +40,7 @@ builder.Services.AddScoped<IBankService, BankService>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IMovementRepository, MovementRepository>();
 builder.Services.AddDbContext<OOPBankMultiuserContext>(options =>options.UseSqlServer(
-		builder.Configuration.GetConnectionString("DefaultConnection"),
-		sqlOptions => sqlOptions.EnableRetryOnFailure(
-			maxRetryCount: 5,           // Número máximo de reintentos
-			maxRetryDelay: TimeSpan.FromSeconds(10),  // Tiempo máximo de espera entre reintentos
-			errorNumbersToAdd: null)
-		));
+		builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 

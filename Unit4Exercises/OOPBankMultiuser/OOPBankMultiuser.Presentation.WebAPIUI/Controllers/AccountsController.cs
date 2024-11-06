@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using OOPBankMultiuser.Application.Contracts;
 using OOPBankMultiuser.Application.Contracts.DTOs.AccountOperations;
 using OOPBankMultiuser.Application.Contracts.DTOs.DatabaseOperations;
@@ -6,7 +7,8 @@ using OOPBankMultiuser.Application.Contracts.DTOs.ModelDTOs;
 
 namespace OOPBankMultiuser.Presentation.WebAPIUI.Controllers
 {
-    [Route("api/[controller]")]
+	[Authorize]
+	[Route("api/[controller]")]
 	[ApiController]
 	public class AccountsController : ControllerBase
 	{
@@ -37,7 +39,7 @@ namespace OOPBankMultiuser.Presentation.WebAPIUI.Controllers
 		// Update Account
 
 		// POST: api/UpdateAccount/John/0000
-		[HttpPost("update")]
+		[HttpPut("update")]
 		
 		public IActionResult UpdateAccount([FromForm] UpdateAccountDTO modifiedAccount)
 		{
@@ -55,7 +57,7 @@ namespace OOPBankMultiuser.Presentation.WebAPIUI.Controllers
 		//Option 1: deposit money (outcomeValue)
 
 		// POST: api/Deposit/5/5.0
-		[HttpPost("deposit/{userId}/{incomeValue}")]
+		[HttpPut("deposit/{userId}/{incomeValue}")]
 		
 		public IActionResult DepositMoney(int userId, decimal incomeValue)
 		{
@@ -71,7 +73,7 @@ namespace OOPBankMultiuser.Presentation.WebAPIUI.Controllers
 		//Option 2: withdraw money (outcome)
 
 		// POST: api/Withdraw/5/5.0
-		[HttpPost("withdraw/{userId}/{outcomeValue}")]
+		[HttpPut("withdraw/{userId}/{outcomeValue}")]
 		public IActionResult WithdrawMoney(int userId, decimal outcomeValue)
 		{
 			if (_accountService == null) return StatusCode(StatusCodes.Status500InternalServerError, "Couldn't connect with account service.");
@@ -166,83 +168,3 @@ namespace OOPBankMultiuser.Presentation.WebAPIUI.Controllers
 	}
 }
 
-
-/*
-  
-//GET: api/Accounts
-		[HttpGet]
- public ActionResult GetAccounts()
-		{
-			if (_accountService == null) return NotFound();
-			if (_context.Accounts == null) return NotFound();
-
-
-			return Ok();
-		}
-
-
-		// PUT: api/Accounts/5
-		[HttpPut("{userId}")]
-		public async Task<IActionResult> PutAccount(int userId, Account balanceDto)
-		{
-			if (userId != balanceDto.AccountId)
-			{
-				return BadRequest();
-			}
-
-			_context.Entry(balanceDto).State = EntityState.Modified;
-
-			try
-			{
-				await _context.SaveChangesAsync();
-			}
-			catch (DbUpdateConcurrencyException)
-			{
-				if (!AccountExists(userId))
-				{
-					return NotFound();
-				}
-				else
-				{
-					throw;
-				}
-			}
-
-			return NoContent();
-		}
-
-		// POST: api/Accounts
-		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-		[HttpPost]
-		public async Task<ActionResult<Account>> PostAccount(Account balanceDto)
-		{
-		  if (_context.Accounts == null)
-		  {
-			  return Problem("Entity set 'OOPBankMultiuserContext.Accounts'  is null.");
-		  }
-			_context.Accounts.Add(balanceDto);
-			await _context.SaveChangesAsync();
-
-			return CreatedAtAction("GetAccount", new { userId = balanceDto.AccountId }, balanceDto);
-		}
-
-		//Verify if balanceDto exists
-		// DELETE: api/Accounts/5
-		[HttpDelete("{userId}")]
-		public async Task<IActionResult> DeleteAccount(int userId)
-		{
-			if (_context.Accounts == null)
-			{
-				return NotFound();
-			}
-			var balanceDto = await _context.Accounts.FindAsync(userId);
-			if (balanceDto == null)
-			{
-				return NotFound();
-			}
-
-			_context.Accounts.Remove(balanceDto);
-			await _context.SaveChangesAsync();
-
-			return NoContent();
-		}*/

@@ -1,28 +1,30 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
+	<TargetFramework>net6.0</TargetFramework>
+	<Nullable>enable</Nullable>
+	<ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.35" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.35" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.35">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.18" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.35" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.35" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.35">
+	  <PrivateAssets>all</PrivateAssets>
+	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	</PackageReference>
+	<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.18" />
+	<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+	<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.0" />
+	<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.15.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OOPBankMultiuser.Business.Contracts\OOPBankMultiuser.Application.Contracts.csproj" />
-    <ProjectReference Include="..\OOPBankMultiuser.Business.Impl\OOPBankMultiuser.Application.Impl.csproj" />
-    <ProjectReference Include="..\OOPBankMultiuser.Infrastructure.Contracts\OOPBankMultiuser.Infrastructure.Contracts.csproj" />
-    <ProjectReference Include="..\OOPBankMultiuser.Infrastructure.Impl\OOPBankMultiuser.Infrastructure.Impl.csproj" />
-    <ProjectReference Include="..\OOPBankMultiuser.XCutting.Enums\OOPBankMultiuser.XCutting.Enums.csproj" />
+	<ProjectReference Include="..\OOPBankMultiuser.Business.Contracts\OOPBankMultiuser.Application.Contracts.csproj" />
+	<ProjectReference Include="..\OOPBankMultiuser.Business.Impl\OOPBankMultiuser.Application.Impl.csproj" />
+	<ProjectReference Include="..\OOPBankMultiuser.Infrastructure.Contracts\OOPBankMultiuser.Infrastructure.Contracts.csproj" />
+	<ProjectReference Include="..\OOPBankMultiuser.Infrastructure.Impl\OOPBankMultiuser.Infrastructure.Impl.csproj" />
+	<ProjectReference Include="..\OOPBankMultiuser.XCutting.Enums\OOPBankMultiuser.XCutting.Enums.csproj" />
   </ItemGroup>
 
 </Project>
