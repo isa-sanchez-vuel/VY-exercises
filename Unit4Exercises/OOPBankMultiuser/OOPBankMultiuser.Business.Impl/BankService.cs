@@ -54,8 +54,8 @@ namespace OOPBankMultiuser.Application.Impl
 		//				{
 		//					Account newAccountEntity = new()
 		//					{
-		//						Name = accountModel.OwnerName,
-		//						Pin = accountModel.Pin,
+		//						Name = accountModel.NewName,
+		//						NewPin = accountModel.NewPin,
 		//					};
 		//					_accountRepository?.AddAccount(newAccountEntity);
 		//				}

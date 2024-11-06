@@ -7,9 +7,11 @@ namespace OOPBankMultiuser.Infrastructure.Contracts
 		void SetCurrentAccount(int accountNumber);
 		int GetCurrentLoggedId();
 		bool AccountExists(int id);
+
+
 		Account? GetAccountInfo(int accountNumber);
 		Account? AddAccount(Account newEntity);
-		void UpdateAccount(Account updatedEntity);
+		bool UpdateAccount(Account updatedEntity);
 
 	}
 }

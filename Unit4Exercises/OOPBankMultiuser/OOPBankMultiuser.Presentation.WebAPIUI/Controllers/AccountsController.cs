@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OOPBankMultiuser.Application.Contracts;
 using OOPBankMultiuser.Application.Contracts.DTOs.AccountOperations;
-using OOPBankMultiuser.Application.Contracts.DTOs.BankOperations;
+using OOPBankMultiuser.Application.Contracts.DTOs.DatabaseOperations;
 using OOPBankMultiuser.Application.Contracts.DTOs.ModelDTOs;
 
 namespace OOPBankMultiuser.Presentation.WebAPIUI.Controllers
 {
-	[Route("api/[controller]")]
+    [Route("api/[controller]")]
 	[ApiController]
 	public class AccountsController : ControllerBase
 	{
@@ -23,7 +23,7 @@ namespace OOPBankMultiuser.Presentation.WebAPIUI.Controllers
 		// POST: api/CreateAccount/John/0000/5.0
 		[HttpPost("create")]
 		
-		public IActionResult AddAccount([FromForm] CreateAccountDTO newAccount)
+		public IActionResult CreateAccount([FromForm] CreateAccountDTO newAccount)
 		{
 			if (_accountService == null) return StatusCode(StatusCodes.Status500InternalServerError, "Couldn't connect with account service.");
 
@@ -32,6 +32,25 @@ namespace OOPBankMultiuser.Presentation.WebAPIUI.Controllers
 			if (!result.HasErrors) return Ok(result);
 			else return StatusCode(StatusCodes.Status500InternalServerError, "Error during transaction.");
 		}
+
+
+		// Update Account
+
+		// POST: api/UpdateAccount/John/0000
+		[HttpPost("update")]
+		
+		public IActionResult UpdateAccount([FromForm] UpdateAccountDTO modifiedAccount)
+		{
+			if (_accountService == null) return StatusCode(StatusCodes.Status500InternalServerError, "Couldn't connect with account service.");
+
+			UpdateAccountResultDTO result = _accountService.UpdateAccount(modifiedAccount);
+
+			if (!result.HasErrors) return Ok(result);
+			else return StatusCode(StatusCodes.Status500InternalServerError, "Error during transaction.");
+		}
+
+
+
 
 		//Option 1: deposit money (outcomeValue)
 
@@ -166,7 +185,7 @@ namespace OOPBankMultiuser.Presentation.WebAPIUI.Controllers
 		[HttpPut("{userId}")]
 		public async Task<IActionResult> PutAccount(int userId, Account balanceDto)
 		{
-			if (userId != balanceDto.IdNumber)
+			if (userId != balanceDto.AccountId)
 			{
 				return BadRequest();
 			}
@@ -204,7 +223,7 @@ namespace OOPBankMultiuser.Presentation.WebAPIUI.Controllers
 			_context.Accounts.Add(balanceDto);
 			await _context.SaveChangesAsync();
 
-			return CreatedAtAction("GetAccount", new { userId = balanceDto.IdNumber }, balanceDto);
+			return CreatedAtAction("GetAccount", new { userId = balanceDto.AccountId }, balanceDto);
 		}
 
 		//Verify if balanceDto exists

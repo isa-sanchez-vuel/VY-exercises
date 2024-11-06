@@ -2,7 +2,7 @@
 {
 	public class CreateAccountDTO
 	{
-		public string OwnerName { get; set; }
+		public string Name { get; set; }
 		public string Pin { get; set; }
 		public decimal InitialBalance { get; set; }
 	}

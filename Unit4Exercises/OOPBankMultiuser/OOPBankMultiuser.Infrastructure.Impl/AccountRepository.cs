@@ -70,13 +70,10 @@ namespace OOPBankMultiuser.Infrastructure.Impl
 			_context.Add(newEntity);
 			_context.SaveChanges();
 
-			//TODO detecta el id como null, es muy probable que no se esté
-			//creando la cuenta correctamente en la bbdd y no esté creando el id
-
 			return newEntity;
 		}
 
-		public void UpdateAccount(Account updatedEntity)
+		public bool UpdateAccount(Account updatedEntity)
 		{
 			Account? entity = _context.Accounts
 				.Find(updatedEntity.IdNumber);
@@ -88,9 +85,11 @@ namespace OOPBankMultiuser.Infrastructure.Impl
 				entity.Pin = updatedEntity.Pin;
 				entity.AccountNumber = updatedEntity.AccountNumber;
 				entity.Iban = updatedEntity.Iban;
-			}
+				_context.SaveChanges();
 
-			_context.SaveChanges();
+				return true; //operation success
+			}
+			else return false; //operation failure
 		}
 
 	}

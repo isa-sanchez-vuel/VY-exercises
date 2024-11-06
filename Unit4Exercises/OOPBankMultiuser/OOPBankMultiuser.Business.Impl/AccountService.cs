@@ -5,8 +5,7 @@ using OOPBankMultiuser.Infrastructure.Contracts;
 using OOPBankMultiuser.XCutting.Enums;
 using OOPBankMultiuser.Application.Contracts.DTOs.AccountOperations;
 using OOPBankMultiuser.Application.Contracts.DTOs.ModelDTOs;
-using OOPBankMultiuser.Application.Contracts.DTOs.BankOperations;
-using OOPBankMultiuser.Infrastructure.Impl;
+using OOPBankMultiuser.Application.Contracts.DTOs.DatabaseOperations;
 
 namespace OOPBankMultiuser.Application.Impl
 {
@@ -303,42 +302,118 @@ namespace OOPBankMultiuser.Application.Impl
 				Error = null,
 			};
 
-			Account? entity = new()
-			{
-				Name = newAccount.OwnerName,
-				Pin = newAccount.Pin,
-				Balance = newAccount.InitialBalance,
-			};
-
-			entity = _accountRepository?.AddAccount(entity);
-
-			if (entity != null)
+			AccountModel model = new();
+			if (model.ValidatePin(newAccount.Pin))
 			{
 
-				string accountNumber = AccountModel.GenerateAccountNumber(entity.IdNumber);
-				string iban = AccountModel.CreateIban(accountNumber);
-
-				AccountDTO accountDto = new()
+				Account? entity = new()
 				{
-					OwnerName = entity.Name,
-					IdNumber = entity.IdNumber,
-					AccountNumber = accountNumber,
-					Pin = entity.Pin,
-					Iban = iban,
+					Name = newAccount.Name,
+					Pin = newAccount.Pin,
+					Balance = newAccount.InitialBalance,
 				};
 
-				entity.Iban = accountDto.Iban;
-				entity.AccountNumber = accountDto.AccountNumber;
+				entity = _accountRepository?.AddAccount(entity);
 
-				_accountRepository?.UpdateAccount(entity);
+				if (entity != null)
+				{
 
-				result.Account = accountDto;
+					string accountNumber = AccountModel.GenerateAccountNumber(entity.IdNumber);
+					string iban = AccountModel.CreateIban(accountNumber);
 
+					AccountDTO accountDto = new()
+					{
+						OwnerName = entity.Name,
+						IdNumber = entity.IdNumber,
+						AccountNumber = accountNumber,
+						Pin = entity.Pin,
+						Iban = iban,
+					};
+
+					entity.Iban = accountDto.Iban;
+					entity.AccountNumber = accountDto.AccountNumber;
+
+					_accountRepository?.UpdateAccount(entity);
+
+					result.Account = accountDto;
+
+				}
+				else
+				{
+					result.HasErrors = true;
+					result.Error = CreateAccountErrorEnum.ErrorCreatingAccount;
+				}
 			}
 			else
 			{
 				result.HasErrors = true;
-				result.Error = CreateAccountErrorEnum.ErrorCreatingAccount;
+				result.PinLength = AccountModel.PIN_LENGTH;
+				if (model.pinFormatWrong) result.Error = CreateAccountErrorEnum.PinLenght;
+				else if (model.pinSizeWrong) result.Error = CreateAccountErrorEnum.PinFormat;
+			}
+
+			return result;
+		}
+		
+		public UpdateAccountResultDTO UpdateAccount(UpdateAccountDTO modifiedAccount)
+		{
+			UpdateAccountResultDTO result = new()
+			{
+				HasErrors = false,
+				Error = null,
+			};
+
+			AccountModel model = new();
+			if (model.ValidatePin(modifiedAccount.NewPin))
+			{
+				Account? entity = _accountRepository?.GetAccountInfo(modifiedAccount.AccountId);
+
+				if (entity != null)
+				{
+					AccountDTO oldAccount = new()
+					{
+						OwnerName = entity.Name,
+						IdNumber = entity.IdNumber,
+						Pin = entity.Pin,
+						AccountNumber = entity.AccountNumber,
+						Iban = entity.Iban,
+					};
+
+					entity.Name = modifiedAccount.NewName;
+					entity.Pin = modifiedAccount.NewPin;
+
+					bool isSuccess = _accountRepository.UpdateAccount(entity);
+
+					if (isSuccess)
+					{
+						result.OldAccount = oldAccount;
+						result.Account = new()
+						{
+							OwnerName = entity.Name,
+							IdNumber = entity.IdNumber,
+							Pin = entity.Pin,
+							AccountNumber = entity.AccountNumber,
+							Iban = entity.Iban,
+						};
+					}
+					else
+					{
+						result.HasErrors = true;
+						result.Error = UpdateAccountErrorEnum.UpdateFailure;
+					}
+
+				}
+				else
+				{
+					result.HasErrors = true;
+					result.Error = UpdateAccountErrorEnum.AccountNotFound;
+				}
+			}
+			else
+			{
+				result.HasErrors = true;
+				if(model.pinSizeWrong) result.Error = UpdateAccountErrorEnum.PinLenght;
+				else if(model.pinFormatWrong) result.Error = UpdateAccountErrorEnum.PinFormat;
 			}
 
 

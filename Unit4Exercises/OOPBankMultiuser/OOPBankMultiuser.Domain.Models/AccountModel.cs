@@ -1,6 +1,4 @@
-﻿using OOPBankMultiuser.Infrastructure.Contracts.Entities;
-using System.Security.Principal;
-using System.Text;
+﻿using System.Text;
 
 namespace OOPBankMultiuser.Domain.Models
 {
@@ -10,13 +8,12 @@ namespace OOPBankMultiuser.Domain.Models
 		public const int PIN_LENGTH = 4;
 		public const decimal MAX_INCOME = 5000;
 		public const decimal MAX_OUTCOME = 3000;
-
 		
-		private static string BankName = "PoatatoBank S.L";
-		private static string BankId = "3000";
-		private static string ControlNum = "54";
-		private static string OfficeId = "4790";
-		private static string CountryCode = "ES";
+		private static readonly string BankName = "PotatoBank S.L";
+		private static readonly string BankId = "3000";
+		private static readonly string ControlNum = "54";
+		private static readonly string OfficeId = "4790";
+		private static readonly string CountryCode = "ES";
 
 		public string OwnerName { get; set; }
 		public string Iban { get; set; }
@@ -26,6 +23,7 @@ namespace OOPBankMultiuser.Domain.Models
 		public decimal TotalBalance { get; set; }
 		public List<MovementModel> Movements {  get; set; }
 
+		// movements bool checks
 		public bool incomeNegative;
 		public bool incomeOverMaxValue;
 
@@ -33,9 +31,10 @@ namespace OOPBankMultiuser.Domain.Models
 		public bool outcomeOverMaxValue;
 		public bool outcomeOverTotalBalance;
 
-		//login bool checks
+		//credentials bool checks
 		public bool numberSizeWrong;
 		public bool numberFormatWrong;
+
 		public bool pinSizeWrong;
 		public bool pinFormatWrong;
 
@@ -55,7 +54,7 @@ namespace OOPBankMultiuser.Domain.Models
 			for (int i = 0; i < iban.Length; i += 4)
 			{
 				if (i > 0) formattedIban.Append(' ');
-				formattedIban.Append(iban.Substring(i, Math.Min(4, iban.Length - i)));
+				formattedIban.Append(iban.AsSpan(i, Math.Min(4, iban.Length - i)));
 			}
 			iban = formattedIban.ToString();
 
@@ -70,7 +69,7 @@ namespace OOPBankMultiuser.Domain.Models
 			{
 				Content = +income,
 				Date = DateTime.Now,
-			});
+			}); 
 		}
 
 		public void SubtractOutcome(decimal outcome)
@@ -102,12 +101,22 @@ namespace OOPBankMultiuser.Domain.Models
 
 		public bool ValidateCredentials(string acNumber, string pin)
 		{
+			return ValidateNumber(acNumber) && ValidatePin(pin);
+		}
+
+		public bool ValidateNumber(string acNumber)
+		{
 			numberSizeWrong = acNumber.Length != ACCOUNT_LENGTH;
-			pinSizeWrong = pin.Length != PIN_LENGTH;
 			if (!int.TryParse(acNumber, out _)) numberFormatWrong = true;
+
+			return !numberSizeWrong && !numberFormatWrong;
+		}
+		public bool ValidatePin(string pin)
+		{
+			pinSizeWrong = pin.Length != PIN_LENGTH;
 			if(!int.TryParse(pin, out _)) pinFormatWrong = true;
 
-			return !numberSizeWrong && !numberFormatWrong && !pinSizeWrong && !pinFormatWrong;
+			return !pinSizeWrong && !pinFormatWrong;
 		}
 
 	}
