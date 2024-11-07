@@ -54,7 +54,7 @@ namespace OOPBankMultiuser.Presentation.WebAPIUI.Controllers
 		// POST: api/DeleteAccount/5
 		[HttpDelete("Delete")]
 
-		public IActionResult DeleteAccount(int accountId)
+		public IActionResult DeleteAccount([FromQuery] int accountId)
 		{
 			if (_accountService == null) return StatusCode(StatusCodes.Status500InternalServerError, "Couldn't connect with account service.");
 
@@ -69,7 +69,7 @@ namespace OOPBankMultiuser.Presentation.WebAPIUI.Controllers
 
 		// GET: api/GetAccount/5
 		[HttpGet("GetById")]
-		public IActionResult GetAccountInfo([FromForm] int accountId)
+		public IActionResult GetAccountInfo([FromQuery] int accountId)
 		{
 			if (_accountService == null) return StatusCode(StatusCodes.Status500InternalServerError, "Couldn't connect with account service.");
 

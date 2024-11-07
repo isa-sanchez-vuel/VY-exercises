@@ -21,7 +21,7 @@ namespace OOPBankMultiuser.Presentation.WebAPIUI.Controllers
 		// POST: api/Deposit/5/5.0
 		[HttpPatch("DepositMoney")]
 
-		public IActionResult DepositMoney([FromForm] int accountId, [FromForm] decimal incomeValue)
+		public IActionResult DepositMoney([FromQuery] int accountId, [FromQuery] decimal incomeValue)
 		{
 			if (_accountService == null) return StatusCode(StatusCodes.Status500InternalServerError, "Couldn't connect with account service.");
 
@@ -36,7 +36,7 @@ namespace OOPBankMultiuser.Presentation.WebAPIUI.Controllers
 
 		// POST: api/Withdraw/5/5.0
 		[HttpPatch("WithdrawMoney")]
-		public IActionResult WithdrawMoney([FromForm] int accountId, [FromForm] decimal outcomeValue)
+		public IActionResult WithdrawMoney([FromQuery] int accountId, [FromQuery] decimal outcomeValue)
 		{
 			if (_accountService == null) return StatusCode(StatusCodes.Status500InternalServerError, "Couldn't connect with account service.");
 
@@ -51,7 +51,7 @@ namespace OOPBankMultiuser.Presentation.WebAPIUI.Controllers
 
 		// GET: api/Movements/5
 		[HttpGet("GetAllMovements")]
-		public IActionResult GetMovementList([FromForm] int accountId)
+		public IActionResult GetMovementList([FromQuery] int accountId)
 		{
 			if (_accountService == null) return StatusCode(StatusCodes.Status500InternalServerError, "Couldn't connect with account service.");
 
@@ -59,7 +59,7 @@ namespace OOPBankMultiuser.Presentation.WebAPIUI.Controllers
 
 			if (movementList == null || movementList.Movements.Count == 0) return StatusCode(StatusCodes.Status500InternalServerError, movementList);
 
-			return Ok(movementList);
+			return Ok(movementList.Movements);
 		}
 		#endregion
 
@@ -67,7 +67,7 @@ namespace OOPBankMultiuser.Presentation.WebAPIUI.Controllers
 
 		// GET: api/Incomes/5
 		[HttpGet("GetAllIncomes")]
-		public IActionResult GetIncomeList([FromForm] int accountId)
+		public IActionResult GetIncomeList([FromQuery] int accountId)
 		{
 			if (_accountService == null) return StatusCode(StatusCodes.Status500InternalServerError, "Couldn't connect with account service.");
 
@@ -75,7 +75,7 @@ namespace OOPBankMultiuser.Presentation.WebAPIUI.Controllers
 
 			if (incomeList == null || incomeList.Movements.Count == 0) return StatusCode(StatusCodes.Status500InternalServerError, incomeList);
 
-			return Ok(incomeList);
+			return Ok(incomeList.Movements);
 		}
 		#endregion
 
@@ -83,7 +83,7 @@ namespace OOPBankMultiuser.Presentation.WebAPIUI.Controllers
 
 		// GET: api/Outcomes/5
 		[HttpGet("GetAllOutcomes")]
-		public IActionResult GetOutcomeList([FromForm] int accountId)
+		public IActionResult GetOutcomeList([FromQuery] int accountId)
 		{
 			if (_accountService == null) return StatusCode(StatusCodes.Status500InternalServerError, "Couldn't connect with account service.");
 
@@ -91,7 +91,7 @@ namespace OOPBankMultiuser.Presentation.WebAPIUI.Controllers
 
 			if (outcomeList == null || outcomeList.Movements.Count == 0) return StatusCode(StatusCodes.Status500InternalServerError, outcomeList);
 
-			return Ok(outcomeList);
+			return Ok(outcomeList.Movements);
 		}
 		#endregion
 
@@ -99,7 +99,7 @@ namespace OOPBankMultiuser.Presentation.WebAPIUI.Controllers
 
 		// GET: api/TotalBalance/5
 		[HttpGet("GetTotalBalance")]
-		public IActionResult GetAccountBalance([FromForm] int accountId)
+		public IActionResult GetAccountBalance([FromQuery] int accountId)
 		{
 			if (_accountService == null) return StatusCode(StatusCodes.Status500InternalServerError, "Couldn't connect with account service.");
 
