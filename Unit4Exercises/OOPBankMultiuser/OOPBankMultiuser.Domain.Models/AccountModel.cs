@@ -99,11 +99,6 @@ namespace OOPBankMultiuser.Domain.Models
 			return !outcomeNegative && !outcomeOverMaxValue && !outcomeOverTotalBalance;
 		}
 
-		public bool ValidateCredentials(string acNumber, string pin)
-		{
-			return ValidateNumber(acNumber) && ValidatePin(pin);
-		}
-
 		public bool ValidateNumber(string acNumber)
 		{
 			numberSizeWrong = acNumber.Length != ACCOUNT_LENGTH;

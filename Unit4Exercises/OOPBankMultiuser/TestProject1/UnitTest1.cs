@@ -1,6 +1,4 @@
-using Xunit;
-
-namespace OOPBankMultiuser.Testing.UnitTesting
+namespace TestProject1
 {
 	public class UnitTest1
 	{
