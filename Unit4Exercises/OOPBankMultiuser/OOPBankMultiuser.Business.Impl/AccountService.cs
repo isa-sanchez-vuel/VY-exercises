@@ -6,6 +6,7 @@ using OOPBankMultiuser.XCutting.Enums;
 using OOPBankMultiuser.Application.Contracts.DTOs.AccountOperations;
 using OOPBankMultiuser.Application.Contracts.DTOs.ModelDTOs;
 using OOPBankMultiuser.Application.Contracts.DTOs.DatabaseOperations;
+using System.Collections.Generic;
 
 namespace OOPBankMultiuser.Application.Impl
 {
@@ -25,31 +26,30 @@ namespace OOPBankMultiuser.Application.Impl
 			//initialize result and model
 			IncomeResultDTO result = new()
 			{
-				ResultHasErrors = false,
+				ResultHasErrors = true,
 				Error = null
 			};
 
 			AccountModel accountModel = new();
-			//int currentLoggedId = _accountRepository.GetCurrentLoggedId();
 
-			if (accountModel.ValidateIncome(income))
+			//get accountDto and movement entities
+			if (accountNumber != 0)
 			{
-				//get accountDto and movement entities
-				if (accountNumber != 0)
+				Account? accountEntity = _accountRepository?.GetAccountInfo(accountNumber);
+				List<Movement>? movementEntityList = _movementRepository?.GetMovements(accountNumber);
+
+				if (accountEntity != null && movementEntityList != null)
 				{
-					Account? accountEntity = _accountRepository?.GetAccountInfo(accountNumber);
-					List<Movement>? movementEntityList = _movementRepository?.GetMovements(accountNumber);
-
-					if (accountEntity != null && movementEntityList != null)
+					//map entity to model (infrastructure to domain)
+					accountModel.TotalBalance = accountEntity.Balance;
+					accountModel.Movements = movementEntityList.Select(movementEntity => new MovementModel
 					{
-						//map entity to model (infrastructure to domain)
-						accountModel.TotalBalance = accountEntity.Balance;
-						accountModel.Movements = movementEntityList.Select(movementEntity => new MovementModel
-						{
-							Date = movementEntity.Timestamp,
-							Content = movementEntity.Value,
-						}).ToList();
+						Date = movementEntity.Timestamp,
+						Content = movementEntity.Value,
+					}).ToList();
 
+					if (accountModel.ValidateIncome(income))
+					{
 						//apply service logic to model (business in domain)
 						accountModel.AddIncome(income);
 
@@ -62,22 +62,25 @@ namespace OOPBankMultiuser.Application.Impl
 						//map (send) model result to entity and dto
 						accountEntity.Balance = accountModel.TotalBalance;
 
-						result.TotalBalance = accountModel.TotalBalance;
+						result.ResultHasErrors = false;
+						result.MoneyDeposited = income;
 
 						//update entity
 						_accountRepository?.UpdateAccount(accountEntity);
 						_movementRepository?.AddMovement(newMovement);
+
+					}
+					else
+					{
+						result.MaxIncomeAllowed = AccountModel.MAX_INCOME;
+
+						if (accountModel.incomeNegative) result.Error = IncomeErrorEnum.NegativeValue;
+						if (accountModel.incomeOverMaxValue) result.Error = IncomeErrorEnum.OverMaxIncome;
 					}
 				}
 			}
-			else
-			{
-				result.ResultHasErrors = true;
-				result.MaxIncomeAllowed = AccountModel.MAX_INCOME;
-
-				if (accountModel.incomeNegative) result.Error = IncomeErrorEnum.NegativeValue;
-				if (accountModel.incomeOverMaxValue) result.Error = IncomeErrorEnum.OverMaxIncome;
-			}
+			
+			result.TotalBalance = accountModel.TotalBalance;
 
 			return result;
 		}
@@ -86,12 +89,11 @@ namespace OOPBankMultiuser.Application.Impl
 		{
 			OutcomeResultDTO result = new()
 			{
-				ResultHasErrors = false,
+				ResultHasErrors = true,
 				Error = null
 			};
 
 			AccountModel accountModel = new();
-			//int currentLoggedId = _accountRepository.GetCurrentLoggedId();
 
 			if (accountNumber != 0)
 			{
@@ -121,14 +123,14 @@ namespace OOPBankMultiuser.Application.Impl
 
 						accountEntity.Balance = accountModel.TotalBalance;
 
-						result.TotalBalance = accountModel.TotalBalance;
+						result.ResultHasErrors = false;
+						result.MoneyWithdrawed = outcome;
 
 						_accountRepository?.UpdateAccount(accountEntity);
 						_movementRepository?.AddMovement(newMovement);
 					}
 					else
 					{
-						result.ResultHasErrors = true;
 						result.MaxOutcomeAllowed = AccountModel.MAX_OUTCOME;
 						result.TotalBalance = accountModel.TotalBalance;
 
@@ -138,6 +140,7 @@ namespace OOPBankMultiuser.Application.Impl
 					}
 				}
 			}
+			result.TotalBalance = accountModel.TotalBalance;
 
 			return result;
 		}
@@ -146,7 +149,7 @@ namespace OOPBankMultiuser.Application.Impl
 		{
 			MovementListDTO result = new()
 			{
-				HasErrors = false,
+				HasErrors = true,
 				Error = null,
 			};
 
@@ -157,6 +160,7 @@ namespace OOPBankMultiuser.Application.Impl
 
 				if (movementEntityList != null)
 				{
+					result.HasErrors = false;
 					return new()
 					{
 						Movements = movementEntityList.Select(movementEntity => new MovementDTO
@@ -170,13 +174,11 @@ namespace OOPBankMultiuser.Application.Impl
 				}
 				else
 				{
-					result.HasErrors = true;
 					result.Error = GetMovementsErrorEnum.MovementsNotFound;
 				}
 			}
 			else
 			{
-				result.HasErrors = true;
 				result.Error = GetMovementsErrorEnum.AccountNotFound;
 			}
 			return result;
@@ -267,7 +269,7 @@ namespace OOPBankMultiuser.Application.Impl
 		{
 			Account? accountEntity = _accountRepository?.GetAccountInfo(accountNumber);
 
-			if (accountEntity == null) throw new Exception();
+			if (accountEntity == null) return null;
 
 			return new()
 			{
@@ -279,12 +281,13 @@ namespace OOPBankMultiuser.Application.Impl
 		{
 			Account? accountEntity = _accountRepository?.GetAccountInfo(accountNumber);
 
-			if (accountEntity == null) throw new Exception();
+			if (accountEntity == null) return null;
 
 			AccountDTO result = new()
 			{
 				OwnerName = accountEntity.Name,
 				IdNumber = accountEntity.IdNumber,
+				AccountNumber = accountEntity.AccountNumber,
 				Pin = accountEntity.Pin,
 				TotalBalance = accountEntity.Balance,
 				Iban = accountEntity.Iban,
@@ -292,13 +295,37 @@ namespace OOPBankMultiuser.Application.Impl
 
 			return result;
 		}
+		public AccountListDTO GetAllAccounts()
+		{
+			AccountListDTO accountListDTO = new();
 
+			List<Account>? accountEntityList = _accountRepository?.GetAllAccounts();
+
+			if (accountEntityList != null)
+			{
+				return new()
+				{
+					Accounts = accountEntityList.Select(entity => new AccountDTO
+					{
+						OwnerName = entity.Name,
+						IdNumber = entity.IdNumber,
+						AccountNumber = entity.AccountNumber,
+						Pin = entity.Pin,
+						TotalBalance = entity.Balance,
+						Iban = entity.Iban,
+
+					}).ToList(),
+				};
+			}
+
+			return accountListDTO;
+		}
 
 		public CreateAccountResultDTO CreateAccount(CreateAccountDTO newAccount)
 		{
 			CreateAccountResultDTO result = new()
 			{
-				HasErrors = false,
+				HasErrors = true,
 				Error = null,
 			};
 
@@ -336,17 +363,15 @@ namespace OOPBankMultiuser.Application.Impl
 					_accountRepository?.UpdateAccount(entity);
 
 					result.Account = accountDto;
-
+					result.HasErrors = false;
 				}
 				else
 				{
-					result.HasErrors = true;
 					result.Error = CreateAccountErrorEnum.ErrorCreatingAccount;
 				}
 			}
 			else
 			{
-				result.HasErrors = true;
 				result.PinLength = AccountModel.PIN_LENGTH;
 				if (model.pinFormatWrong) result.Error = CreateAccountErrorEnum.PinLenght;
 				else if (model.pinSizeWrong) result.Error = CreateAccountErrorEnum.PinFormat;
@@ -416,6 +441,47 @@ namespace OOPBankMultiuser.Application.Impl
 				else if(model.pinFormatWrong) result.Error = UpdateAccountErrorEnum.PinFormat;
 			}
 
+
+			return result;
+		}
+		
+		public DeleteAccountResultDTO DeleteAccount(int idNumber)
+		{
+			DeleteAccountResultDTO result = new()
+			{
+				HasErrors = false,
+				Error = null,
+			};
+
+			Account? entity = _accountRepository?.GetAccountInfo(idNumber);
+
+			if (entity != null)
+			{
+				bool isSuccess = _accountRepository.DeleteAccount(entity);
+
+				if (isSuccess)
+				{
+					result.DeletedAccount = new()
+					{
+						IdNumber = entity.IdNumber,
+						Iban = entity.Iban,
+						AccountNumber = entity.AccountNumber,
+						Pin = entity.Pin,
+						OwnerName = entity.Name,
+						TotalBalance = entity.Balance,
+					};
+				}
+				else
+				{
+					result.HasErrors = true;
+					result.Error = DeleteAccountErrorEnum.DeleteFailure;
+				}
+			}
+			else
+			{
+				result.HasErrors = true;
+				result.Error = DeleteAccountErrorEnum.AccountNotFound;
+			}
 
 			return result;
 		}

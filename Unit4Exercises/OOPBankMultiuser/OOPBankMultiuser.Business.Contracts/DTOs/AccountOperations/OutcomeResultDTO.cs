@@ -8,5 +8,6 @@ namespace OOPBankMultiuser.Application.Contracts.DTOs.AccountOperations
 		public OutcomeErrorEnum? Error { get; set; }
 		public decimal MaxOutcomeAllowed { get; set; }
 		public decimal TotalBalance { get; set; }
+		public decimal MoneyWithdrawed { get; set; }
 	}
 }

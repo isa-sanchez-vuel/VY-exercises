@@ -21,6 +21,10 @@ namespace OOPBankMultiuser.Infrastructure.Impl
 			return (_context.Accounts?.Any(e => e.IdNumber == id)).GetValueOrDefault();
 		}
 
+		public List<Account>? GetAllAccounts()
+		{
+			return _context.Accounts.ToList();
+		}
 		public Account? GetAccountInfo(int accountNumber)
 		{
 			return _context.Accounts
@@ -54,5 +58,13 @@ namespace OOPBankMultiuser.Infrastructure.Impl
 			else return false; //operation failure
 		}
 
+		public bool DeleteAccount(Account entity)
+		{
+			_context.Accounts.Remove(entity);
+			_context.SaveChanges();
+
+			if(!AccountExists(entity.IdNumber)) return true;
+			return false;
+		}
 	}
 }

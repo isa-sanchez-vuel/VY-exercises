@@ -82,54 +82,54 @@ namespace OOPBankMultiuser.Application.Impl
 		//	return result;
 		//}
 
-		public LoginResultDTO LoginAccount(string accountNumber, string pin)
-		{
-			LoginResultDTO? result = new()
-			{
-				HasErrors = false,
-				Error = null,
-			};
+		//public LoginResultDTO LoginAccount(string accountNumber, string pin)
+		//{
+		//	LoginResultDTO? result = new()
+		//	{
+		//		HasErrors = false,
+		//		Error = null,
+		//	};
 
-			AccountModel accountModel = new();
+		//	AccountModel accountModel = new();
 
-			if (accountModel.ValidateCredentials(accountNumber, pin))
-			{
-				if (_accountRepository != null)
-				{
-					_accountRepository.SetCurrentAccount(int.Parse(accountNumber));
-					Account? accountEntity = _accountRepository?.GetAccountInfo(int.Parse(accountNumber));
+		//	if (accountModel.ValidateCredentials(accountNumber, pin))
+		//	{
+		//		if (_accountRepository != null)
+		//		{
+		//			_accountRepository.SetCurrentAccount(int.Parse(accountNumber));
+		//			Account? accountEntity = _accountRepository?.GetAccountInfo(int.Parse(accountNumber));
 
-					if (accountEntity != null)
-					{
-						AccountDTO? accountDto = _accountService?.GetAccountInfo(int.Parse(accountNumber));
+		//			if (accountEntity != null)
+		//			{
+		//				AccountDTO? accountDto = _accountService?.GetAccountInfo(int.Parse(accountNumber));
 
-						if (accountDto != null) result.Account = accountDto;
-					}
-					else
-					{
-						result.HasErrors = true;
-						result.Error = LoginErrorEnum.AccountNotFound;
-					}
-				}
-			}
-			else
-			{
-				result.HasErrors = true;
-				result.AccountNumberLength = AccountModel.ACCOUNT_LENGTH;
-				result.PinLength = AccountModel.PIN_LENGTH;
+		//				if (accountDto != null) result.Account = accountDto;
+		//			}
+		//			else
+		//			{
+		//				result.HasErrors = true;
+		//				result.Error = LoginErrorEnum.AccountNotFound;
+		//			}
+		//		}
+		//	}
+		//	else
+		//	{
+		//		result.HasErrors = true;
+		//		result.AccountNumberLength = AccountModel.ACCOUNT_LENGTH;
+		//		result.PinLength = AccountModel.PIN_LENGTH;
 
-				if (accountModel.numberSizeWrong) result.Error = LoginErrorEnum.NumberLength;
-				else if (accountModel.numberFormatWrong) result.Error = LoginErrorEnum.NumberFormat;
-				else if (accountModel.pinSizeWrong) result.Error = LoginErrorEnum.PinLenght;
-				else if (accountModel.pinFormatWrong) result.Error = LoginErrorEnum.PinFormat;
-			}
-			return result;
-		}
+		//		if (accountModel.numberSizeWrong) result.Error = LoginErrorEnum.NumberLength;
+		//		else if (accountModel.numberFormatWrong) result.Error = LoginErrorEnum.NumberFormat;
+		//		else if (accountModel.pinSizeWrong) result.Error = LoginErrorEnum.PinLenght;
+		//		else if (accountModel.pinFormatWrong) result.Error = LoginErrorEnum.PinFormat;
+		//	}
+		//	return result;
+		//}
 
-		public void SetCurrentAccount(AccountDTO account)
-		{
-			_accountRepository?.SetCurrentAccount(account.IdNumber);
-		}
+		//public void SetCurrentAccount(AccountDTO account)
+		//{
+		//	_accountRepository?.SetCurrentAccount(account.IdNumber);
+		//}
 
 
 	}

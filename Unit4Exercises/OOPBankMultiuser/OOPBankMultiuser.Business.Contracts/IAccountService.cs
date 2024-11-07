@@ -13,7 +13,9 @@ namespace OOPBankMultiuser.Application.Contracts
 		MovementListDTO GetOutcomes(int idNumber);
 		BalanceDTO? GetBalance(int idNumber);
 		AccountDTO? GetAccountInfo(int idNumber);
+		AccountListDTO GetAllAccounts();
 		CreateAccountResultDTO CreateAccount(CreateAccountDTO newAccount);
 		UpdateAccountResultDTO UpdateAccount(UpdateAccountDTO modifiedAccount);
+		DeleteAccountResultDTO DeleteAccount(int idNumber);
 	}
 }

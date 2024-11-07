@@ -17,11 +17,10 @@ namespace OOPBankMultiuser.Presentation.WebAPIUI.Controllers
 			_accountService = accountService;
 		}
 
-
-		// Create Account
+		#region Create Account
 
 		// POST: api/CreateAccount/John/0000/5.0
-		[HttpPost("create")]
+		[HttpPost("Create")]
 
 		public IActionResult CreateAccount([FromForm] CreateAccountDTO newAccount)
 		{
@@ -32,12 +31,12 @@ namespace OOPBankMultiuser.Presentation.WebAPIUI.Controllers
 			if (!result.HasErrors) return Ok(result);
 			else return StatusCode(StatusCodes.Status500InternalServerError, result);
 		}
+		#endregion
 
-
-		// Update Account
+		#region Update Account
 
 		// POST: api/UpdateAccount/John/0000
-		[HttpPut("update")]
+		[HttpPut("Update")]
 
 		public IActionResult UpdateAccount([FromForm] UpdateAccountDTO modifiedAccount)
 		{
@@ -48,120 +47,55 @@ namespace OOPBankMultiuser.Presentation.WebAPIUI.Controllers
 			if (!result.HasErrors) return Ok(result);
 			else return StatusCode(StatusCodes.Status500InternalServerError, result);
 		}
+		#endregion
 
+		#region Delete Account
 
+		// POST: api/DeleteAccount/5
+		[HttpDelete("Delete")]
 
-
-		//Option 1: deposit money (outcomeValue)
-
-		// POST: api/Deposit/5/5.0
-		[HttpPut("deposit/{userId}/{incomeValue}")]
-
-		public IActionResult DepositMoney(int userId, decimal incomeValue)
+		public IActionResult DeleteAccount(int accountId)
 		{
 			if (_accountService == null) return StatusCode(StatusCodes.Status500InternalServerError, "Couldn't connect with account service.");
 
-			IncomeResultDTO result = _accountService.DepositMoney(incomeValue, userId);
+			DeleteAccountResultDTO result = _accountService.DeleteAccount(accountId);
 
-			if (!result.ResultHasErrors) return Ok(result);
+			if (!result.HasErrors) return Ok(result);
 			else return StatusCode(StatusCodes.Status500InternalServerError, result);
 		}
+		#endregion
 
+		#region Get account info by Id
 
-		//Option 2: withdraw money (outcome)
-
-		// POST: api/Withdraw/5/5.0
-		[HttpPut("withdraw/{userId}/{outcomeValue}")]
-		public IActionResult WithdrawMoney(int userId, decimal outcomeValue)
+		// GET: api/GetAccount/5
+		[HttpGet("GetById")]
+		public IActionResult GetAccountInfo([FromForm] int accountId)
 		{
 			if (_accountService == null) return StatusCode(StatusCodes.Status500InternalServerError, "Couldn't connect with account service.");
 
-			OutcomeResultDTO result = _accountService.WithdrawMoney(outcomeValue, userId);
-
-			if (!result.ResultHasErrors) return Ok(result);
-			else return StatusCode(StatusCodes.Status500InternalServerError, result);
-		}
-
-
-		//Option 3: get movement list
-
-		// GET: api/Movements/5
-		[HttpGet("movements/{userId}")]
-		public IActionResult GetMovementList(int userId)
-		{
-			if (_accountService == null) return StatusCode(StatusCodes.Status500InternalServerError, "Couldn't connect with account service.");
-
-			MovementListDTO movementList = _accountService.GetAllMovements(userId);
-
-			if (movementList == null || movementList.Movements.Count == 0) return StatusCode(StatusCodes.Status500InternalServerError, movementList);
-
-			return Ok(movementList);
-		}
-
-
-		//Option 4: get incomes list
-
-		// GET: api/Incomes/5
-		[HttpGet("incomes/{userId}")]
-		public IActionResult GetIncomeList(int userId)
-		{
-			if (_accountService == null) return StatusCode(StatusCodes.Status500InternalServerError, "Couldn't connect with account service.");
-
-			MovementListDTO incomeList = _accountService.GetIncomes(userId);
-
-			if (incomeList == null || incomeList.Movements.Count == 0) return StatusCode(StatusCodes.Status500InternalServerError, incomeList);
-
-			return Ok(incomeList);
-		}
-
-
-		//Option 5: get outcomes list
-
-		// GET: api/Outcomes/5
-		[HttpGet("outcomes/{userId}")]
-		public IActionResult GetOutcomeList(int userId)
-		{
-			if (_accountService == null) return StatusCode(StatusCodes.Status500InternalServerError, "Couldn't connect with account service.");
-
-			MovementListDTO outcomeList = _accountService.GetOutcomes(userId);
-
-			if (outcomeList == null || outcomeList.Movements.Count == 0) return StatusCode(StatusCodes.Status500InternalServerError, outcomeList);
-
-			return Ok(outcomeList);
-		}
-
-
-		//Option 6: get balanceDto balance
-
-		// GET: api/InitialBalance/5
-		[HttpGet("totalBalance/{userId}")]
-		public IActionResult GetAccountBalance(int userId)
-		{
-			if (_accountService == null) return StatusCode(StatusCodes.Status500InternalServerError, "Couldn't connect with account service.");
-
-			BalanceDTO? balanceDto = _accountService.GetBalance(userId);
-
-			if (balanceDto == null) return StatusCode(StatusCodes.Status500InternalServerError, "Account doesn't exist.");
-
-			return Ok(balanceDto);
-		}
-
-
-		//Option 7: get balanceDto info
-
-		// GET: api/AccountInfo/5
-		[HttpGet("accountInfo/{userId}")]
-		public IActionResult GetAccountInfo(int userId)
-		{
-			if (_accountService == null) return StatusCode(StatusCodes.Status500InternalServerError, "Couldn't connect with account service.");
-
-			AccountDTO? accountDto = _accountService.GetAccountInfo(userId);
+			AccountDTO? accountDto = _accountService.GetAccountInfo(accountId);
 
 			if (accountDto == null) return StatusCode(StatusCodes.Status500InternalServerError, "Account doesn't exist.");
 
 			return Ok(accountDto);
 		}
+		#endregion
+		
+		#region Get all accounts info
 
+		// GET: api/GetAccount/5
+		[HttpGet("GetAllAccounts")]
+		public IActionResult GetAllAccounts()
+		{
+			if (_accountService == null) return StatusCode(StatusCodes.Status500InternalServerError, "Couldn't connect with account service.");
+
+			AccountListDTO? accountDto = _accountService.GetAllAccounts();
+
+			if (accountDto == null) return StatusCode(StatusCodes.Status500InternalServerError, "Account doesn't exist.");
+
+			return Ok(accountDto);
+		}
+		#endregion
 
 	}
 }

@@ -5,7 +5,7 @@ namespace OOPBankMultiuser.Application.Contracts
 {
     public interface IBankService
 	{
-		void SetCurrentAccount(AccountDTO account);
-		LoginResultDTO LoginAccount(string accountNumber, string pin);
+		//void SetCurrentAccount(AccountDTO account);
+		//LoginResultDTO LoginAccount(string accountNumber, string pin);
 	}
 }
