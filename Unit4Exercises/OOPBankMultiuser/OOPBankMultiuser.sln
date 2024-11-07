@@ -29,6 +29,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OOPBankMultiuser.XCutting.E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OOPBankMultiuser.Presentation.WebAPIUI", "OOPBankMultiuser.Presentation.WebAPIUI\OOPBankMultiuser.Presentation.WebAPIUI.csproj", "{934D90A6-0ACE-462A-8F1C-FB7143312380}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6-Testing", "6-Testing", "{4A0DD374-8E7A-48BC-8ACE-E5049769F117}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OOPBankMultiuser.Testing.UnitTesting", "OOPBankMultiuser.Testing.UnitTesting\OOPBankMultiuser.Testing.UnitTesting.csproj", "{F78172C9-4BF6-43AE-885C-FC96A14ACD3D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +71,10 @@ Global
 		{934D90A6-0ACE-462A-8F1C-FB7143312380}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{934D90A6-0ACE-462A-8F1C-FB7143312380}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{934D90A6-0ACE-462A-8F1C-FB7143312380}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F78172C9-4BF6-43AE-885C-FC96A14ACD3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F78172C9-4BF6-43AE-885C-FC96A14ACD3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F78172C9-4BF6-43AE-885C-FC96A14ACD3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F78172C9-4BF6-43AE-885C-FC96A14ACD3D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,6 +88,7 @@ Global
 		{B1D0CAD9-7A73-49DE-B54E-8DF201459B1E} = {D67ABEFD-FD73-4009-8739-9A9765CC6FF4}
 		{1391C6E1-8FA8-4109-94D6-D2828E158FBD} = {71F3BDB5-1807-4BFF-AFA6-CA8EF17B9B9D}
 		{934D90A6-0ACE-462A-8F1C-FB7143312380} = {C6A1C228-4FBC-46EC-B162-42D4459F3777}
+		{F78172C9-4BF6-43AE-885C-FC96A14ACD3D} = {4A0DD374-8E7A-48BC-8ACE-E5049769F117}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {99556188-8714-4E27-888B-63F7B7B975D5}
