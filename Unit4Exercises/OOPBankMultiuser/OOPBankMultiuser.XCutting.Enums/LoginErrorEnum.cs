@@ -6,6 +6,8 @@
 		NumberLength,
 		PinFormat,
 		PinLenght,
-		AccountNotFound
+		WrongPin,
+		AccountNotFound,
+		ConnectionFailure
 	}
 }

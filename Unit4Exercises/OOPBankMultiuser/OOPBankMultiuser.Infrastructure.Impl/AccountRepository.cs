@@ -14,27 +14,27 @@ namespace OOPBankMultiuser.Infrastructure.Impl
 			_context = DBContext;
 		}
 
-		private static int CurrentLoggedAccount = 1; 
+		private static int CurrentLoggedAccount = 0; 
 
 		public void SetCurrentAccount(int accountNumber)
 		{
 			CurrentLoggedAccount = accountNumber;
 		}
-
-		public int GetCurrentLoggedId()
+		
+		public int GetCurrentAccount()
 		{
 			return CurrentLoggedAccount;
 		}
 
-		public bool AccountExists(int id)
+		public Account? AccountExists(string accountNumber)
 		{
-			return (_context.Accounts?.Any(e => e.IdNumber == id)).GetValueOrDefault();
+			return _context.Accounts.FirstOrDefault(acc => acc.AccountNumber == accountNumber);
 		}
 
-		public Account? GetAccountInfo(int accountNumber)
+		public Account? GetAccountInfo()
 		{
 			return _context.Accounts
-				.FirstOrDefault(acc => acc.IdNumber == accountNumber);
+				.FirstOrDefault(acc => acc.IdNumber == CurrentLoggedAccount);
 		}
 
 		public Account? AddAccount(Account newEntity)

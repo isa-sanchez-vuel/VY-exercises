@@ -36,7 +36,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IAccountService, AccountService>();
-builder.Services.AddScoped<IBankService, BankService>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IMovementRepository, MovementRepository>();
 builder.Services.AddDbContext<OOPBankMultiuserContext>(options =>options.UseSqlServer(
