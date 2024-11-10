@@ -1,8 +1,8 @@
 ﻿using OOPBankMultiuser.Domain.Models;
 
-namespace OOPBankMultiuser.Testing.UnitTesting.OOPBankMultiuser.Domain
+namespace OOPBankMultiuser.Testing.UnitTesting.Domain
 {
-	public class AccountUnitTest
+	public class AccountUnitTests
 	{
 
 		#region ValidateIncome

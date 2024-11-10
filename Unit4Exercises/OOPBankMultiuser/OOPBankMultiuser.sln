@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OOPBankMultiuser.Presentation.ConsoleUI", "OOPBankMultiuser.Presentation.ConsoleUI\OOPBankMultiuser.Presentation.ConsoleUI.csproj", "{30C12119-1321-45C8-87D0-A8B387D9AB6C}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1-Presentation", "1-Presentation", "{C6A1C228-4FBC-46EC-B162-42D4459F3777}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2-Application", "2-Application", "{D67ABEFD-FD73-4009-8739-9A9765CC6FF4}"
@@ -31,7 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OOPBankMultiuser.Presentati
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6-Testing", "6-Testing", "{4A0DD374-8E7A-48BC-8ACE-E5049769F117}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OOPBankMultiuser.Testing.UnitTesting", "OOPBankMultiuser.Testing.UnitTesting\OOPBankMultiuser.Testing.UnitTesting.csproj", "{F78172C9-4BF6-43AE-885C-FC96A14ACD3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OOPBankMultiuser.Testing.UnitTesting", "OOPBankMultiuser.Testing.UnitTesting\OOPBankMultiuser.Testing.UnitTesting.csproj", "{F78172C9-4BF6-43AE-885C-FC96A14ACD3D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,10 +37,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{30C12119-1321-45C8-87D0-A8B387D9AB6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{30C12119-1321-45C8-87D0-A8B387D9AB6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{30C12119-1321-45C8-87D0-A8B387D9AB6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{30C12119-1321-45C8-87D0-A8B387D9AB6C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CAAC10BD-58DD-4B2E-B8BF-1BA99FD2582B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CAAC10BD-58DD-4B2E-B8BF-1BA99FD2582B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CAAC10BD-58DD-4B2E-B8BF-1BA99FD2582B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -80,7 +74,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{30C12119-1321-45C8-87D0-A8B387D9AB6C} = {C6A1C228-4FBC-46EC-B162-42D4459F3777}
 		{CAAC10BD-58DD-4B2E-B8BF-1BA99FD2582B} = {857C8751-7372-4B5C-8748-8FAE0F250AD0}
 		{66DB64AC-1141-41BA-9F90-3A12B67A42B1} = {857C8751-7372-4B5C-8748-8FAE0F250AD0}
 		{58964FB7-A32B-4065-ACBB-BDCFB71D9A03} = {4407A71A-9AFD-47CE-8DE2-C292FF9CF767}

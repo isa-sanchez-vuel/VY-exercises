@@ -3,6 +3,10 @@
 	public enum IncomeErrorEnum
 	{
 		OverMaxIncome,
-		NegativeValue
+		NegativeValue,
+		AccountNotFound,
+		MovementsNotFound,
+		AccountRepositoryError,
+		MovementRepositoryError
 	}
 }

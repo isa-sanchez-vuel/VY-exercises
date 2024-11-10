@@ -6,8 +6,8 @@ namespace OOPBankMultiuser.Application.Contracts
 {
     public interface IAccountService
 	{
-		IncomeResultDTO DepositMoney(decimal income, int idNumber);
-		OutcomeResultDTO WithdrawMoney(decimal income, int idNumber);
+		IncomeResultDTO AddMoney(decimal income, int idNumber);
+		OutcomeResultDTO SubtractMoney(decimal income, int idNumber);
 		MovementListDTO GetAllMovements(int idNumber);
 		MovementListDTO GetIncomes(int idNumber);
 		MovementListDTO GetOutcomes(int idNumber);

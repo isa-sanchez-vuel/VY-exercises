@@ -6,7 +6,6 @@ using OOPBankMultiuser.XCutting.Enums;
 using OOPBankMultiuser.Application.Contracts.DTOs.AccountOperations;
 using OOPBankMultiuser.Application.Contracts.DTOs.ModelDTOs;
 using OOPBankMultiuser.Application.Contracts.DTOs.DatabaseOperations;
-using System.Collections.Generic;
 
 namespace OOPBankMultiuser.Application.Impl
 {
@@ -15,13 +14,13 @@ namespace OOPBankMultiuser.Application.Impl
 		private readonly IAccountRepository? _accountRepository;
 		private readonly IMovementRepository? _movementRepository;
 
-		public AccountService(IAccountRepository accountRepository, IMovementRepository movementRepository)
+		public AccountService(IAccountRepository? accountRepository, IMovementRepository? movementRepository)
 		{
 			_accountRepository = accountRepository;
 			_movementRepository = movementRepository;
 		}
 
-		public IncomeResultDTO DepositMoney(decimal income, int accountNumber)
+		public IncomeResultDTO AddMoney(decimal income, int accountNumber)
 		{
 			//initialize result and model
 			IncomeResultDTO result = new()
@@ -29,12 +28,11 @@ namespace OOPBankMultiuser.Application.Impl
 				ResultHasErrors = true,
 				Error = null
 			};
-
 			AccountModel accountModel = new();
 
-			//get accountDto and movement entities
-			if (accountNumber != 0)
+			if (_accountRepository != null && _movementRepository != null)
 			{
+				//get accountDto and movement entities
 				Account? accountEntity = _accountRepository?.GetAccountInfo(accountNumber);
 				List<Movement>? movementEntityList = _movementRepository?.GetMovements(accountNumber);
 
@@ -78,14 +76,23 @@ namespace OOPBankMultiuser.Application.Impl
 						if (accountModel.incomeOverMaxValue) result.Error = IncomeErrorEnum.OverMaxIncome;
 					}
 				}
+				else
+				{
+					if (accountEntity == null) result.Error = IncomeErrorEnum.AccountNotFound;
+					if (movementEntityList == null) result.Error = IncomeErrorEnum.MovementsNotFound;
+				}
 			}
-			
+			else
+			{
+				if (_accountRepository == null) result.Error = IncomeErrorEnum.AccountRepositoryError;
+				if (_movementRepository == null) result.Error = IncomeErrorEnum.MovementRepositoryError;
+			}
 			result.TotalBalance = accountModel.TotalBalance;
 
 			return result;
 		}
 
-		public OutcomeResultDTO WithdrawMoney(decimal outcome, int accountNumber)
+		public OutcomeResultDTO SubtractMoney(decimal outcome, int accountNumber)
 		{
 			OutcomeResultDTO result = new()
 			{
@@ -295,6 +302,7 @@ namespace OOPBankMultiuser.Application.Impl
 
 			return result;
 		}
+
 		public AccountListDTO GetAllAccounts()
 		{
 			AccountListDTO accountListDTO = new();
