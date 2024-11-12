@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="DTOs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FriendshipManagement.Domain\FriendshipManagement.Domain.csproj" />
+    <ProjectReference Include="..\FriendshipManagement.Infrastructure.Contracts\FriendshipManagement.Infrastructure.Contracts.csproj" />
+    <ProjectReference Include="..\FriendshipManagement.Infrastructure.Impl\FriendshipManagement.Infrastructure.Impl.csproj" />
+    <ProjectReference Include="..\FriendshipManagement.XCutting.Enums\FriendshipManagement.XCutting.Enums.csproj" />
+  </ItemGroup>
+
+</Project>
