@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Countries.Application.Contracts\Countries.Application.Contracts.csproj" />
+    <ProjectReference Include="..\Countries.Domain\Countries.Domain.csproj" />
+    <ProjectReference Include="..\Countries.Infrastructure.Contracts\Countries.Infrastructure.Contracts.csproj" />
+    <ProjectReference Include="..\Countries.XCutting\Countries.XCutting.csproj" />
+  </ItemGroup>
+
+</Project>
