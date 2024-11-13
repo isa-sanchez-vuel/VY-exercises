@@ -56,25 +56,14 @@ namespace Countries.Application.Impl
 						if (tempCountries == null) result.Error = CountryInitialYearErrorEnum.CountryListNull;
 						else
 						{
-							result.Countries = new();
-
-							foreach (var country in tempCountries)
+							result.Countries = tempCountries.Select(x =>
+							new CountryPopulationCountDTO()
 							{
-								int population = country.GetPopulationFromYear(request.Year);
+								Name = x.Name,
+								TotalPopulation = x.GetPopulationFromYear(request.Year)
+							}).ToList();
 
-								if (population <= 0 && country.PopulationNull) result.Error = CountryInitialYearErrorEnum.YearOutOfRange;
-								else
-								{
-									result.HasErrors = false;
-
-									CountryPopulationCountDTO dto = new();
-
-									dto.Name = country.Name;
-									dto.TotalPopulation = population;
-
-									result.Countries.Add(dto);
-								}
-							}
+							result.HasErrors = false;
 						}
 					}
 				}

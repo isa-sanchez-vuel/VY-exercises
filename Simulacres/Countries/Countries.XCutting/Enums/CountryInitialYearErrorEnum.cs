@@ -9,7 +9,6 @@
 		InvalidYear,
 		ListimportFailed,
 		ModelMapFailed,
-		YearOutOfRange,
 		CountryListNull
 	}
 }
