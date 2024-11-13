@@ -5,11 +5,11 @@
 		RequestNull,
 		ImporterNull,
 		RepositoryNull,
-		FirstLetterNotOneChar,
-		YearWrongFormat,
+		FirstLetterNotAChar,
+		InvalidYear,
 		ListimportFailed,
 		ModelMapFailed,
-		YearNotListed,
+		YearOutOfRange,
 		CountryListNull
 	}
 }

@@ -6,6 +6,7 @@ using Countries.Infrastructure.Contracts;
 using Countries.Infrastructure.Contracts.Entities;
 using Countries.Infrastructure.Contracts.JsonImport;
 using Countries.XCutting.Enums;
+using Countries.XCutting.GlobalVariables;
 using System.Globalization;
 using System.Text.Json;
 
@@ -31,9 +32,10 @@ namespace Countries.Application.Impl
 				Error = null,
 			};
 
-			if (request == null) result.Error = CountryInitialYearErrorEnum.RequestNull;
-			else if (request.CountryFirstLetter.Length != 1) result.Error = CountryInitialYearErrorEnum.FirstLetterNotOneChar;
-			else if (!int.TryParse(request.Year, out _)) result.Error = CountryInitialYearErrorEnum.YearWrongFormat;
+			if (!ValidatorModel.ValidateChar(request.CountryFirstLetter)) result.Error = CountryInitialYearErrorEnum.FirstLetterNotAChar;
+			else if (!ValidatorModel.ValidateYear(request.Year)) result.Error = CountryInitialYearErrorEnum.InvalidYear;
+
+			else if (request == null) result.Error = CountryInitialYearErrorEnum.RequestNull;
 			else if (_importer == null) result.Error = CountryInitialYearErrorEnum.ImporterNull;
 			else if (_repository == null) result.Error = CountryInitialYearErrorEnum.RepositoryNull;
 			else
@@ -60,7 +62,7 @@ namespace Countries.Application.Impl
 							{
 								int population = country.GetPopulationFromYear(request.Year);
 
-								if (population <= 0 && country.PopulationNull) result.Error = CountryInitialYearErrorEnum.YearNotListed;
+								if (population <= 0 && country.PopulationNull) result.Error = CountryInitialYearErrorEnum.YearOutOfRange;
 								else
 								{
 									result.HasErrors = false;

@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\" />
-    <Folder Include="JsonImport\" />
+    <Folder Include="BdEntities\" />
+    <Folder Include="ApiJsonEntities\" />
   </ItemGroup>
 
   <ItemGroup>
