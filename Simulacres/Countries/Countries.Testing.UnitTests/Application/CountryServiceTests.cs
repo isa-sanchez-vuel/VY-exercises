@@ -27,13 +27,7 @@ namespace Countries.Testing.UnitTests.Application
 		private const string WRONG_COUNTRY_CHAR = GlobalVariables.WRONG_COUNTRY_CHAR;
 		private const string WRONG_POPULATION_YEAR = GlobalVariables.WRONG_POPULATION_YEAR;
 
-
-
-		[Fact]
-		public void GetCountriesByInitialAndYearPopulation_ResultHasNotErrors_ReturnFalse()
-		{
-			//Arrange
-			List<CountryImported> countries = new()
+		private readonly List<CountryImported> CountriesCorrect = new()
 			{
 				new()
 				{
@@ -50,20 +44,29 @@ namespace Countries.Testing.UnitTests.Application
 				}
 			};
 
-			CountryInitialYearRqtDTO request = new()
-			{
-				Year = CORRECT_POPULATION_YEAR,
-				CountryFirstLetter = CORRECT_COUNTRY_CHAR
-			};
+		private readonly CountryInitialYearRqtDTO RequestCorrect = new()
+		{
+			Year = CORRECT_POPULATION_YEAR,
+			CountryFirstLetter = CORRECT_COUNTRY_CHAR
+		};
 
+		private readonly CountryInitialYearRqtDTO RequestError = new()
+		{
+			Year = WRONG_POPULATION_YEAR,
+			CountryFirstLetter = WRONG_COUNTRY_CHAR,
+		};
 
+		[Fact]
+		public void GetCountriesByInitialAndYearPopulation_ResultHasNotErrors_ReturnFalse()
+		{
+			//Arrange
 			Mock<IApiImporter> importerMock = new();
 			importerMock.Setup(x => x.ImportData()).ReturnsAsync(TEST_JSON_SUCCESS);
 
 			Mock<ICountryRepository> repositoryMock = new();
-			//repositoryMock.Setup(x => x.LoadDatabaseCountries(countries));
-			//repositoryMock.Setup(x => x.GetCountriesByInitial(CORRECT_COUNTRY_CHAR)).Returns(countries);
-			//repositoryMock.Setup(x => x.GetPopulationByYear(COUNTRY_CODE, CORRECT_POPULATION_YEAR)).Returns(COUNT_RESULT);
+			repositoryMock.Setup(x => x.LoadDatabaseCountries(CountriesCorrect));
+			repositoryMock.Setup(x => x.GetCountriesByInitial(CORRECT_COUNTRY_CHAR)).Returns(CountriesCorrect);
+			repositoryMock.Setup(x => x.GetPopulationByYear(COUNTRY_CODE, CORRECT_POPULATION_YEAR)).Returns(COUNT_RESULT);
 
 			Mock<CountryModel> modelMock = new();
 
@@ -73,7 +76,7 @@ namespace Countries.Testing.UnitTests.Application
 				);
 
 			//Act
-			Task<CountryInitialYearResultDTO> result = sut.GetCountriesByInitialAndYearPopulation(request);
+			Task<CountryInitialYearResultDTO> result = sut.GetCountriesByInitialAndYearPopulation(RequestCorrect);
 
 
 			//Assert
@@ -85,36 +88,12 @@ namespace Countries.Testing.UnitTests.Application
 		public void GetCountriesByInitialAndYearPopulation_JsonErrorTrue_ReturnTrue()
 		{
 			//Arrange
-			List<CountryImported> countries = new()
-			{
-				new()
-				{
-					Name = COUNTRY_NAME,
-					Code = COUNTRY_CODE,
-					PopulationCounts = new()
-					{
-						new()
-						{
-							Year = int.Parse(CORRECT_POPULATION_YEAR),
-							Count = COUNT_RESULT,
-						}
-					}
-				}
-			};
-
-			CountryInitialYearRqtDTO request = new()
-			{
-				Year = CORRECT_POPULATION_YEAR,
-				CountryFirstLetter = CORRECT_COUNTRY_CHAR
-			};
-
-
 			Mock<IApiImporter> importerMock = new();
 			importerMock.Setup(x => x.ImportData()).ReturnsAsync(TEST_JSON_ERROR);
 
 			Mock<ICountryRepository> repositoryMock = new();
-			//repositoryMock.Setup(x => x.LoadDatabaseCountries(countries));
-			//repositoryMock.Setup(x => x.GetCountriesByInitial(CORRECT_COUNTRY_CHAR)).Returns(countries);
+			//repositoryMock.Setup(x => x.LoadDatabaseCountries(CountriesCorrect));
+			//repositoryMock.Setup(x => x.GetCountriesByInitial(CORRECT_COUNTRY_CHAR)).Returns(CountriesCorrect);
 			//repositoryMock.Setup(x => x.GetPopulationByYear(COUNTRY_CODE, CORRECT_POPULATION_YEAR)).Returns(COUNT_RESULT);
 
 			Mock<CountryModel> modelMock = new();
@@ -125,7 +104,7 @@ namespace Countries.Testing.UnitTests.Application
 				);
 
 			//Act
-			Task<CountryInitialYearResultDTO> result = sut.GetCountriesByInitialAndYearPopulation(request);
+			Task<CountryInitialYearResultDTO> result = sut.GetCountriesByInitialAndYearPopulation(RequestCorrect);
 
 
 			//Assert

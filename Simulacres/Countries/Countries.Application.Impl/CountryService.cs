@@ -44,6 +44,7 @@ namespace Countries.Application.Impl
 				string jsonApi = await _importer.ImportData();
 				CountryListImported? importedList = JsonSerializer.Deserialize<CountryListImported>(jsonApi);
 				if (importedList == null) result.Error = CountryInitialYearErrorEnum.ApiImportFailed;
+				else if (importedList.Error == true) result.Error = CountryInitialYearErrorEnum.ApiDataImportError; //TODO change made
 				else
 				{
 					CountryListModel? countryListModel = MapJsonToModel(importedList);
