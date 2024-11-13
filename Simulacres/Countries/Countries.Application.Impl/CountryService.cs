@@ -2,17 +2,19 @@
 using Countries.Application.Contracts;
 using Countries.Application.Contracts.DTOs;
 using Countries.Domain;
+using Countries.Domain.Models;
 using Countries.Infrastructure.Contracts;
 using Countries.Infrastructure.Contracts.Entities;
 using Countries.Infrastructure.Contracts.JsonImport;
 using Countries.XCutting.Enums;
 using Countries.XCutting.GlobalVariables;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using System.Globalization;
 using System.Text.Json;
 
 namespace Countries.Application.Impl
 {
-	public class CountryService : ICountryService
+    public class CountryService : ICountryService
 	{
 		private readonly ICountryRepository _repository;
 		private readonly IApiImporter _importer;
@@ -32,8 +34,8 @@ namespace Countries.Application.Impl
 				Error = null,
 			};
 
-			if (!ValidatorModel.ValidateChar(request.CountryFirstLetter)) result.Error = CountryInitialYearErrorEnum.FirstLetterNotAChar;
-			else if (!ValidatorModel.ValidateYear(request.Year)) result.Error = CountryInitialYearErrorEnum.InvalidYear;
+			if (!InputValidator.ValidateChar(request.CountryFirstLetter)) result.Error = CountryInitialYearErrorEnum.FirstLetterNotAChar;
+			else if (!InputValidator.ValidateYear(request.Year)) result.Error = CountryInitialYearErrorEnum.InvalidYear;
 
 			else if (request == null) result.Error = CountryInitialYearErrorEnum.RequestNull;
 			else if (_importer == null) result.Error = CountryInitialYearErrorEnum.ImporterNull;
@@ -42,39 +44,29 @@ namespace Countries.Application.Impl
 			{
 				string jsonApi = await _importer.ImportData();
 				CountryListImported? importedList = JsonSerializer.Deserialize<CountryListImported>(jsonApi);
-				if (importedList == null) result.Error = CountryInitialYearErrorEnum.ListimportFailed;
+				if (importedList == null) result.Error = CountryInitialYearErrorEnum.ApiImportFailed;
+				else if(importedList.Error == true) result.Error = CountryInitialYearErrorEnum.ApiDataImportError; //TODO change made
 				else
 				{
+					_repository.LoadDatabaseCountries(importedList.Countries); //TODO change made
+
 					CountryListModel? countryListModel = MapJsonToModel(importedList);
 
 					if (countryListModel == null) result.Error = CountryInitialYearErrorEnum.ModelMapFailed;
 					else
 					{
-						char initial = request.CountryFirstLetter[0];
-						List<CountryModel>? tempCountries = countryListModel.GetCountriesByInitial(initial);
+						List<CountryImported>? tempCountries = _repository.GetCountriesByInitial(request.CountryFirstLetter); //TODO change made
 
 						if (tempCountries == null) result.Error = CountryInitialYearErrorEnum.CountryListNull;
 						else
 						{
-							result.Countries = new();
+							result.Countries = tempCountries.Select(x => 
+							new CountryPopulationCountDTO(){
+								Name = x.Name,
+								TotalPopulation = _repository.GetPopulationByYear(x.Code, request.Year) //TODO change made
+							}).ToList();
 
-							foreach (var country in tempCountries)
-							{
-								int population = country.GetPopulationFromYear(request.Year);
-
-								if (population <= 0 && country.PopulationNull) result.Error = CountryInitialYearErrorEnum.YearOutOfRange;
-								else
-								{
-									result.HasErrors = false;
-
-									CountryPopulationCountDTO dto = new();
-
-									dto.Name = country.Name;
-									dto.TotalPopulation = population;
-
-									result.Countries.Add(dto);
-								}
-							}
+							result.HasErrors = false;
 						}
 					}
 				}

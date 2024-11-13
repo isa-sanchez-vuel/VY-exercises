@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace Countries.Domain
 {
-	public class ValidatorModel
+	public class InputValidator
 	{
 
 		public static bool ValidateYear(string year)

@@ -39,7 +39,8 @@ namespace Countries.Presentation.WebApi.Controllers
 					CountryInitialYearErrorEnum.RepositoryNull => StatusCode(StatusCodes.Status500InternalServerError, result.ErrorMessage),
 					CountryInitialYearErrorEnum.FirstLetterNotAChar => StatusCode(StatusCodes.Status400BadRequest, result.ErrorMessage),
 					CountryInitialYearErrorEnum.InvalidYear => StatusCode(StatusCodes.Status400BadRequest, result.ErrorMessage),
-					CountryInitialYearErrorEnum.ListimportFailed => StatusCode(StatusCodes.Status500InternalServerError, result.ErrorMessage),
+					CountryInitialYearErrorEnum.ApiImportFailed => StatusCode(StatusCodes.Status500InternalServerError, result.ErrorMessage),
+					CountryInitialYearErrorEnum.ApiDataImportError => StatusCode(StatusCodes.Status400BadRequest, result.ErrorMessage),
 					CountryInitialYearErrorEnum.ModelMapFailed => StatusCode(StatusCodes.Status500InternalServerError, result.ErrorMessage),
 					_ => StatusCode(StatusCodes.Status500InternalServerError, "Error unknown."),
 				};

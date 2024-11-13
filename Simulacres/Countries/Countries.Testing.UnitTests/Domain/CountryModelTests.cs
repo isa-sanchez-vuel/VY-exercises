@@ -1,10 +1,9 @@
-﻿
-using Countries.Domain;
+﻿using Countries.Domain.Models;
 using Moq;
 
 namespace Countries.Testing.UnitTests.Domain
 {
-	public class CountryModelTests
+    public class CountryModelTests
 	{
 
 		[Fact]
