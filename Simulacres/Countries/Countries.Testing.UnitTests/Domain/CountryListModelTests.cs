@@ -1,4 +1,4 @@
-﻿using Countries.Domain;
+﻿using Countries.Domain.Models;
 using Moq;
 
 namespace Countries.Testing.UnitTests.Domain
@@ -19,7 +19,7 @@ namespace Countries.Testing.UnitTests.Domain
 				}
 			};
 
-			char initial = 't';
+			string initial = "t";
 
 			//Act
 			List<CountryModel>? list = model.GetCountriesByInitial(initial);
@@ -43,7 +43,7 @@ namespace Countries.Testing.UnitTests.Domain
 				}
 			};
 
-			char initial = 'c';
+			string initial = "c";
 
 			//Act
 			List<CountryModel>? list = model.GetCountriesByInitial(initial);
@@ -61,7 +61,7 @@ namespace Countries.Testing.UnitTests.Domain
 			//Arrange
 			CountryListModel model = new();
 
-			char initial = 'T';
+			string initial = "t";
 
 			//Act
 			List<CountryModel>? list = model.GetCountriesByInitial(initial);

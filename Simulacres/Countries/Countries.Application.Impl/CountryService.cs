@@ -2,6 +2,7 @@
 using Countries.Application.Contracts;
 using Countries.Application.Contracts.DTOs;
 using Countries.Domain;
+using Countries.Domain.Models;
 using Countries.Infrastructure.Contracts;
 using Countries.Infrastructure.Contracts.Entities;
 using Countries.Infrastructure.Contracts.JsonImport;
@@ -12,7 +13,7 @@ using System.Text.Json;
 
 namespace Countries.Application.Impl
 {
-	public class CountryService : ICountryService
+    public class CountryService : ICountryService
 	{
 		private readonly ICountryRepository _repository;
 		private readonly IApiImporter _importer;
@@ -42,7 +43,7 @@ namespace Countries.Application.Impl
 			{
 				string jsonApi = await _importer.ImportData();
 				CountryListImported? importedList = JsonSerializer.Deserialize<CountryListImported>(jsonApi);
-				if (importedList == null) result.Error = CountryInitialYearErrorEnum.ListimportFailed;
+				if (importedList == null) result.Error = CountryInitialYearErrorEnum.ApiImportFailed;
 				else
 				{
 					CountryListModel? countryListModel = MapJsonToModel(importedList);
@@ -50,8 +51,7 @@ namespace Countries.Application.Impl
 					if (countryListModel == null) result.Error = CountryInitialYearErrorEnum.ModelMapFailed;
 					else
 					{
-						char initial = request.CountryFirstLetter[0];
-						List<CountryModel>? tempCountries = countryListModel.GetCountriesByInitial(initial);
+						List<CountryModel>? tempCountries = countryListModel.GetCountriesByInitial(request.CountryFirstLetter);
 
 						if (tempCountries == null) result.Error = CountryInitialYearErrorEnum.CountryListNull;
 						else
