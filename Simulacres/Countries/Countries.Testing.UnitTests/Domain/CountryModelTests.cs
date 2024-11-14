@@ -15,12 +15,12 @@ namespace Countries.Testing.UnitTests.Domain
 			{
 				new()
 				{
-					Year = DateTime.MinValue,
+					Year = "2000",
 					Counter = 1000,
 				}
 			};
 
-			string year = DateTime.MinValue.Year.ToString(); //setting min value to get the same year
+			string year = "2000"; //setting min value to get the same year
 
 			//Act
 			int result = model.GetPopulationFromYear(year);
@@ -39,12 +39,12 @@ namespace Countries.Testing.UnitTests.Domain
 			{
 				new()
 				{
-					Year = DateTime.MinValue,
+					Year = "2000",
 					Counter = 1000,
 				}
 			};
 
-			string year = DateTime.MaxValue.Year.ToString(); //setting max value to get a different year
+			string year = "2000"; //setting max value to get a different year
 
 			//Act
 			int result = model.GetPopulationFromYear(year);

@@ -15,7 +15,7 @@ namespace Countries.Domain.Models
         {
             PopulationCountModel? populationFiltered;
 
-            populationFiltered = PopulationCounts.Find(x => x.Year.Year.ToString().Equals(year));
+            populationFiltered = PopulationCounts.Find(x => x.Year.Equals(year));
 
             if (populationFiltered == null) return -1;
 

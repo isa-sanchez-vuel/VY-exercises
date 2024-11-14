@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
+    <PackageReference Include="Moq" Version="4.20.72" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="coverlet.collector" Version="3.1.2">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SWApiManagement.Application.Contracts\SWApiManagement.Application.Contracts.csproj" />
+    <ProjectReference Include="..\SWApiManagement.Application.Impl\SWApiManagement.Application.Impl.csproj" />
+    <ProjectReference Include="..\SWApiManagement.Domain\SWApiManagement.Domain.csproj" />
+    <ProjectReference Include="..\SWApiManagement.Infrastructure.Contracts\SWApiManagement.Infrastructure.Contracts.csproj" />
+    <ProjectReference Include="..\SWApiManagement.Infrastructure.Impl\SWApiManagement.Infrastructure.Impl.csproj" />
+    <ProjectReference Include="..\SWApiManagement.Presentation.WEBApi\SWApiManagement.Presentation.WebApi.csproj" />
+    <ProjectReference Include="..\SWApiManagement.XCutting\SWApiManagement.XCutting.csproj" />
+  </ItemGroup>
+
+</Project>

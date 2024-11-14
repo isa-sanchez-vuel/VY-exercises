@@ -83,7 +83,7 @@ namespace Countries.Application.Impl
 					Iso3 = x.Iso3,
 					PopulationCounts = x.PopulationCounts.Select(y => new PopulationCountModel()
 					{
-						Year = DateTime.ParseExact(y.Year.ToString(), "yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None),
+						Year = y.Year.ToString(),
 						Counter = (int)y.Count,
 					}).ToList(),
 

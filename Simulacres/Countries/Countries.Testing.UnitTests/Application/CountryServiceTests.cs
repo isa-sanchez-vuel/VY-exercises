@@ -42,6 +42,21 @@ namespace Countries.Testing.UnitTests.Application
 						}
 					}
 				}
+			};private readonly List<CountryModel> CountriesModelReturn = new()
+			{
+				new()
+				{
+					Name = COUNTRY_NAME,
+					Code = COUNTRY_CODE,
+					PopulationCounts = new()
+					{
+						new()
+						{
+							Year = CORRECT_POPULATION_YEAR,
+							Counter = COUNT_RESULT,
+						}
+					}
+				}
 			};
 
 		private readonly CountryInitialYearRqtDTO RequestCorrect = new()
@@ -56,6 +71,7 @@ namespace Countries.Testing.UnitTests.Application
 			CountryFirstLetter = WRONG_COUNTRY_CHAR,
 		};
 
+
 		[Fact]
 		public void GetCountriesByInitialAndYearPopulation_ResultHasNotErrors_ReturnFalse()
 		{
@@ -65,10 +81,13 @@ namespace Countries.Testing.UnitTests.Application
 
 			Mock<ICountryRepository> repositoryMock = new();
 			repositoryMock.Setup(x => x.LoadDatabaseCountries(CountriesCorrect));
-			repositoryMock.Setup(x => x.GetCountriesByInitial(CORRECT_COUNTRY_CHAR)).Returns(CountriesCorrect);
-			repositoryMock.Setup(x => x.GetPopulationByYear(COUNTRY_CODE, CORRECT_POPULATION_YEAR)).Returns(COUNT_RESULT);
+			
+			Mock<CountryListModel> countryListModelMock = new();
+			countryListModelMock.Setup(x => x.GetCountriesByInitial(CORRECT_COUNTRY_CHAR)).Returns(CountriesModelReturn);
+
 
 			Mock<CountryModel> modelMock = new();
+			modelMock.Setup(x => x.GetPopulationFromYear(CORRECT_POPULATION_YEAR)).Returns(COUNT_RESULT);
 
 			CountryService sut = new(
 				repositoryMock.Object,

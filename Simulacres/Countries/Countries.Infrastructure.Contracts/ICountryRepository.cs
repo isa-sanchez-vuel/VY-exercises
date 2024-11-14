@@ -1,14 +1,11 @@
-﻿using Countries.Infrastructure.Contracts.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Countries.Infrastructure.Contracts.JsonImport;
 
 namespace Countries.Infrastructure.Contracts
 {
 	public interface ICountryRepository
 	{
+		List<CountryImported> GetAllCountries();
+		void LoadDatabaseCountries(List<CountryImported> countriesList);
 
-		public List<Country> GetAllCountries();
-		public List<PopulationCount> GetAllPopulationCount();
-		public void LoadDatabaseCountries(List<Country> countriesList);
-		public void LoadDatabasePopulationCounts(List<PopulationCount> populationList);
 	}
 }

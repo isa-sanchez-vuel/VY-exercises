@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.35" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SWApiManagement.Application.Contracts\SWApiManagement.Application.Contracts.csproj" />
+    <ProjectReference Include="..\SWApiManagement.Application.Impl\SWApiManagement.Application.Impl.csproj" />
+    <ProjectReference Include="..\SWApiManagement.XCutting\SWApiManagement.XCutting.csproj" />
+  </ItemGroup>
+
+</Project>

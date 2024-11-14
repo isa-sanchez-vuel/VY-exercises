@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SWApiManagement.Application.Contracts\SWApiManagement.Application.Contracts.csproj" />
+    <ProjectReference Include="..\SWApiManagement.Domain\SWApiManagement.Domain.csproj" />
+    <ProjectReference Include="..\SWApiManagement.Infrastructure.Contracts\SWApiManagement.Infrastructure.Contracts.csproj" />
+    <ProjectReference Include="..\SWApiManagement.Infrastructure.Impl\SWApiManagement.Infrastructure.Impl.csproj" />
+    <ProjectReference Include="..\SWApiManagement.XCutting\SWApiManagement.XCutting.csproj" />
+  </ItemGroup>
+
+</Project>

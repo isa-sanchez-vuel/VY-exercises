@@ -6,6 +6,6 @@ namespace Countries.Domain.Models
     {
         public int Id { get; set; }
         public int Counter { get; set; }
-        public DateTime Year { get; set; }
+        public string Year { get; set; }
     }
 }
