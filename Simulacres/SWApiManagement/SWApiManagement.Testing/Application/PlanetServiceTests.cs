@@ -102,6 +102,7 @@ namespace SWApiManagement.Testing.Application
 			Assert.Equal(ErrorEnum.RetrieveFromDatabaseFailed, result.Error);
 			Assert.Equal(GlobalVariables.ERROR_MESSAGE, result.Message);
 		}
+        
         [Fact]
         public async Task UpdateDatabase_JsonListIsNull_ReturnTrue()
         {
@@ -156,7 +157,7 @@ namespace SWApiManagement.Testing.Application
         }
 
         [Fact]
-        public async Task GetResidentsOfPlanet_PlanetNotFound_ReturnTrue()
+        public async Task GetResidentsOfPlanet_DBPlanetNotFound_ReturnTrue()
         {
             //Arrange
             Mock<IPlanetsRepository> mockRepository = new();
@@ -175,6 +176,51 @@ namespace SWApiManagement.Testing.Application
             Assert.True(result.HasErrors);
             Assert.Equal(ErrorEnum.PlanetNotFound, result.Error);
             Assert.Equal(GlobalVariables.PLANET_NOT_FOUND, result.Message);
+        }
+        
+        [Fact]
+        public async Task GetResidentsOfPlanet_JsonPlanetNotFound_ReturnTrue()
+        {
+            //Arrange
+            Mock<IPlanetsRepository> mockRepository = new();
+			mockRepository.Setup(x => x.GetPlanet(planetName)).Returns(planet);
+
+			Mock<IApiImporter> mockImporter = new();
+
+            PlanetService sut = new(
+                mockRepository.Object,
+                mockImporter.Object
+                );
+
+            //Act
+            ResidentResultDTO result = await sut.GetResidentsOfPlanet(planetName);
+
+            //Assert
+            Assert.True(result.HasErrors);
+            Assert.Equal(ErrorEnum.PlanetNotFound, result.Error);
+            Assert.Equal(GlobalVariables.PLANET_NOT_FOUND, result.Message);
+        }
+
+        [Fact]
+        public async Task GetResidentsOfPlanet_ImporterNull_ReturnTrue()
+        {
+            //Arrange
+            Mock<IPlanetsRepository> mockRepository = new();
+
+            Mock<IApiImporter> mockImporter = new();
+
+            PlanetService sut = new(
+                mockRepository.Object,
+                null
+                );
+
+            //Act
+            ResidentResultDTO result = await sut.GetResidentsOfPlanet(planetName);
+
+            //Assert
+            Assert.True(result.HasErrors);
+            Assert.Equal(ErrorEnum.ImporterNull, result.Error);
+            Assert.Equal(GlobalVariables.ERROR_MESSAGE, result.Message);
         }
 
 
