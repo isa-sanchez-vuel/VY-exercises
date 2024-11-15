@@ -14,7 +14,7 @@ namespace UniversitiesManagement.Infrastructure.Contracts.DBEntities
         public int Id { get; set; }
         public int UniversityId { get; set; }
         [Required]
-        [StringLength(50)]
+        [StringLength(150)]
         public string DomainUrl { get; set; }
 
         [ForeignKey("UniversityId")]

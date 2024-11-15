@@ -20,20 +20,31 @@ namespace UniversitiesManagement.Infrastructure.Impl
 
 			foreach (var uni in newUniversities)
 			{
+				/*
+				 List<Domain> domains = new(); 
+				if(uni.Domains != null) {
+					domains = uni.Domains.Select(d => new Domain() { DomainUrl = d }).ToList();
+				}
+				List<WebPage> pages = new(); 
+				if(uni.WebPages != null) {
+					pages = uni.WebPages.Select(w => new WebPage() { WebUrl = w }).ToList();
+				}
+				 
+				 */
 				University newUni = new()
 				{
 					Name = uni.Name,
 					Country = uni.Country,
 					AlphaTwoCode = uni.AlphaTwoCode,
 					StateProvince = uni.StateProvince,
-					//Domains = uni.Domains.Select(y => new Domain()
-					//{
-					//	DomainUrl = y
-					//}).ToList(),
-					//WebPages = uni.WebPages.Select(y => new WebPage()
-					//{
-					//	WebUrl = y
-					//}).ToList(),
+					Domains = uni.Domains.Select(y => new Domain()
+					{
+						DomainUrl = y
+					}).ToList(),
+					WebPages = uni.WebPages.Select(y => new WebPage()
+					{
+						WebUrl = y
+					}).ToList(),
 				};
 
 

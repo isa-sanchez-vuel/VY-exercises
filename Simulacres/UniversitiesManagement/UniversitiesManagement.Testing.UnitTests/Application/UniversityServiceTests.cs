@@ -11,6 +11,8 @@ namespace UniversitiesManagement.Testing.UnitTests.Application
 	public class UniversityServiceTests
 	{
 		UniversityListJson universityListjson = new();
+		List<UniversityJson> universitiesJson = new();
+		List<University> databaseList = new();
 
 		[Fact]
 		public async Task UpdateDatabase_DtoHasNoErros_ReturnFalse()
@@ -20,7 +22,7 @@ namespace UniversitiesManagement.Testing.UnitTests.Application
 			mockImporter.Setup(x => x.ImportApiData()).ReturnsAsync(universityListjson);
 
 			Mock<IDbUniversityRepository> mockRepository = new();
-			mockRepository.Setup(x => x.UpdateDatabaseWithApiData(universityListjson.Universities)).Returns(new List<University>());
+			mockRepository.Setup(x => x.UpdateDatabaseWithApiData(universitiesJson)).Returns(databaseList);
 
 
 			UniversityService sut = new(

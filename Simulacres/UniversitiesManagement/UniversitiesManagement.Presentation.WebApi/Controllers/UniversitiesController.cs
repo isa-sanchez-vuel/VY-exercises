@@ -15,6 +15,9 @@ namespace UniversitiesManagement.Presentation.WebApi.Controllers
 		readonly IUniversityService _service;
 		readonly IConfiguration _config;
 
+		const string ERROR_PATH = "ErrorMessages";
+
+
 		public UniversitiesController(IUniversityService service, IConfiguration config)
 		{
 			_service = service;
@@ -107,10 +110,12 @@ namespace UniversitiesManagement.Presentation.WebApi.Controllers
 
 		}
 
-		private List<string?> GetErrorMessages(List<ErrorEnum> errors)
+		private List<string> GetErrorMessages(List<ErrorEnum> errors)
 		{
 
-			List<string?> errorStrings = errors.Select(x => Enum.GetName(typeof(ErrorEnum), x)).ToList();
+			//List<string> errorStrings = errors.Select(x => Enum.GetName(typeof(ErrorEnum), x)).ToList();
+			List<string> errorStrings = errors.Select(x => _config[$"{ERROR_PATH}:{Enum.GetName(typeof(ErrorEnum), x)}"]).ToList();
+			
 
 			return errorStrings;
 		}
