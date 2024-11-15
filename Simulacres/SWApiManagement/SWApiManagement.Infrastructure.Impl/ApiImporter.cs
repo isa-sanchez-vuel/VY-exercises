@@ -48,7 +48,7 @@ namespace SWApiManagement.Infrastructure.Impl
 			{
 				HttpResponseMessage data = await client.GetAsync(residentUrl);
 				string residentStringData = await data.Content.ReadAsStringAsync();
-				ResidentJson residentJson = JsonSerializer.Deserialize<ResidentJson>(residentStringData);
+				ResidentJson? residentJson = JsonSerializer.Deserialize<ResidentJson>(residentStringData);
 				if (residentJson != null)
 				{
 					string? residentName = residentJson.Name;

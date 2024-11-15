@@ -19,11 +19,12 @@ namespace SWApiManagement.Infrastructure.Impl
 		{
 			foreach (var x in planetsImported)
 			{
-				Planet newPlanet = new Planet()
+				Planet newPlanet = new()
 				{
 					Name = x.Name,
 					Url = x.Url,
 					Climate = x.Climate,
+					Population = int.Parse(x.Population),
 					OrbitalPeriod = int.Parse(x.Orbital_period),
 					RotationPeriod = int.Parse(x.Rotation_period),
 					Residents = x.Residents.Select(y => new Resident()
@@ -41,7 +42,12 @@ namespace SWApiManagement.Infrastructure.Impl
 				}
 				else
 				{
-					existentPlanet = newPlanet;
+					existentPlanet.Name = newPlanet.Name;
+					existentPlanet.Population = newPlanet.Population;
+					existentPlanet.Climate = newPlanet.Climate;
+					existentPlanet.OrbitalPeriod = newPlanet.OrbitalPeriod;
+					existentPlanet.RotationPeriod = newPlanet.RotationPeriod;
+					existentPlanet.Residents = newPlanet.Residents;
 				}
 			}
 			_context.SaveChanges();

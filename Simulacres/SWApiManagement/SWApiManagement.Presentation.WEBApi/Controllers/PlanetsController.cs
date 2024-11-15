@@ -13,10 +13,12 @@ namespace SWApiManagement.Presentation.WebApi.Controllers
 	public class PlanetsController : ControllerBase
 	{
 		private readonly IPlanetService _service;
+		private readonly IConfiguration config;
 
-		public PlanetsController(IPlanetService planetService)
+		public PlanetsController(IPlanetService planetService, IConfiguration config2)
 		{
 			_service = planetService;
+			config = config2;
 		}
 
 
@@ -48,8 +50,9 @@ namespace SWApiManagement.Presentation.WebApi.Controllers
 					ErrorEnum.PlanetNotFound => NotFound(result.Message),
 					_ => BadRequest(result.Message)
 				};
-			else return Ok(result);
+			return Ok(result);
 		}
 
 	}
 }
+ 
