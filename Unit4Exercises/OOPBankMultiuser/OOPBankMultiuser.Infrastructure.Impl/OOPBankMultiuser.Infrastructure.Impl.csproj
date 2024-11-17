@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.35" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\OOPBankMultiuser.Infrastructure.Contracts\OOPBankMultiuser.Infrastructure.Contracts.csproj" />
     <ProjectReference Include="..\OOPBankMultiuser.XCutting.Enums\OOPBankMultiuser.XCutting.Enums.csproj" />
   </ItemGroup>

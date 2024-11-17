@@ -2,14 +2,13 @@
 using OOPBankMultiuser.Infrastructure.Contracts.Data;
 using OOPBankMultiuser.Infrastructure.Contracts.Entities;
 
-
 namespace OOPBankMultiuser.Infrastructure.Impl
 {
 	public class AccountRepository : IAccountRepository
 	{
 		
 
-		private readonly OOPBankMultiuserContext _context = new();
+		private readonly OOPBankMultiuserContext _context;
 
 		public AccountRepository(OOPBankMultiuserContext DBContext)
 		{
@@ -33,8 +32,8 @@ namespace OOPBankMultiuser.Infrastructure.Impl
 
 		public Account? AddAccount(Account newEntity)
 		{
-			_context.Add(newEntity);
-			_context.SaveChanges();
+			_context.Accounts.Add(newEntity);
+			_context.Accounts.SaveChanges();
 
 			return newEntity;
 		}
@@ -51,7 +50,7 @@ namespace OOPBankMultiuser.Infrastructure.Impl
 				entity.Pin = updatedEntity.Pin;
 				entity.AccountNumber = updatedEntity.AccountNumber;
 				entity.Iban = updatedEntity.Iban;
-				_context.SaveChanges();
+				_context.Accounts.SaveChanges();
 
 				return true; //operation success
 			}
