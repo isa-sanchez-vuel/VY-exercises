@@ -39,7 +39,6 @@ namespace UniversitiesManagement.Infrastructure.Context
                 entity.HasOne(d => d.University)
                     .WithMany(p => p.Domains)
                     .HasForeignKey(d => d.UniversityId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Domains_Universities");
             });
 
@@ -48,7 +47,6 @@ namespace UniversitiesManagement.Infrastructure.Context
                 entity.HasOne(d => d.University)
                     .WithMany(p => p.WebPages)
                     .HasForeignKey(d => d.UniversityId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_WebPages_Universities");
             });
 

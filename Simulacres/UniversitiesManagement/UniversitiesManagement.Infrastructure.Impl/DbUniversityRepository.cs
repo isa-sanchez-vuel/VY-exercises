@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using UniversitiesManagement.Infrastructure.Context;
+﻿using UniversitiesManagement.Infrastructure.Context;
 using UniversitiesManagement.Infrastructure.Contracts;
 using UniversitiesManagement.Infrastructure.Contracts.APIEntities;
 using UniversitiesManagement.Infrastructure.Contracts.DBEntities;
@@ -17,6 +16,9 @@ namespace UniversitiesManagement.Infrastructure.Impl
 
 		public List<University>? UpdateDatabaseWithApiData(List<UniversityJson> newUniversities)
 		{
+
+			_context.Universities.RemoveRange(_context.Universities.ToList());
+			_context.SaveChanges();
 
 			foreach (var uni in newUniversities)
 			{
@@ -36,14 +38,17 @@ namespace UniversitiesManagement.Infrastructure.Impl
 					}).ToList(),
 				};
 
+				_context.Add(newUni);
 
-				University? oldUni = _context.Universities.FirstOrDefault(x => x.AlphaTwoCode.ToLower().Equals(newUni.AlphaTwoCode.ToLower()));
+				//University? oldUni = _context.Universities.FirstOrDefault(x => x.Name.ToLower().Equals(newUni.Name.ToLower()));
 
-				if (oldUni == null)
-				{
-					_context.Add(newUni);
-				}
-				else UpdateUniversity(newUni);
+				//if (oldUni == null)
+				//{ }
+				//else
+				//{
+				//	newUni.Id = oldUni.Id;
+				//	UpdateUniversity(newUni);
+				//}
 			}
 
 			_context.SaveChanges();
@@ -63,7 +68,7 @@ namespace UniversitiesManagement.Infrastructure.Impl
 
 		public University? CreateUniversity(University newUni)
 		{
-			University? oldUni = _context.Universities.FirstOrDefault(x => x.AlphaTwoCode.ToLower().Equals(newUni.AlphaTwoCode.ToLower()));
+			University? oldUni = _context.Universities.FirstOrDefault(x => x.Name.ToLower().Equals(newUni.Name.ToLower()));
 
 			if (oldUni == null)
 			{
@@ -104,6 +109,8 @@ namespace UniversitiesManagement.Infrastructure.Impl
 				if (updatedUni.Name != null) oldUni.Name = updatedUni.Name;
 				if (updatedUni.Country != null) oldUni.Country = updatedUni.Country;
 				if (updatedUni.StateProvince != null) oldUni.StateProvince = updatedUni.StateProvince;
+				if (updatedUni.WebPages.Count > 0 && updatedUni.WebPages != null) oldUni.WebPages = updatedUni.WebPages;
+				if (updatedUni.Domains.Count > 0 && updatedUni.Domains != null) oldUni.Domains = updatedUni.Domains;
 
 				_context.SaveChanges();
 
