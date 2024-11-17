@@ -20,17 +20,6 @@ namespace UniversitiesManagement.Infrastructure.Impl
 
 			foreach (var uni in newUniversities)
 			{
-				/*
-				 List<Domain> domains = new(); 
-				if(uni.Domains != null) {
-					domains = uni.Domains.Select(d => new Domain() { DomainUrl = d }).ToList();
-				}
-				List<WebPage> pages = new(); 
-				if(uni.WebPages != null) {
-					pages = uni.WebPages.Select(w => new WebPage() { WebUrl = w }).ToList();
-				}
-				 
-				 */
 				University newUni = new()
 				{
 					Name = uni.Name,
@@ -88,6 +77,24 @@ namespace UniversitiesManagement.Infrastructure.Impl
 			return null;
 		}
 
+		public bool CreateWebPage(WebPage newWeb)
+		{
+			University? oldUni = _context.Universities.FirstOrDefault(x => x.Id == newWeb.UniversityId);
+
+			if (oldUni != null)
+			{
+				oldUni.WebPages.Add(new() 
+				{ 
+					WebUrl = newWeb.WebUrl 
+				});
+
+				_context.SaveChanges();
+
+				return true;
+			}
+			return false;
+		}
+
 		public University? UpdateUniversity(University updatedUni)
 		{
 			University? oldUni = _context.Universities.FirstOrDefault(x => x.Id == updatedUni.Id);
@@ -95,10 +102,8 @@ namespace UniversitiesManagement.Infrastructure.Impl
 			if (oldUni != null)
 			{
 				if (updatedUni.Name != null) oldUni.Name = updatedUni.Name;
-				if(updatedUni.Country != null) oldUni.Country = updatedUni.Country;
+				if (updatedUni.Country != null) oldUni.Country = updatedUni.Country;
 				if (updatedUni.StateProvince != null) oldUni.StateProvince = updatedUni.StateProvince;
-				//oldUni.Domains = updatedUni.Domains;
-				//oldUni.WebPages = updatedUni.WebPages;
 
 				_context.SaveChanges();
 

@@ -9,7 +9,8 @@ namespace UniversitiesManagement.Infrastructure.Contracts
 		List<University>? GetAllUniversities();
 		University? GetUniversity(int code);
 		University? CreateUniversity(University newUni);
+		bool CreateWebPage(WebPage newWeb);
 		University? UpdateUniversity(University updatedUni);
-		University DeleteUniversity(int code);
+		University? DeleteUniversity(int code);
 	}
 }
