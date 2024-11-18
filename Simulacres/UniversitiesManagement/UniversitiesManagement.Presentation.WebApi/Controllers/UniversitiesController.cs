@@ -114,7 +114,7 @@ namespace UniversitiesManagement.Presentation.WebApi.Controllers
 		{
 
 			//List<string> errorStrings = errors.Select(x => Enum.GetName(typeof(ErrorEnum), x)).ToList();
-			List<string> errorStrings = errors.Select(x => _config[$"{ERROR_PATH}:{Enum.GetName(typeof(ErrorEnum), x)}"]).ToList();
+			List<string> errorStrings = errors.Select(x => _config[$"Code {(int)x}: {ERROR_PATH}:{Enum.GetName(typeof(ErrorEnum), x)}"]).ToList();
 			
 
 			return errorStrings;

@@ -17,7 +17,8 @@ namespace UniversitiesManagement.Infrastructure.Impl
 		public List<University>? UpdateDatabaseWithApiData(List<UniversityJson> newUniversities)
 		{
 
-			_context.Universities.RemoveRange(_context.Universities.ToList());
+			List<University> unisToDelete = _context.Universities.Where(x => x.IsDeleted == false).ToList();
+			_context.Universities.RemoveRange(unisToDelete);
 			_context.SaveChanges();
 
 			foreach (var uni in newUniversities)
